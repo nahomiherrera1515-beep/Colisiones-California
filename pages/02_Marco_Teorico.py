@@ -33,5 +33,21 @@ st.markdown(
     conductores mayores se asocia con un declive gradual en los tiempos de 
     reacción y la agudeza visual, el cual suele ser compensado por un grado 
     mayor de experiencia y autorregulación conductual (**Lansdown et al, 2015**).
-    """)
+
+    * **Factor ambiental (Iluminación y meteorología):** Las condiciones del entorno actúan como 
+    moduladores externos en la capacidad de reacción de los conductores y en el control del vehículo en 
+    la via. Por un lado, la iluminación y la visibilidad (que comprenden desde la luz diurna hasta la 
+    disponibilidad de alumbrado artificial en horarios nocturnos) condicionan de manera directa el tiempo 
+    de reacción del conductor ante imprevistos (**Jafari Anarkooli & Hosseinlou, 2016**). Por otra parte 
+    están los factores meteorológicos y la adherencia de la calzada, como la presencia de lluvia, humedad 
+    o superficies resbaladizas, reducen la tracción entre el neumático y el pavimento, lo que incrementa 
+    el riesgo de una colisión (**Wang & Zhang, 2017**).
+
+    * **Factor vehicular:** El año-modelo funciona como un indicador de la antigüedad de la flota de 
+    vehículos, además de indicar aspectos relacionados con las agregaciones 
+    de elementos de seguridad en los vehículos (**NHTSA, 2013**). 
+    Es importante diferenciar la frecuencia (número de unidades accidentadas) de la tasa de riesgo 
+    (número de vehículos activos en circulación o millas recorridas)
+    """
+    )
 
