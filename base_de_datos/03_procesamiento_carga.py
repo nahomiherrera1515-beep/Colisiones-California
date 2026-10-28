@@ -8,9 +8,7 @@ destino tardaría muchísimo más.
 Después cada código se traduce a su id de catálogo (NULL o código desconocido
 pasan al id 0), las fechas y horas se convierten a sus tipos, las edades y
 años imposibles quedan en NULL con su bandera de cuarentena y las posiciones
-1 y 2 de los grupos repetidos van a sus tablas puente. El alcohol, los
-materiales peligrosos y el bus escolar solo se marcan cuando hubo, así que
-quedan en TRUE o NULL.
+1 y 2 de los grupos repetidos van a sus tablas puente.
 """
 
 from configuracion import (ANIO_VEHICULO_MAX, ANIO_VEHICULO_MIN, DESDE,
@@ -152,8 +150,7 @@ def cargar_colision(con):
                CAST(s.intersection AS BOOLEAN)               AS en_interseccion,
                CAST(s.tow_away AS BOOLEAN)                   AS vehiculo_remolcado,
                CAST(s.state_highway_indicator AS BOOLEAN)    AS carretera_estatal,
-               s.special_condition = '1'                     AS condicion_especial,
-               CASE WHEN s.alcohol_involved = 1 THEN TRUE END AS alcohol_implicado
+               s.special_condition = '1'                     AS condicion_especial
         FROM s_col s
         {uniones}
         LEFT JOIN infraccion_vehicular iv

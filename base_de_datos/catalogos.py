@@ -25,7 +25,7 @@ EXTRAS = {
     "rampa_interseccion": [],
     # Parte
     "tipo_parte": [],
-    "sobriedad": [],
+    "sobriedad": [("bebio", "BOOLEAN")],
     "droga_fisica": [],
     "direccion": [],
     "movimiento_previo": [],
@@ -184,13 +184,15 @@ VALORES = {
         ("parked vehicle", "Vehículo estacionado"),
         ("other", "Otro"),
     ],
+    # De `bebio` sale alcohol_implicado: la fuente lo marca justo cuando
+    # alguna parte de la colisión había bebido.
     "sobriedad": [
-        ("had not been drinking", "No había bebido"),
-        ("had been drinking, not under influence", "Bebió, sin estar bajo los efectos"),
-        ("had been drinking, impairment unknown", "Bebió, efecto desconocido"),
-        ("had been drinking, under influence", "Bebió, bajo los efectos"),
-        ("impairment unknown", "Deterioro desconocido"),
-        ("not applicable", "No aplica"),
+        ("had not been drinking", "No había bebido", False),
+        ("had been drinking, not under influence", "Bebió, sin estar bajo los efectos", True),
+        ("had been drinking, impairment unknown", "Bebió, efecto desconocido", True),
+        ("had been drinking, under influence", "Bebió, bajo los efectos", True),
+        ("impairment unknown", "Deterioro desconocido", None),
+        ("not applicable", "No aplica", None),
     ],
     "droga_fisica": [
         ("under drug influence", "Bajo efectos de drogas"),

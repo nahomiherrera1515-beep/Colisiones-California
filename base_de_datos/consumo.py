@@ -1,6 +1,6 @@
 """
 Vistas de consumo: aquí se calculan los fallecidos, heridos, severidad,
-número de partes y demás medidas que las tablas no guardan.
+alcohol, número de partes y demás medidas que las tablas no guardan.
 
 Cada medida se cuenta en su propio grano (víctimas en victima, partes en
 parte) para que los totales no se inflen al unir tablas. conectar_lago() monta
@@ -63,21 +63,28 @@ VISTAS = {
                    BOOL_OR(tp.codigo = 'bicyclist')        AS ciclista_implicado,
                    BOOL_OR(tv.grupo = 'Motocicleta')       AS motociclista_implicado,
                    BOOL_OR(tv.grupo = 'Camión')            AS camion_implicado,
+                   BOOL_OR(so.bebio)                       AS alguna_parte_bebio,
+                   BOOL_OR(p.culpable AND tp.codigo = 'driver') AS hay_conductor_culpable,
                    ANY_VALUE(p.tipo_parte_id) FILTER (WHERE p.culpable)
                                                            AS tipo_parte_culpable_id,
                    ANY_VALUE(p.tipo_vehiculo_id) FILTER (WHERE p.culpable)
                                                            AS tipo_vehiculo_culpable_id,
                    ANY_VALUE(p.edad) FILTER (WHERE p.culpable AND tp.codigo = 'driver')
                                                            AS edad_conductor_culpable,
+                   ANY_VALUE(so.bebio) FILTER (WHERE p.culpable AND tp.codigo = 'driver')
+                                                           AS conductor_culpable_bebio,
                    ANY_VALUE(p.anio_vehiculo) FILTER (WHERE p.culpable)
                                                            AS anio_vehiculo_culpable
             FROM parte p
             JOIN tipo_parte tp    USING (tipo_parte_id)
             JOIN tipo_vehiculo tv USING (tipo_vehiculo_id)
+            JOIN sobriedad so     USING (sobriedad_id)
             GROUP BY p.case_id
         )
         SELECT c.*,
                year(c.fecha)                                   AS anio,
+               month(c.fecha)                                  AS mes,
+               isodow(c.fecha)                                 AS dia_semana,
                hour(c.hora)                                    AS hora_del_dia,
                u.condado_id,
                u.rango_poblacion_id,
@@ -99,11 +106,17 @@ VISTAS = {
                COALESCE(p.ciclista_implicado, FALSE)           AS ciclista_implicado,
                COALESCE(p.motociclista_implicado, FALSE)       AS motociclista_implicado,
                COALESCE(p.camion_implicado, FALSE)             AS camion_implicado,
+               -- TRUE o NULL, como en la fuente: NULL es "no reportado", no "sobrio".
+               CASE WHEN p.alguna_parte_bebio THEN TRUE END    AS alcohol_implicado,
                f.codigo <> 'not hit and run'                   AS hubo_fuga,
                p.tipo_parte_culpable_id,
                p.tipo_vehiculo_culpable_id,
+               COALESCE(p.hay_conductor_culpable, FALSE)       AS hay_conductor_culpable,
                p.edad_conductor_culpable,
-               COALESCE(b.banda_edad_id, 0)                    AS banda_edad_conductor_culpable_id,
+               -- NULL si el culpable no es un conductor; 0 si lo es y falta su edad.
+               CASE WHEN p.hay_conductor_culpable
+                    THEN COALESCE(b.banda_edad_id, 0) END      AS banda_edad_conductor_culpable_id,
+               p.conductor_culpable_bebio,
                p.anio_vehiculo_culpable,
                {antiguedad('p.anio_vehiculo_culpable')}        AS edad_vehiculo_culpable,
                g.case_id IS NOT NULL                           AS tiene_coordenadas,
@@ -180,12 +193,14 @@ VISTAS = {
                p.anio_vehiculo,
                {antiguedad('p.anio_vehiculo')}                 AS edad_vehiculo,
                p.culpable                                      AS parte_culpable,
+               r.codigo IN ('driver', 'passenger')             AS es_ocupante,
                c.fecha,
                year(c.fecha)                                   AS anio,
                u.condado_id
         FROM victima v
         JOIN lesion l       USING (lesion_id)
         LEFT JOIN kabco k   USING (kabco)
+        JOIN rol_victima r  USING (rol_victima_id)
         JOIN parte p        USING (case_id, numero_parte)
         JOIN colision c   USING (case_id)
         JOIN ubicacion u  USING (ubicacion_id)

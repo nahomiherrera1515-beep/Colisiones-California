@@ -2,8 +2,7 @@
 Crea el esquema en tercera forma normal: catálogos, el núcleo colision, parte y
 victima, sus subtipos 1:0..1 y las tablas puente de los grupos repetidos.
 
-Los conteos de víctimas, la severidad y el número de partes no se guardan:
-se pueden calcular desde las tablas de detalle.
+Nada que se pueda calcular se guarda; eso vive en las vistas de 04.
 
 Las llaves del núcleo van en comentarios y no se declaran. En DuckDB cada
 PRIMARY KEY o FOREIGN KEY crea un índice que, con millones de filas, pesa más
@@ -135,8 +134,7 @@ def crear_nucleo(con):
             en_interseccion         BOOLEAN,
             vehiculo_remolcado      BOOLEAN,
             carretera_estatal       BOOLEAN,
-            condicion_especial      BOOLEAN,
-            alcohol_implicado       BOOLEAN               -- TRUE o NULL, nunca FALSE
+            condicion_especial      BOOLEAN
         )
     """)
     # Si la fila existe, la colisión tiene coordenadas o datos de Caltrans.
