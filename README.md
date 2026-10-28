@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/banner.svg" alt="Colisiones de tránsito en California, 2010-2019" width="100%"/>
+<img src="assets/banner.svg" alt="Perfiles de riesgo en colisiones de tránsito en California, 2010-2019" width="100%"/>
 
 <br/>
 
@@ -16,7 +16,7 @@
 [Tasas por habitante](#población-y-tasas-por-habitante) ·
 [Lo que muestran los datos](#lo-que-muestran-los-datos) ·
 [Base de datos](#la-base-de-datos) ·
-[Puesta en marcha](#puesta-en-marcha) ·
+[Cómo usar](#cómo-usar) ·
 [Diccionario](base_de_datos/DICCIONARIO_DE_DATOS.md) ·
 [Modelado](base_de_datos/MODELADO_DE_DATOS.md)
 
@@ -30,23 +30,23 @@ Estudiamos los choques de tránsito registrados en California entre 2010 y 2019 
 
 ## Planteamiento del problema
 
-Las colisiones de tránsito son uno de los problemas de salud pública más graves del mundo. La Organización Mundial de la Salud estima cerca de 1,19 millones de muertes al año en las vías y las señala como la principal causa de muerte entre los 5 y los 29 años. No es un problema de cifras lejanas: detrás de cada muerte hay familias afectadas, y detrás de cada colisión grave hay personas con lesiones que les cambian la vida y costos que terminan pagando los sistemas de salud.
+Las colisiones de tránsito son uno de los problemas de salud pública más graves del mundo. La Organización Mundial de la Salud estima cerca de 1,19 millones de muertes al año en las vías y las señala como la principal causa de muerte entre los 5 y los 29 años. Cada muerte deja una familia afectada, y muchas colisiones graves dejan lesiones para toda la vida y gastos que terminan pagando los sistemas de salud.
 
 A diferencia de muchas otras causas de muerte, las colisiones se pueden prevenir. Pero para prevenirlas primero hay que saber dónde, cuándo y en qué condiciones ocurren las más graves, y eso exige datos completos y confiables.
 
-California ofrece justamente eso. Es el estado más poblado de Estados Unidos y registra cada colisión de su territorio en un mismo sistema, SWITRS, con la fecha, el lugar, las condiciones del camino, quiénes participaron y cómo quedó cada víctima. Eso nos permite estudiar el fenómeno completo, con todas las colisiones registradas en una década, y no una muestra.
+California tiene esos datos. Es el estado más poblado de Estados Unidos y registra cada colisión de su territorio en un mismo sistema, SWITRS, con la fecha, el lugar, las condiciones del camino, quiénes participaron y cómo quedó cada víctima. Eso nos permite estudiar el fenómeno completo, con todas las colisiones registradas en una década, y no una muestra.
 
 ### El problema
 
 Contar choques no alcanza para entender el problema. Un mismo número puede esconder condados con tasas muy distintas, horas tranquilas y horas peligrosas, o condiciones que producen pocos choques pero de los más graves.
 
-Entre 2010 y 2017 las colisiones en California pasaron de 416.490 a 486.432, un 16,8 % más, mientras los fallecidos pasaron de 2.739 a 3.904, un 42,5 % más. Las muertes crecieron mucho más rápido que los choques. Entender dónde, cuándo y en qué condiciones los choques son más graves es el centro de este trabajo.
+Entre 2010 y 2017 las colisiones en California pasaron de 416.490 a 486.432, un 16,8 % más, mientras los fallecidos pasaron de 2.739 a 3.904, un 42,5 % más. Las muertes crecieron mucho más rápido que los choques, y por eso queremos saber dónde, cuándo y en qué condiciones los choques son más graves.
 
 ### Justificación
 
-- **Para la salud pública:** saber qué condiciones acompañan a los choques más graves ayuda a priorizar dónde intervenir.
-- **Para el análisis de datos:** la fuente pesa cerca de 10 GB y viene en tablas planas con información repetida. Llevarla a una base normalizada y liviana es un problema de ingeniería de datos en sí mismo.
-- **Para la estadística:** con millones de registros cualquier diferencia resulta significativa, así que el trabajo obliga a medir el tamaño de las asociaciones y no solo su existencia.
+- Para la salud pública, saber qué condiciones acompañan a los choques más graves ayuda a decidir dónde intervenir.
+- Para el análisis de datos, la fuente pesa cerca de 10 GB y viene en tablas planas con información repetida, así que ordenarla en una base normalizada y liviana también es parte del trabajo.
+- Para la estadística, con millones de registros cualquier diferencia sale significativa, por lo que hay que medir qué tan fuerte es cada asociación.
 
 ### Pregunta de investigación
 
@@ -71,31 +71,37 @@ Entre 2010 y 2017 las colisiones en California pasaron de 416.490 a 486.432, un 
 
 ## Población y tasas por habitante
 
-**Por qué usamos tasas.** Un porcentaje dice cuánto pesa un condado dentro del total, pero no qué tan peligroso es para quien vive ahí. Los Angeles reúne el 31,6 % de las colisiones del estado, pero también es donde vive más gente. Si dividimos por la población, Los Angeles tiene 6,7 fallecidos al año por cada 100.000 habitantes y Kern, con apenas el 2,2 % de las colisiones, tiene 15,6: más del doble. Decir "15,6 de cada 100.000 personas" se entiende mejor que cualquier porcentaje del total.
+### Por qué usamos tasas
+
+Un porcentaje dice cuánto pesa un condado dentro del total, pero no qué tan peligroso es para quien vive ahí. Los Angeles reúne el 31,6 % de las colisiones del estado, y también es donde vive más gente. Si dividimos por la población, Los Angeles tiene 6,7 fallecidos al año por cada 100.000 habitantes y Kern, con apenas el 2,2 % de las colisiones, tiene 15,6: más del doble. Decir "15,6 de cada 100.000 personas" se entiende mejor que cualquier porcentaje del total.
 
 ```
 tasa = fallecidos del condado en el año / habitantes del condado en ese año × 100.000
 ```
 
-**De dónde sale la población.** SWITRS no trae población, así que usamos las [estimaciones oficiales del U.S. Census Bureau](https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/counties/totals/) (*County population totals*, edición 2019), con la población de cada condado al 1 de julio de cada año entre 2010 y 2019.
+### De dónde sale la población
 
-**Cómo recortamos el archivo.** El original, [`co-est2019-alldata.csv`](https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/counties/totals/co-est2019-alldata.csv), tiene 3.193 filas y 164 columnas: todos los condados y estados de Estados Unidos, con nacimientos, defunciones y migración. Nos quedamos con los 58 condados de California y las diez columnas de población de 2010 a 2019. Ese recorte está en `data/externa/census_co-est2019_california.csv`.
+SWITRS no trae población, así que usamos las [estimaciones oficiales del U.S. Census Bureau](https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/counties/totals/) (*County population totals*, edición 2019), con la población de cada condado al 1 de julio de cada año entre 2010 y 2019.
+
+### Cómo recortamos el archivo
+
+El original, [`co-est2019-alldata.csv`](https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/counties/totals/co-est2019-alldata.csv), tiene 3.193 filas y 164 columnas: todos los condados y estados de Estados Unidos, con nacimientos, defunciones y migración. Nos quedamos con los 58 condados de California y las diez columnas de población de 2010 a 2019. Ese recorte está en `data/externa/census_co-est2019_california.csv`.
 
 La población cuenta a quienes viven en el condado, no a quienes lo atraviesan. Por eso los condados chicos con carreteras de paso, como Alpine, quedan con tasas muy altas.
 
 ## Limitaciones de la fuente
 
-- **La escala de lesiones cambió en 2017.** SWITRS empezó a usar códigos nuevos y desde entonces registra muchos menos ilesos. Entre 2016 y 2019 las víctimas con lesión grave suben un 23,9 % sin que eso refleje choques más graves. Para comparar años usamos solo los fallecidos.
-- **El alcohol solo se marca cuando lo hubo.** Vacío quiere decir "no reportado", no "sobrio".
-- **La edad del culpable falta cuando huye.** Falta en el 71,2 % de los conductores culpables que se dieron a la fuga y en el 2,2 % de los demás.
-- **Las coordenadas mejoran con los años.** El 49,4 % de los choques tiene coordenadas, pero la cobertura pasa del 34,3 % en 2010 al 64,1 % en 2019. Por eso comparamos por condado.
-- **No hay datos de exposición.** Sin kilómetros recorridos ni parque vehicular no podemos hablar del riesgo de chocar, solo de cómo se reparten los choques que ocurrieron.
+- En 2017 cambió la escala de lesiones: SWITRS empezó a usar códigos nuevos y desde entonces registra muchos menos ilesos. Entre 2016 y 2019 las víctimas con lesión grave suben un 23,9 % sin que eso refleje choques más graves. Para comparar años usamos solo los fallecidos.
+- El alcohol solo se marca cuando lo hubo. Si no aparece, quiere decir que no se reportó, y no que el conductor estuviera sobrio.
+- La edad del conductor culpable falta en el 71,2 % de los que se dieron a la fuga y solo en el 2,2 % de los demás.
+- Las coordenadas mejoran con los años. El 49,4 % de los choques tiene coordenadas, pero la cobertura pasa del 34,3 % en 2010 al 64,1 % en 2019. Por eso comparamos por condado.
+- No hay datos de exposición. Sin kilómetros recorridos ni parque vehicular no podemos hablar del riesgo de chocar, solo de cómo se reparten los choques que ocurrieron.
 
 ## Lo que muestran los datos
 
 Estas cifras salen de `base_de_datos/06_cifras.py` y están guardadas en [`resultados/cifras.json`](resultados/cifras.json). Ninguna está escrita a mano.
 
-**Un condado concentra casi un tercio.** Los Angeles registra 1.381.690 colisiones, el 31,6 % del total. La tasa estatal subió de 7,34 a 9,46 fallecidos por cada 100.000 habitantes entre 2010 y 2019.
+Los Angeles registra 1.381.690 colisiones, el 31,6 % del total. La tasa estatal subió de 7,34 a 9,46 fallecidos por cada 100.000 habitantes entre 2010 y 2019.
 
 | Condado | Colisiones 2010-2019 |
 |---|---:|
@@ -105,9 +111,9 @@ Estas cifras salen de `base_de_datos/06_cifras.py` y están guardadas en [`resul
 | San Diego | 253.017 |
 | Riverside | 231.007 |
 
-**El viernes es el peor día.** En promedio hubo 1.368 choques cada viernes y 973 cada domingo.
+El viernes es el día con más choques: en promedio hubo 1.368 choques cada viernes y 973 cada domingo.
 
-**La gravedad cambia según quién y cómo choca.** Porcentaje de colisiones con al menos un fallecido, contando solo las que tienen a un conductor como culpable:
+La gravedad también cambia según quién y cómo choca. Este es el porcentaje de colisiones con al menos un fallecido, contando solo las que tienen a un conductor como culpable:
 
 | Grupo | Con fallecido |
 |---|---:|
@@ -118,7 +124,7 @@ Estas cifras salen de `base_de_datos/06_cifras.py` y están guardadas en [`resul
 | Alcance trasero | 0,17 % |
 | Atropello | 3,11 % |
 
-Son descripciones, no causas.
+Estas cifras describen lo que pasó; no alcanzan para hablar de causas.
 
 ## La base de datos
 
@@ -150,7 +156,7 @@ La fuente viene en tres tablas planas con mucha información repetida. La llevam
 
 Ninguna tabla guarda algo que se pueda recalcular. Fallecidos, heridos, severidad, alcohol, número de partes y calendario salen de cinco vistas: `vw_colision`, `vw_parte`, `vw_victima`, `vw_condado_anio` y `vw_calendario`. Cada decisión está explicada en el [modelado de datos](base_de_datos/MODELADO_DE_DATOS.md) y cada campo en el [diccionario](base_de_datos/DICCIONARIO_DE_DATOS.md).
 
-## Puesta en marcha
+## Cómo usar
 
 ### 1. Clonar el repositorio
 
