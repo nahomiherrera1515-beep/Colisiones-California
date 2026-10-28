@@ -1,5 +1,5 @@
 """
-Calcula sobre los Parquet las cifras que vamos a citar en el README y en el
+Calcula sobre los Parquet las cifras que citamos en el README y en el
 informe, y las guarda en resultados/cifras.json. Así ningún número se escribe
 a mano.
 """

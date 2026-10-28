@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/banner.svg" alt="Colisiones de tránsito en California, 2010-2019" width="100%"/>
+<img src="assets/banner.svg" alt="Perfiles de riesgo en colisiones de tránsito en California, 2010-2019" width="100%"/>
 
 <br/>
 
@@ -30,11 +30,11 @@ Estudiamos los choques de tránsito registrados en California entre 2010 y 2019 
 
 ## Planteamiento del problema
 
-Las colisiones de tránsito son uno de los problemas de salud pública más graves del mundo. La Organización Mundial de la Salud estima cerca de 1,19 millones de muertes al año en las vías y las señala como la principal causa de muerte entre los 5 y los 29 años. No es un problema de cifras lejanas: detrás de cada muerte hay familias afectadas, y detrás de cada colisión grave hay personas con lesiones que les cambian la vida y costos que terminan pagando los sistemas de salud.
+Las colisiones de tránsito son uno de los problemas de salud pública más graves del mundo. La Organización Mundial de la Salud estima cerca de 1,19 millones de muertes al año en las vías y las señala como la principal causa de muerte entre los 5 y los 29 años. Detrás de cada muerte hay una familia afectada, y detrás de cada colisión grave hay personas con lesiones que les cambian la vida y costos que terminan pagando los sistemas de salud.
 
 A diferencia de muchas otras causas de muerte, las colisiones se pueden prevenir. Pero para prevenirlas primero hay que saber dónde, cuándo y en qué condiciones ocurren las más graves, y eso exige datos completos y confiables.
 
-California ofrece justamente eso. Es el estado más poblado de Estados Unidos y registra cada colisión de su territorio en un mismo sistema, SWITRS, con la fecha, el lugar, las condiciones del camino, quiénes participaron y cómo quedó cada víctima. Eso nos permite estudiar el fenómeno completo, con todas las colisiones registradas en una década, y no una muestra.
+California tiene esos datos. Es el estado más poblado de Estados Unidos y registra cada colisión de su territorio en un mismo sistema, SWITRS, con la fecha, el lugar, las condiciones del camino, quiénes participaron y cómo quedó cada víctima. Eso nos permite estudiar el fenómeno completo, con todas las colisiones registradas en una década, y no una muestra.
 
 ### El problema
 

@@ -1,6 +1,6 @@
 # Diccionario de datos
 
-Este documento describe, campo por campo, la base normalizada `siniestralidad_california.duckdb` y su copia en Parquet dentro de `data/processed/`. El período es 2010-2019. Los porcentajes de nulos y de "Sin clasificar" los medimos sobre la base cargada por `03_procesamiento_carga.py`.
+Este documento describe, campo por campo, la base normalizada `base_normalizada.duckdb` y su copia en Parquet dentro de `data/processed/`. El período es 2010-2019. Los porcentajes de nulos y de "Sin clasificar" los medimos sobre la base cargada por `03_procesamiento_carga.py`.
 
 ## Convenciones
 

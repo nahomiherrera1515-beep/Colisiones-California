@@ -8,7 +8,7 @@ import duckdb
 DIRECTORIO = Path(__file__).resolve().parent
 RAIZ = DIRECTORIO.parent
 
-BASE = DIRECTORIO / "siniestralidad_california.duckdb"
+BASE = DIRECTORIO / "base_normalizada.duckdb"
 FUENTE = Path(
     os.environ.get("SWITRS_PATH", RAIZ / "data" / "raw" / "switrs.sqlite")
 ).expanduser()
