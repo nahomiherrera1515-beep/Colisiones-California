@@ -1,9 +1,11 @@
 venv/
 __pycache__/
 *.csv
+!data/externa/*.csv
 *.xlsx
 *.hyper
-data/raw/
+data/raw/*
+!data/raw/.gitkeep
 .env
 *.sqlite
 .DS_Store
