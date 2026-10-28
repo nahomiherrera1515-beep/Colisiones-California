@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="320" viewBox="0 0 1280 320" role="img" aria-label="Colisiones de tránsito en California, 2010-2019">
+  <defs>
+    <linearGradient id="fondo" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#14181F"/>
+      <stop offset="1" stop-color="#232B36"/>
+    </linearGradient>
+    <linearGradient id="asfalto" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2B323C"/>
+      <stop offset="1" stop-color="#1A1F26"/>
+    </linearGradient>
+    <radialGradient id="resplandor" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#FFC629" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#FFC629" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="marco">
+      <rect width="1280" height="320" rx="16"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#marco)">
+    <rect width="1280" height="320" fill="url(#fondo)"/>
+
+    <!-- franja de asfalto con bordes amarillos y carril central -->
+    <rect y="252" width="1280" height="68" fill="url(#asfalto)"/>
+    <rect y="252" width="1280" height="4" fill="#FFC629"/>
+    <rect y="316" width="1280" height="4" fill="#FFC629"/>
+    <path d="M0 286 H1280" stroke="#E9EDF2" stroke-width="4" stroke-dasharray="46 34" stroke-opacity="0.8"/>
+
+    <!-- señal de advertencia -->
+    <circle cx="1040" cy="132" r="170" fill="url(#resplandor)"/>
+    <g transform="translate(1040 132) rotate(45)">
+      <rect x="-82" y="-82" width="164" height="164" rx="16" fill="#FFC629"/>
+      <rect x="-72" y="-72" width="144" height="144" rx="10" fill="none" stroke="#14181F" stroke-width="6"/>
+    </g>
+    <!-- dos vehículos que chocan, vistos de lado -->
+    <g fill="#14181F">
+      <g transform="translate(980 128) rotate(-8)">
+        <path d="M0 18 L8 4 Q11 0 16 0 L38 0 Q43 0 46 4 L54 14 L60 16 Q64 17 64 21 L64 30 L0 30 Z"/>
+        <circle cx="14" cy="32" r="7"/>
+        <circle cx="50" cy="32" r="7"/>
+      </g>
+      <g transform="translate(1100 128) scale(-1 1) rotate(-8)">
+        <path d="M0 18 L8 4 Q11 0 16 0 L38 0 Q43 0 46 4 L54 14 L60 16 Q64 17 64 21 L64 30 L0 30 Z"/>
+        <circle cx="14" cy="32" r="7"/>
+        <circle cx="50" cy="32" r="7"/>
+      </g>
+      <path d="M1040 96 L1044 110 L1056 104 L1048 116 L1060 122 L1046 124 L1050 138 L1040 128 L1030 138 L1034 124 L1020 122 L1032 116 L1024 104 L1036 110 Z"/>
+    </g>
+
+    <g font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
+      <text x="64" y="76" fill="#FFC629" font-size="18" font-weight="600" letter-spacing="3">SWITRS · 2010 – 2019</text>
+      <text x="62" y="140" fill="#FFFFFF" font-size="54" font-weight="700">Colisiones de tránsito</text>
+      <text x="62" y="200" fill="#FFFFFF" font-size="54" font-weight="700">en California</text>
+      <text x="64" y="236" fill="#9AA6B5" font-size="17">Computación II · Escuela de Estadística y Ciencias Actuariales · UCV</text>
+    </g>
+  </g>
+</svg>

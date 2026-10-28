@@ -61,6 +61,13 @@ def calcular(con):
         GROUP BY 1 ORDER BY 2 DESC LIMIT 5""")
     c["pct_colisiones_los_angeles"] = round(
         100 * c["condados_principales"]["Los Angeles"] / c["colisiones"], 1)
+    # Para comparar condados de tamaños distintos: porcentaje del total y tasa anual.
+    c["pct_colisiones_por_condado"] = pares(con, """
+        SELECT condado, ROUND(100 * SUM(colisiones) / (SELECT SUM(colisiones) FROM vw_condado_anio), 1)
+        FROM vw_condado_anio GROUP BY 1 ORDER BY 1""")
+    c["fallecidos_por_100k_por_condado"] = pares(con, """
+        SELECT condado, ROUND(100000 * SUM(fallecidos) / SUM(habitantes), 1)
+        FROM vw_condado_anio GROUP BY 1 ORDER BY 1""")
     c["fallecidos_por_100k_2010"], c["fallecidos_por_100k_2019"] = con.execute("""
         SELECT ROUND(100000 * SUM(fallecidos) FILTER (WHERE anio = 2010)
                             / SUM(habitantes) FILTER (WHERE anio = 2010), 2),
