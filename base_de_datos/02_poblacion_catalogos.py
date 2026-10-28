@@ -1,11 +1,14 @@
 """
-Llena los catálogos: los escritos a mano en catalogos.py y los tres que salen
-de la propia fuente (ubicacion, marca_vehiculo e infraccion_vehicular).
+Llena los catálogos: los escritos a mano en catalogos.py, la población anual
+de cada condado según el Census Bureau y los tres que salen de la propia
+fuente (ubicacion, marca_vehiculo e infraccion_vehicular).
 """
+
+import pandas as pd
 
 from catalogos import (BANDAS_EDAD, CONDADOS, DIAS, EXTRAS, KABCO, MESES,
                        RANGO_POBLACION, VALORES)
-from configuracion import DESDE, HASTA, adjuntar_fuente, conectar
+from configuracion import ANIOS, CENSO, DESDE, HASTA, adjuntar_fuente, conectar
 
 PERIODO = f"collision_date >= '{DESDE}' AND collision_date < '{HASTA}'"
 CASOS_DEL_PERIODO = f"case_id IN (SELECT case_id FROM src.collisions WHERE {PERIODO})"
@@ -40,6 +43,22 @@ def poblar_geografia(con):
                     [(i, codigo, etiqueta, i)
                      for i, (codigo, etiqueta) in enumerate(RANGO_POBLACION, start=1)])
     con.executemany("INSERT INTO banda_edad VALUES (?, ?, ?, ?)", BANDAS_EDAD)
+
+
+def poblar_poblacion_condado(con):
+    # El archivo del Census trae una columna por año; la pasamos a una fila por año.
+    censo = pd.read_csv(CENSO)
+    censo["nombre"] = censo["CTYNAME"].str.removesuffix(" County")
+    largo = censo.melt(id_vars="nombre",
+                       value_vars=[f"POPESTIMATE{anio}" for anio in ANIOS],
+                       var_name="anio", value_name="habitantes")
+    largo["anio"] = largo["anio"].str.removeprefix("POPESTIMATE").astype(int)
+    con.execute("""
+        INSERT INTO poblacion_condado
+        SELECT c.condado_id, l.anio, l.habitantes
+        FROM largo l
+        JOIN condado c USING (nombre)
+    """)
 
 
 def poblar_desde_fuente(con):
@@ -92,6 +111,7 @@ def main():
         poblar_catalogos_base(con)
         poblar_catalogos_de_codigos(con)
         poblar_geografia(con)
+        poblar_poblacion_condado(con)
         poblar_desde_fuente(con)
     print("Catálogos poblados")
 
