@@ -16,6 +16,18 @@ CENSO = RAIZ / "data" / "externa" / "census_co-est2019_california.csv"
 PROCESADOS = RAIZ / "data" / "processed"
 CIFRAS = RAIZ / "resultados" / "cifras.json"
 
+# Con DESTINO=motherduck el proceso corre en la nube: lee la fuente cruda desde
+# MotherDuck y escribe ahí la base normalizada. Necesita la variable
+# motherduck_token con el token de la cuenta.
+EN_LA_NUBE = os.environ.get("DESTINO", "local") == "motherduck"
+CRUDO_MD = "colisiones_crudo"
+NORMALIZADA_MD = "colisiones_normalizada"
+ANALITICA_MD = "colisiones_analitica"
+
+# Nombre con que los scripts leen la fuente: el .sqlite adjuntado como `src` o
+# la base cruda en MotherDuck, que no admite alias.
+ORIGEN = CRUDO_MD if EN_LA_NUBE else "src"
+
 # La fuente guarda la fecha como texto ISO, así que comparar cadenas basta.
 DESDE, HASTA = "2010-01-01", "2020-01-01"
 ANIOS = range(2010, 2020)
@@ -42,11 +54,23 @@ NUCLEO = {
 
 
 def conectar(solo_lectura=False):
+    if EN_LA_NUBE:
+        con = duckdb.connect("md:")
+        con.execute(f"CREATE DATABASE IF NOT EXISTS {NORMALIZADA_MD}")
+        con.execute(f"USE {NORMALIZADA_MD}")
+        return con
     return duckdb.connect(str(BASE), read_only=solo_lectura)
 
 
 def adjuntar_fuente(con):
+    if EN_LA_NUBE:
+        return  # la base cruda ya está en la misma cuenta de MotherDuck
     if not FUENTE.exists():
         raise SystemExit(f"No está {FUENTE}. Descárguelo de Kaggle o indique SWITRS_PATH.")
     con.execute("INSTALL sqlite; LOAD sqlite;")
     con.execute(f"ATTACH '{FUENTE}' AS src (TYPE sqlite, READ_ONLY)")
+
+
+def soltar_fuente(con):
+    if not EN_LA_NUBE:
+        con.execute("DETACH src")

@@ -9,8 +9,10 @@ PRIMARY KEY o FOREIGN KEY crea un índice que, con millones de filas, pesa más
 que los propios datos y no acelera las consultas que hacemos.
 """
 
+import duckdb
+
 from catalogos import EXTRAS
-from configuracion import BASE, conectar
+from configuracion import BASE, EN_LA_NUBE, NORMALIZADA_MD, conectar
 
 
 def crear_catalogos_base(con):
@@ -246,9 +248,18 @@ def crear_tablas_puente(con):
     """)
 
 
-def main():
+def empezar_de_cero():
+    if EN_LA_NUBE:
+        with duckdb.connect("md:") as con:
+            con.execute(f"DROP DATABASE IF EXISTS {NORMALIZADA_MD} CASCADE")
+        return NORMALIZADA_MD
     for ruta in (BASE, BASE.with_suffix(".duckdb.wal")):
         ruta.unlink(missing_ok=True)
+    return BASE.name
+
+
+def main():
+    destino = empezar_de_cero()
 
     with conectar() as con:
         crear_catalogos_base(con)
@@ -257,7 +268,7 @@ def main():
         crear_catalogos_construidos(con)
         crear_nucleo(con)
         crear_tablas_puente(con)
-    print(f"Esquema creado en {BASE.name}")
+    print(f"Esquema creado en {destino}")
 
 
 if __name__ == "__main__":
