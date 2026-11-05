@@ -13,7 +13,8 @@ años imposibles quedan en NULL con su bandera de cuarentena y las posiciones
 
 from configuracion import (ANIO_VEHICULO_MAX, ANIO_VEHICULO_MIN, DESDE,
                            EDAD_MAX, EDAD_MIN, HASTA, LAT_MAX, LAT_MIN,
-                           LON_MAX, LON_MIN, NUCLEO, adjuntar_fuente, conectar)
+                           LON_MAX, LON_MIN, NUCLEO, ORIGEN, adjuntar_fuente, conectar,
+                           soltar_fuente)
 
 # (columna destino, catálogo, columna de la fuente)
 CODIGOS_COLISION = [
@@ -67,14 +68,14 @@ LLAVE_VICTIMA = "s.case_id, s.party_number AS numero_parte, s.numero_victima"
 
 # (tabla puente, llave, catálogo, tabla temporal, columnas de la fuente en orden)
 PUENTES = [
-    ("colision_clima", LLAVE_COLISION, "clima", "s_col", ["weather_1", "weather_2"]),
-    ("colision_condicion_via", LLAVE_COLISION, "condicion_via", "s_col",
+    ("colision_clima", LLAVE_COLISION, "clima", "carga.s_col", ["weather_1", "weather_2"]),
+    ("colision_condicion_via", LLAVE_COLISION, "condicion_via", "carga.s_col",
      ["road_condition_1", "road_condition_2"]),
-    ("parte_equipo_seguridad", LLAVE_PARTE, "equipo_seguridad", "s_par",
+    ("parte_equipo_seguridad", LLAVE_PARTE, "equipo_seguridad", "carga.s_par",
      ["party_safety_equipment_1", "party_safety_equipment_2"]),
-    ("parte_factor_asociado", LLAVE_PARTE, "factor_asociado", "s_par",
+    ("parte_factor_asociado", LLAVE_PARTE, "factor_asociado", "carga.s_par",
      ["other_associate_factor_1", "other_associate_factor_2"]),
-    ("victima_equipo_seguridad", LLAVE_VICTIMA, "equipo_seguridad", "s_vic",
+    ("victima_equipo_seguridad", LLAVE_VICTIMA, "equipo_seguridad", "carga.s_vic",
      ["victim_safety_equipment_1", "victim_safety_equipment_2"]),
 ]
 
@@ -102,38 +103,42 @@ def en_cuarentena(columna, minimo, maximo):
 
 def extraer(con):
     adjuntar_fuente(con)
+    # Tablas de trabajo en un esquema aparte, dentro de la misma base. En
+    # MotherDuck así se quedan en la nube; las TEMP se bajarían a la Mac.
+    con.execute("DROP SCHEMA IF EXISTS carga CASCADE")
+    con.execute("CREATE SCHEMA carga")
     # Fuera del período hay case_id con letras, por eso filtramos con el texto
     # original y convertimos a número después.
     con.execute(f"""
-        CREATE TEMP TABLE casos AS
-        SELECT case_id FROM src.collisions
+        CREATE TABLE carga.casos AS
+        SELECT case_id FROM {ORIGEN}.collisions
         WHERE collision_date >= '{DESDE}' AND collision_date < '{HASTA}'
     """)
-    con.execute("""
-        CREATE TEMP TABLE s_col AS
+    con.execute(f"""
+        CREATE TABLE carga.s_col AS
         SELECT * REPLACE (CAST(case_id AS INTEGER) AS case_id)
-        FROM src.collisions
-        WHERE case_id IN (SELECT case_id FROM casos)
+        FROM {ORIGEN}.collisions
+        WHERE case_id IN (SELECT case_id FROM carga.casos)
     """)
-    con.execute("""
-        CREATE TEMP TABLE s_par AS
+    con.execute(f"""
+        CREATE TABLE carga.s_par AS
         SELECT * REPLACE (CAST(case_id AS INTEGER) AS case_id,
                           CAST(party_number AS UTINYINT) AS party_number)
-        FROM src.parties
-        WHERE case_id IN (SELECT case_id FROM casos)
+        FROM {ORIGEN}.parties
+        WHERE case_id IN (SELECT case_id FROM carga.casos)
     """)
     # El id de la víctima no se repite dentro de su parte, así que ordenar por
     # él numera siempre igual.
-    con.execute("""
-        CREATE TEMP TABLE s_vic AS
+    con.execute(f"""
+        CREATE TABLE carga.s_vic AS
         SELECT * REPLACE (CAST(case_id AS INTEGER) AS case_id,
                           CAST(party_number AS UTINYINT) AS party_number),
                CAST(ROW_NUMBER() OVER (PARTITION BY case_id, party_number ORDER BY id)
                     AS UTINYINT) AS numero_victima
-        FROM src.victims
-        WHERE case_id IN (SELECT case_id FROM casos)
+        FROM {ORIGEN}.victims
+        WHERE case_id IN (SELECT case_id FROM carga.casos)
     """)
-    con.execute("DETACH src")
+    soltar_fuente(con)
 
 
 def cargar_colision(con):
@@ -151,7 +156,7 @@ def cargar_colision(con):
                CAST(s.tow_away AS BOOLEAN)                   AS vehiculo_remolcado,
                CAST(s.state_highway_indicator AS BOOLEAN)    AS carretera_estatal,
                s.special_condition = '1'                     AS condicion_especial
-        FROM s_col s
+        FROM carga.s_col s
         {uniones}
         LEFT JOIN infraccion_vehicular iv
                ON iv.seccion = s.pcf_violation
@@ -165,7 +170,7 @@ def cargar_subtipos(con):
         SELECT case_id,
                CAST(latitude AS DECIMAL(8, 5)),
                CAST(longitude AS DECIMAL(8, 5))
-        FROM s_col
+        FROM carga.s_col
         WHERE latitude BETWEEN {LAT_MIN} AND {LAT_MAX}
           AND longitude BETWEEN {LON_MIN} AND {LON_MAX}
     """)
@@ -179,7 +184,7 @@ def cargar_subtipos(con):
                s.postmile_prefix                         AS prefijo_postmile,
                CAST(s.postmile AS DECIMAL(6, 3))         AS postmile,
                {columnas}
-        FROM s_col s
+        FROM carga.s_col s
         {uniones}
         LEFT JOIN condado cc ON cc.codigo = s.caltrans_county
         WHERE s.caltrans_county IS NOT NULL
@@ -204,7 +209,7 @@ def cargar_parte(con):
                CASE WHEN s.hazardous_materials = 1 THEN TRUE END AS materiales_peligrosos,
                CASE WHEN s.school_bus_related = 1 THEN TRUE END  AS relacion_bus_escolar,
                iv.infraccion_vehicular_id                        AS otra_infraccion_vehicular_id
-        FROM s_par s
+        FROM carga.s_par s
         {uniones}
         LEFT JOIN marca_vehiculo mv ON mv.codigo = s.vehicle_make
         LEFT JOIN infraccion_vehicular iv
@@ -224,7 +229,7 @@ def cargar_victima(con):
                {columnas},
                {en_rango(*edad)}          AS edad,
                {en_cuarentena(*edad)}     AS edad_en_cuarentena
-        FROM s_vic s
+        FROM carga.s_vic s
         {uniones}
     """)
 
@@ -251,6 +256,7 @@ def main():
         cargar_parte(con)
         cargar_victima(con)
         cargar_puentes(con)
+        con.execute("DROP SCHEMA carga CASCADE")
         con.execute("CHECKPOINT")
     print("Carga terminada")
 

@@ -1,6 +1,14 @@
 # Diccionario de datos
 
-Este documento describe, campo por campo, la base normalizada `base_normalizada.duckdb` y su copia en Parquet dentro de `data/processed/`. El período es 2010-2019. Los porcentajes de nulos y de "Sin clasificar" los medimos sobre la base cargada por `03_procesamiento_carga.py`.
+Este documento describe, campo por campo, la base normalizada `base_normalizada.duckdb` y su copia en Parquet dentro de `data/processed/`. El período es 2010-2019. Los porcentajes de nulos y de "Sin clasificar" los medimos sobre la base cargada por `03_procesamiento_carga.py`; la sección 15 explica cómo reproducirlos.
+
+| Grupo | Tablas | Filas |
+|---|---:|---:|
+| Datos de casos (secciones 1 a 10) | 10 | 59.585.754 |
+| Catálogos (sección 11) | 42 | 9.127 |
+| Vistas de consumo (sección 12) | 5 | no guardan filas |
+
+La base tiene las mismas tablas en local (`base_normalizada.duckdb`) y en MotherDuck (`colisiones_normalizada`). Comparamos las dos con una huella por fila y son idénticas.
 
 ## Convenciones
 
@@ -59,7 +67,15 @@ Solo hay fila si la fuente llenó esa posición: 4.352.898 con orden 1 y 119.072
 
 ## 3. `colision_condicion_via` (4.357.925 filas)
 
-Tabla puente para `road_condition_1` y `road_condition_2`. Misma estructura que la anterior, con `condicion_via_id` (FK condicion_via). Hay 4.338.207 filas con orden 1 y 19.718 con orden 2.
+Tabla puente para el grupo repetido `road_condition_1` y `road_condition_2`.
+
+| Campo | Tipo | Llave | Procedencia | Descripción |
+|---|---|---|---|---|
+| `case_id` | INTEGER | PK, FK colision | FUENTE | |
+| `orden` | UTINYINT | PK | CONSTRUIDO | 1 para `road_condition_1`, 2 para `road_condition_2`. |
+| `condicion_via_id` | UTINYINT | FK condicion_via | FUENTE (`road_condition_1` o `road_condition_2`) | Obras, baches, objetos en la vía, carril reducido o normal. |
+
+Hay 4.338.207 filas con orden 1 y 19.718 con orden 2. Las colisiones sin fila de orden 1 aparecen en `vw_colision` con `condicion_via_id = 0`.
 
 ## 4. `colision_geo` (2.159.739 filas)
 
@@ -80,7 +96,7 @@ Colisiones con datos de carretera estatal (bloque Caltrans). Relación 1:0..1 co
 | Campo | Tipo | Llave | Procedencia | Descripción | Nulos |
 |---|---|---|---|---|---:|
 | `case_id` | INTEGER | PK, FK colision | FUENTE | | 0 % |
-| `condado_caltrans_id` | UTINYINT | FK condado | FUENTE (`caltrans_county`) | Condado del tramo según Caltrans. Puede no coincidir con el condado de la colisión. | 0 % |
+| `condado_caltrans_id` | UTINYINT | FK condado | FUENTE (`caltrans_county`) | Condado del tramo según Caltrans. Puede no coincidir con el condado de la colisión. | 2 filas sin clasificar |
 | `distrito_caltrans` | UTINYINT | | FUENTE (`caltrans_district`) | Distrito Caltrans (1 a 12). No depende solo del condado: seis condados tienen tramos en dos distritos. | 0 % |
 | `ruta_estatal` | USMALLINT | | FUENTE (`state_route`) | Número de la ruta. | 0 % |
 | `prefijo_postmile` | VARCHAR | | FUENTE (`postmile_prefix`) | Letra que acompaña al postmile (R, M, L...). Es parte de la notación, no un código con catálogo. | 69,18 % |
@@ -129,11 +145,20 @@ Columnas de la fuente que ya no están: `cellphone_in_use` (se deriva de `uso_ce
 | `case_id` | INTEGER | PK, FK parte | FUENTE | |
 | `numero_parte` | UTINYINT | PK, FK parte | FUENTE | |
 | `orden` | UTINYINT | PK | CONSTRUIDO | 1 para `party_safety_equipment_1`, 2 para `party_safety_equipment_2`. |
-| `equipo_seguridad_id` | UTINYINT | FK equipo_seguridad | FUENTE | Cinturón, casco, airbag o silla infantil. |
+| `equipo_seguridad_id` | UTINYINT | FK equipo_seguridad | FUENTE (`party_safety_equipment_1` o `_2`) | Cinturón, casco, airbag o silla infantil, usado o no. |
+
+Hay 7.203.018 filas con orden 1 y 6.972.708 con orden 2.
 
 ## 8. `parte_factor_asociado` (8.370.228 filas)
 
-Misma estructura, con `factor_asociado_id` (FK factor_asociado) desde `other_associate_factor_1` y `other_associate_factor_2`.
+| Campo | Tipo | Llave | Procedencia | Descripción |
+|---|---|---|---|---|
+| `case_id` | INTEGER | PK, FK parte | FUENTE | |
+| `numero_parte` | UTINYINT | PK, FK parte | FUENTE | |
+| `orden` | UTINYINT | PK | CONSTRUIDO | 1 para `other_associate_factor_1`, 2 para `other_associate_factor_2`. |
+| `factor_asociado_id` | UTINYINT | FK factor_asociado | FUENTE (`other_associate_factor_1` o `_2`) | Otro factor que el agente asoció a la parte: visión obstruida, distracción, clima, etc. |
+
+Hay 8.197.200 filas con orden 1 y 173.028 con orden 2.
 
 ## 9. `victima` (4.280.801 filas)
 
@@ -156,7 +181,17 @@ Cuando la víctima es el conductor, su edad y sexo difieren de los de su parte e
 
 ## 10. `victima_equipo_seguridad` (7.808.349 filas)
 
-Tabla puente de `victim_safety_equipment_1` y `_2`. Su llave es `case_id`, `numero_parte`, `numero_victima` y `orden`.
+Tabla puente de `victim_safety_equipment_1` y `_2`.
+
+| Campo | Tipo | Llave | Procedencia | Descripción |
+|---|---|---|---|---|
+| `case_id` | INTEGER | PK, FK victima | FUENTE | |
+| `numero_parte` | UTINYINT | PK, FK victima | FUENTE | |
+| `numero_victima` | UTINYINT | PK, FK victima | CONSTRUIDO | El mismo número que en `victima`. |
+| `orden` | UTINYINT | PK | CONSTRUIDO | 1 para `victim_safety_equipment_1`, 2 para `victim_safety_equipment_2`. |
+| `equipo_seguridad_id` | UTINYINT | FK equipo_seguridad | FUENTE (`victim_safety_equipment_1` o `_2`) | Mismo catálogo que el equipo de las partes. 1 fila sin clasificar. |
+
+Hay 4.031.624 filas con orden 1 y 3.776.725 con orden 2.
 
 ---
 
@@ -186,7 +221,44 @@ Algunos llevan columnas extra:
 | `uso_celular` | `en_uso` | TRUE, FALSE o NULL. Reemplaza a la columna `cellphone_in_use`. |
 | `lesion` | `kabco`, `observado_desde`, `observado_hasta` | Nivel KABCO del código y años en que aparece en los datos. |
 
-Catálogos de este tipo: `clima`, `iluminacion`, `superficie`, `condicion_via`, `dispositivo_control`, `tipo_colision`, `implicado_con`, `factor_primario`, `categoria_infraccion`, `fuga`, `accion_peaton`, `tipo_ubicacion`, `sentido`, `rampa_interseccion`, `tipo_parte`, `sobriedad`, `droga_fisica`, `direccion`, `movimiento_previo`, `raza`, `tipo_vehiculo`, `vehiculo_chp`, `uso_celular`, `responsabilidad_financiera`, `otra_infraccion_categoria`, `factor_asociado`, `rol_victima`, `asiento`, `eyeccion`, `lesion`, `sexo` y `equipo_seguridad`.
+Los 32 catálogos de este tipo, con sus filas (incluido el id 0) y dónde se usan:
+
+| Catálogo | Filas | Columna de la fuente | Se usa en |
+|---|---:|---|---|
+| `accion_peaton` | 8 | `pedestrian_action` | `colision` |
+| `asiento` | 11 | `victim_seating_position` | `victima` |
+| `categoria_infraccion` | 24 | `pcf_violation_category` | `colision` |
+| `clima` | 8 | `weather_1`, `weather_2` | `colision_clima` |
+| `condicion_via` | 9 | `road_condition_1`, `road_condition_2` | `colision_condicion_via` |
+| `direccion` | 5 | `direction_of_travel` | `parte` |
+| `dispositivo_control` | 5 | `control_device` | `colision` |
+| `droga_fisica` | 6 | `party_drug_physical` | `parte` |
+| `equipo_seguridad` | 24 | `party_safety_equipment_1/2`, `victim_safety_equipment_1/2` | `parte_equipo_seguridad`, `victima_equipo_seguridad` |
+| `eyeccion` | 5 | `victim_ejected` | `victima` |
+| `factor_asociado` | 13 | `other_associate_factor_1/2` | `parte_factor_asociado` |
+| `factor_primario` | 6 | `primary_collision_factor` | `colision` |
+| `fuga` | 4 | `hit_and_run` | `colision` |
+| `iluminacion` | 6 | `lighting` | `colision` |
+| `implicado_con` | 11 | `motor_vehicle_involved_with` | `colision` |
+| `lesion` | 9 | `victim_degree_of_injury` | `victima` |
+| `movimiento_previo` | 19 | `movement_preceding_collision` | `parte` |
+| `otra_infraccion_categoria` | 33 | `oaf_violation_category` | `parte` |
+| `rampa_interseccion` | 7 | `ramp_intersection` | `colision_carretera` |
+| `raza` | 6 | `party_race` | `parte` |
+| `responsabilidad_financiera` | 5 | `financial_responsibility` | `parte` |
+| `rol_victima` | 6 | `victim_role` | `victima` |
+| `sentido` | 5 | `side_of_highway` | `colision_carretera` |
+| `sexo` | 4 | `party_sex`, `victim_sex` | `parte`, `victima` |
+| `sobriedad` | 7 | `party_sobriety` | `parte` |
+| `superficie` | 5 | `road_surface` | `colision` |
+| `tipo_colision` | 9 | `type_of_collision` | `colision` |
+| `tipo_parte` | 6 | `party_type` | `parte` |
+| `tipo_ubicacion` | 4 | `location_type` | `colision_carretera` |
+| `tipo_vehiculo` | 16 | `statewide_vehicle_type` | `parte` |
+| `uso_celular` | 6 | `cellphone_use_type` | `parte` |
+| `vehiculo_chp` | 89 | `chp_vehicle_type_towing`, `chp_vehicle_type_towed` | `parte` (vehículo y remolque) |
+
+Todos declaran su PK y `codigo` como UNIQUE.
 
 ### `kabco` y `lesion`
 
@@ -214,9 +286,9 @@ La escala no es continua entre años. En 2017 SWITRS empezó a usar códigos nue
 
 | Tabla | Llave | Campos | Notas |
 |---|---|---|---|
-| `condado` | `condado_id` (01 Alameda a 58 Yuba) | `codigo`, `nombre` | `codigo` es el nombre como aparece en la fuente. |
-| `rango_poblacion` | `rango_poblacion_id` | `codigo`, `etiqueta`, `orden` | Tamaño de la ciudad, desde `population`. |
-| `ubicacion` | `ubicacion_id` (`county_city_location`) | `condado_id`, `rango_poblacion_id` | 542 ubicaciones. El condado son los dos primeros dígitos del código. |
+| `condado` | `condado_id` (1 Alameda a 58 Yuba, 0 Sin clasificar) | `codigo`, `nombre` | 59 filas. `codigo` es el nombre como aparece en la fuente. Lo usan `ubicacion` y `colision_carretera`. |
+| `rango_poblacion` | `rango_poblacion_id` | `codigo`, `etiqueta`, `orden` | 9 filas. Tamaño de la ciudad, desde `population`: de menos de 2.500 habitantes a más de 250.000, y zona no incorporada. |
+| `ubicacion` | `ubicacion_id` (`county_city_location`) | `condado_id`, `rango_poblacion_id` | 542 ubicaciones. El condado son los dos primeros dígitos del código. Comprobamos que cada ubicación tiene un solo condado y un solo rango de población en la fuente. |
 | `poblacion_condado` | `condado_id`, `anio` | `habitantes` | Estimaciones del Census Bureau (vintage 2019) al 1 de julio de cada año. 580 filas. |
 
 ### Calendario
@@ -231,7 +303,7 @@ La escala no es continua entre años. En 2017 SWITRS empezó a usar códigos nue
 
 | Tabla | Llave | Campos | Notas |
 |---|---|---|---|
-| `banda_edad` | `banda_edad_id` | `etiqueta`, `edad_min`, `edad_max` | Menos de 16, 16-19, 20-24, decenios hasta 65-74 y 75 o más. La banda 0 es "Desconocida". |
+| `banda_edad` | `banda_edad_id` | `etiqueta`, `edad_min`, `edad_max` | 10 filas: menos de 16 (0-15), 16-19, 20-24, 25-34, 35-44, 45-54, 55-64, 65-74 y 75 o más (75-110). La banda 0 es "Desconocida". |
 | `marca_vehiculo` | `marca_vehiculo_id` | `codigo` | 5.193 marcas más el id 0, numeradas de la más a la menos frecuente. No unificamos variantes como `KW` y `kenworth`. |
 | `infraccion_vehicular` | `infraccion_vehicular_id` | `seccion`, `inciso` | 2.328 citas del California Vehicle Code. La comparten la infracción principal y la otra infracción de cada parte. |
 
@@ -258,6 +330,141 @@ Definiciones que conviene tener a mano:
 - `hay_conductor_culpable`: el culpable de la colisión es un conductor. Es el universo del objetivo 2.
 - `edad_conductor_culpable`: edad de la parte culpable solo si es conductor.
 - `banda_edad_conductor_culpable_id`: NULL si no hay conductor culpable; 0 ("Desconocida") si lo hay pero falta su edad.
-- `conductor_culpable_bebio`: si el conductor culpable había bebido. No es lo mismo que `alcohol_implicado`: en 12.655 colisiones bebió otra parte y no el culpable.
+- `conductor_culpable_bebio`: si el conductor culpable había bebido (TRUE en 393.839 colisiones). No es lo mismo que `alcohol_implicado`: en 12.655 colisiones el conductor culpable consta como que no había bebido y otra parte sí.
 - `es_ocupante`: la víctima iba como conductor o pasajero de un vehículo. Es el universo del objetivo 4; deja fuera a peatones y ciclistas.
 - `edad_vehiculo`: año de la colisión menos año del modelo. Un modelo del año siguiente da -1 y se lleva a 0.
+- Las banderas `peaton_implicado`, `ciclista_implicado`, `motociclista_implicado` y `camion_implicado` no son excluyentes: 1.178 colisiones tienen a la vez peatón y motociclista. Sumarlas no da el total de colisiones.
+
+Distribución de `severidad` en `vw_colision`:
+
+| `severidad` | Significado | Colisiones | % |
+|:---:|---|---:|---:|
+| K | Al menos un fallecido | 30.867 | 0,71 |
+| A | Peor víctima con lesión grave | 108.209 | 2,48 |
+| B | Peor víctima con lesión visible | 535.313 | 12,25 |
+| C | Peor víctima con posible lesión o dolor | 1.102.846 | 25,25 |
+| O | Sin lesionados (incluye 2.032.351 colisiones sin víctimas registradas) | 2.591.058 | 59,32 |
+
+### Columnas que agrega cada vista
+
+Cada vista trae todas las columnas de su tabla base (`colision`, `parte` o `victima`) y agrega estas. Las columnas `_id` se unen con el catálogo del mismo nombre.
+
+**`vw_colision`** (55 columnas: las 19 de `colision` y 36 nuevas)
+
+| Columna | Tipo | Definición |
+|---|---|---|
+| `anio`, `mes`, `dia_semana` | BIGINT | Año, mes (1 a 12) y día ISO (1 lunes a 7 domingo) de `fecha`. |
+| `hora_del_dia` | BIGINT | Hora 0 a 23 de `hora`. NULL si la hora es desconocida. |
+| `condado_id`, `rango_poblacion_id` | UTINYINT | Desde `ubicacion`. |
+| `clima_id`, `clima_2_id` | UTINYINT | Clima de orden 1 (0 si no hay) y de orden 2 (NULL si no hay). |
+| `condicion_via_id`, `condicion_via_2_id` | UTINYINT | Igual, para la condición de la vía. |
+| `severidad`, `nivel_severidad` | VARCHAR, UTINYINT | Peor letra KABCO entre sus víctimas y su nivel (4 a 0). |
+| `con_fallecido`, `es_grave` | BOOLEAN | Severidad K; severidad K o A. |
+| `victimas`, `fallecidos`, `heridos_graves`, `heridos_visibles`, `posibles_lesionados` | BIGINT | Víctimas registradas y cuántas en K, A, B y C. |
+| `partes` | BIGINT | Número de partes. |
+| `peaton_implicado`, `ciclista_implicado` | BOOLEAN | Alguna parte es peatón o ciclista (`tipo_parte`). |
+| `motociclista_implicado`, `camion_implicado` | BOOLEAN | Algún vehículo es del grupo Motocicleta o Camión (`tipo_vehiculo.grupo`). |
+| `alcohol_implicado` | BOOLEAN | Ver arriba. TRUE o NULL. |
+| `hubo_fuga` | BOOLEAN | `fuga` distinto de "not hit and run". |
+| `tipo_parte_culpable_id`, `tipo_vehiculo_culpable_id` | UTINYINT | Tipo de la parte culpable y de su vehículo. NULL si no hay culpable. |
+| `hay_conductor_culpable` | BOOLEAN | El culpable es un conductor (3.926.268 colisiones). |
+| `edad_conductor_culpable`, `banda_edad_conductor_culpable_id` | UTINYINT | Ver arriba. |
+| `conductor_culpable_bebio` | BOOLEAN | Ver arriba. |
+| `anio_vehiculo_culpable`, `edad_vehiculo_culpable` | USMALLINT, BIGINT | Año del modelo del vehículo culpable y su antigüedad al chocar. |
+| `tiene_coordenadas`, `tiene_datos_caltrans` | BOOLEAN | Hay fila en `colision_geo` o en `colision_carretera`. |
+
+**`vw_parte`** (37 columnas: las 24 de `parte` y 13 nuevas)
+
+| Columna | Tipo | Definición |
+|---|---|---|
+| `fecha`, `anio`, `condado_id` | DATE, BIGINT, UTINYINT | De la colisión de la parte. |
+| `banda_edad_id` | UTINYINT | Banda de `edad`; 0 si falta la edad. |
+| `edad_vehiculo` | BIGINT | Antigüedad del vehículo al chocar. |
+| `equipo_seguridad_id`, `equipo_seguridad_2_id` | UTINYINT | Equipo de orden 1 (0 si no hay) y de orden 2 (NULL si no hay). |
+| `factor_asociado_id`, `factor_asociado_2_id` | UTINYINT | Igual, para el factor asociado. |
+| `usaba_celular` | BOOLEAN | `en_uso` del catálogo `uso_celular`. |
+| `nivel_max_victimas` | UTINYINT | Peor nivel KABCO entre las víctimas de esa parte. NULL si no tiene víctimas. |
+| `victimas`, `fallecidos` | BIGINT | Víctimas de la parte y cuántas en K. |
+
+**`vw_victima`** (24 columnas: las 10 de `victima` y 14 nuevas)
+
+| Columna | Tipo | Definición |
+|---|---|---|
+| `kabco`, `nivel_lesion` | VARCHAR, UTINYINT | Letra KABCO de la lesión y su nivel. |
+| `banda_edad_id` | UTINYINT | Banda de `edad`; 0 si falta la edad. |
+| `equipo_seguridad_id`, `equipo_seguridad_2_id` | UTINYINT | Equipo de orden 1 (0 si no hay) y de orden 2 (NULL si no hay). |
+| `tipo_parte_id`, `tipo_vehiculo_id`, `anio_vehiculo` | UTINYINT, USMALLINT | De la parte con la que viajaba. |
+| `edad_vehiculo` | BIGINT | Antigüedad de ese vehículo al chocar. |
+| `parte_culpable` | BOOLEAN | Su parte fue la culpable. |
+| `es_ocupante` | BOOLEAN | Rol conductor o pasajero (4.008.982 víctimas). |
+| `fecha`, `anio`, `condado_id` | DATE, BIGINT, UTINYINT | De la colisión. |
+
+**`vw_condado_anio`** (580 filas: 58 condados por 10 años)
+
+| Columna | Tipo | Definición |
+|---|---|---|
+| `condado_id`, `condado` | UTINYINT, VARCHAR | Condado y su nombre. |
+| `anio` | USMALLINT | Año. |
+| `habitantes` | INTEGER | Población al 1 de julio (Census Bureau). |
+| `colisiones`, `fallecidos` | BIGINT | Colisiones del condado y víctimas K en ellas. |
+| `colisiones_por_100k`, `fallecidos_por_100k` | DOUBLE | Cada conteo dividido entre `habitantes` y multiplicado por 100.000. |
+
+**`vw_calendario`** (3.652 filas, una por día de 2010 a 2019)
+
+| Columna | Tipo | Definición |
+|---|---|---|
+| `fecha` | DATE | Día. Incluye los días sin colisiones, para que las series no salten. |
+| `anio`, `mes`, `trimestre` | BIGINT, UTINYINT | Año, mes y trimestre. |
+| `nombre_mes` | VARCHAR | Enero a diciembre. |
+| `dia_semana`, `nombre_dia` | UTINYINT, VARCHAR | 1 lunes a 7 domingo y su nombre. |
+| `es_fin_semana` | BOOLEAN | Sábado o domingo. |
+
+---
+
+## 13. Columnas de la fuente que no se cargan
+
+Documentar lo que no entró es tan importante como lo que sí. Ninguna se pierde sin motivo: o se recalcula, o depende de otra columna, o no aporta al estudio.
+
+| Origen | Columnas | Motivo |
+|---|---|---|
+| `collisions` | `collision_severity`, `killed_victims`, `injured_victims`, `severe_injury_count`, `other_visible_injury_count`, `complaint_of_pain_injury_count`, `pedestrian_killed_count`, `pedestrian_injured_count`, `bicyclist_killed_count`, `bicyclist_injured_count`, `motorcyclist_killed_count`, `motorcyclist_injured_count`, `party_count`, `alcohol_involved`, `pedestrian_collision`, `bicycle_collision`, `motorcycle_collision`, `truck_collision`, `statewide_vehicle_type_at_fault`, `chp_vehicle_type_at_fault` | Se pueden recalcular desde `parte` y `victima`. Las principales ya están en `vw_colision`: fallecidos, heridos por nivel, severidad, partes, alcohol, las cuatro banderas y el tipo de vehículo del culpable. Comparamos cada una con su columna original y coinciden en las 4.368.293 colisiones salvo una, el caso 90771643, que trae `collision_severity = 'N'`, 22 heridos graves, `party_count = 0` y alcohol, aunque tiene dos partes sin víctimas ni alcohol. Lo tratamos como error de captura. |
+| `collisions` | `county_location` | Depende de `county_city_location`: vive en `ubicacion`. |
+| `collisions` | `officer_id`, `reporting_district`, `chp_shift`, `beat_type`, `chp_beat_type`, `chp_beat_class`, `beat_number`, `city_division_lapd`, `process_date` | Datos internos de la policía y del trámite del parte. No describen el choque. |
+| `collisions` | `primary_road`, `secondary_road`, `distance`, `direction`, `primary_ramp`, `secondary_ramp`, `route_suffix`, `chp_road_type` | Localización a nivel de calle, en texto libre o con códigos sin documentar. El estudio trabaja por condado. |
+| `collisions` | `pcf_violation_code` | Cuerpo legal de la infracción. Está vacío en todo el período salvo 294 casos. |
+| `collisions` | `not_private_property` | Vale 1 en todas las colisiones del período menos una: no distingue nada. |
+| `parties` | `party_number_killed`, `party_number_injured` | Se recalculan en `vw_parte` desde `victima`. |
+| `parties` | `cellphone_in_use` | Se deriva del catálogo `uso_celular` (columna `en_uso`). |
+| `parties` | `oaf_violation_code` | Igual que `pcf_violation_code`: vacío salvo 30 casos. |
+| `case_ids` | `case_id`, `db_year` | Solo dice en qué versión del archivo original entró cada caso. No es un dato del choque. |
+
+---
+
+## 14. Calidad de la fuente que conviene recordar
+
+- La escala de lesiones cambió en 2017 (sección 11, `kabco` y `lesion`).
+- Las coordenadas pasan de 34,3 % de las colisiones en 2010 a 64,1 % en 2019.
+- La edad del conductor culpable falta en el 71,2 % de las colisiones con fuga y en el 2,2 % de las demás.
+- `droga_fisica_id` (82,88 % sin clasificar) y `remolque_chp_id` (68,23 %) están poco llenas en la fuente; úselas con cuidado.
+- El alcohol y otras marcas solo se registran cuando ocurrieron: NULL es "no reportado".
+
+---
+
+## 15. Cómo verificar este diccionario
+
+Los conteos y porcentajes salen de la base. Por ejemplo, para la tabla `parte`:
+
+```python
+import duckdb
+
+con = duckdb.connect("base_de_datos/base_normalizada.duckdb", read_only=True)
+con.sql("""
+    SELECT COUNT(*)                                                   AS filas,
+           ROUND(100 * AVG(CAST(edad IS NULL AS DOUBLE)), 2)          AS pct_edad_nula,
+           ROUND(100 * AVG(CAST(sexo_id = 0 AS DOUBLE)), 2)           AS pct_sexo_sin_clasificar,
+           COUNT(*) FILTER (WHERE edad_en_cuarentena)                 AS edades_en_cuarentena
+    FROM parte
+""").show()
+```
+
+Con los Parquet se usa `conectar_lago()` de `consumo.py` en lugar de abrir el archivo.
