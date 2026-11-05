@@ -46,7 +46,7 @@ Entre 2010 y 2017 las colisiones en California pasaron de 416.490 a 486.432, un 
 
 - Para la salud pública, saber qué condiciones acompañan a los choques más graves ayuda a decidir dónde intervenir.
 - Para el análisis de datos, la fuente pesa cerca de 10 GB y viene en tablas planas con información repetida, así que ordenarla en una base normalizada y liviana también es parte del trabajo.
-- Para la estadística, con millones de registros cualquier diferencia sale significativa, por lo que hay que medir qué tan fuerte es cada asociación.
+- Para la estadística, como tenemos todos los choques registrados y no una muestra, las proporciones y tasas describen el universo completo. El reto es elegir la medida descriptiva adecuada para comparar grupos de tamaños muy distintos.
 
 ### Pregunta de investigación
 
@@ -67,7 +67,7 @@ Entre 2010 y 2017 las colisiones en California pasaron de 416.490 a 486.432, un 
 
 - **Tiempo:** del 1 de enero de 2010 al 31 de diciembre de 2019. Diez años continuos y anteriores a los cambios de movilidad de la pandemia.
 - **Espacio:** los 58 condados de California.
-- **Tipo de estudio:** descriptivo con un componente correlacional, no experimental y documental. Trabajamos con todos los choques registrados, no con una muestra.
+- **Tipo de estudio:** descriptivo, no experimental y documental. Trabajamos con todos los choques registrados, no con una muestra.
 
 ## Población y tasas por habitante
 
@@ -156,6 +156,33 @@ La fuente viene en tres tablas planas con mucha información repetida. La llevam
 
 Ninguna tabla guarda algo que se pueda recalcular. Fallecidos, heridos, severidad, alcohol, número de partes y calendario salen de cinco vistas: `vw_colision`, `vw_parte`, `vw_victima`, `vw_condado_anio` y `vw_calendario`. Cada decisión está explicada en el [modelado de datos](base_de_datos/MODELADO_DE_DATOS.md) y cada campo en el [diccionario](base_de_datos/DICCIONARIO_DE_DATOS.md).
 
+### En la nube: Supabase y MotherDuck
+
+El mismo proceso corre en la nube, con cada etapa guardada aparte para que se pueda revisar:
+
+```mermaid
+flowchart LR
+    A[("switrs.sqlite<br/>~10 GB")] --> B["00a<br/>Parquet sin<br/>cambiar datos"]
+    B --> C[("Supabase Storage<br/>data cruda<br/>506 MB")]
+    C --> D["00b"] --> E[("colisiones_crudo")]
+    E --> F["01-04<br/>normalización"] --> G[("colisiones_normalizada<br/>3FN")]
+    G --> H["07<br/>desnormalización"] --> I[("colisiones_analitica<br/>estrella")]
+
+    style C fill:#14181F,stroke:#FFC629,color:#fff
+    style E fill:#232B36,stroke:#FFC629,color:#fff
+    style G fill:#232B36,stroke:#FFC629,color:#fff
+    style I fill:#232B36,stroke:#FFC629,color:#fff
+```
+
+| Dónde | Qué guarda |
+|---|---|
+| Supabase Storage, bucket `switrs-crudo` | La fuente cruda completa (2001-2021): las cuatro tablas de Kaggle en 167 archivos Parquet de menos de 50 MB, sin cambiar ningún dato. |
+| MotherDuck, `colisiones_crudo` | Esas cuatro tablas como tablas SQL, leídas directo desde Supabase. |
+| MotherDuck, `colisiones_normalizada` | La base en 3FN: 52 tablas y las 5 vistas, idéntica a la local. |
+| MotherDuck, `colisiones_analitica` | El modelo en estrella: tablas de hechos de colisión, parte y víctima, el resumen por condado y año, y las dimensiones. Es la capa para Power BI. |
+
+Antes de subirla comprobamos que la data cruda en Parquet es idéntica al `.sqlite` fila por fila, y que la base normalizada de la nube es idéntica a la local.
+
 ## Cómo usar
 
 ### 1. Clonar el repositorio
@@ -174,9 +201,25 @@ pip install -r requirements.txt
 
 La base normalizada viene incluida en `data/processed/`, así que funciona sin descargar nada más. Las vistas se cargan con `conectar_lago()` de `base_de_datos/consumo.py`.
 
-### 4. (Opcional) Reconstruir la base desde cero
+### 4. Abrir la aplicación
 
-Requiere [la base original de Kaggle](https://www.kaggle.com/datasets/alexgude/california-traffic-collision-data-from-switrs) (cerca de 10 GB) en `data/raw/`. Luego, desde `base_de_datos/`, se corren en orden los scripts del `01` al `06`. Tarda unos dos minutos.
+```bash
+streamlit run app.py
+```
+
+### 5. (Opcional) Reconstruir la base desde cero
+
+Requiere [la base original de Kaggle](https://www.kaggle.com/datasets/alexgude/california-traffic-collision-data-from-switrs) (cerca de 10 GB) en `data/raw/`. Luego, desde `base_de_datos/`, se corren en orden los scripts del `01` al `06`. Tarda unos tres minutos y deja la base en `base_de_datos/base_normalizada.duckdb`.
+
+### 6. (Opcional) Montar el proceso en Supabase y MotherDuck
+
+Las claves van en variables de entorno, nunca en el código: `motherduck_token` (MotherDuck → Settings → Access Tokens) y `SUPABASE_S3_ENDPOINT`, `SUPABASE_S3_REGION`, `SUPABASE_S3_KEY_ID`, `SUPABASE_S3_SECRET` y `SUPABASE_BUCKET` (Supabase → Storage → Settings → S3 Connection). Desde `base_de_datos/`:
+
+```bash
+python 00a_crudo_a_supabase.py
+python 00b_supabase_a_motherduck.py
+DESTINO=motherduck python 01_creacion_esquema.py   # y lo mismo con 02, 03, 04 y 07
+```
 
 ## Estructura del repositorio
 
@@ -192,12 +235,15 @@ Colisiones-California/
 │   ├── configuracion.py            rutas, período y rangos válidos
 │   ├── catalogos.py                catálogos escritos a mano, en español
 │   ├── consumo.py                  vistas y conexión a los Parquet
+│   ├── 00a_crudo_a_supabase.py     data cruda a Supabase
+│   ├── 00b_supabase_a_motherduck.py
 │   ├── 01_creacion_esquema.py
 │   ├── 02_poblacion_catalogos.py
 │   ├── 03_procesamiento_carga.py
 │   ├── 04_vistas_consumo.py
 │   ├── 05_exportacion_parquet.py
 │   ├── 06_cifras.py
+│   ├── 07_capa_analitica.py        modelo en estrella en MotherDuck
 │   ├── DICCIONARIO_DE_DATOS.md
 │   └── MODELADO_DE_DATOS.md
 ├── resultados/cifras.json
