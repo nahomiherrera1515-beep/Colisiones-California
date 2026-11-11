@@ -115,6 +115,19 @@ st.markdown(
 st.subheader("8. Técnicas de análisis de datos")
 st.markdown(
     """
+Se aplicaron únicamente técnicas de estadística descriptiva:
+• Distribuciones de frecuencias absolutas y relativas de las colisiones por año, mes,
+día de la semana, hora, condado y condición del entorno.
+• Proporción de colisiones graves y con fallecido en cada grupo, para separar la
+frecuencia de la gravedad: un grupo puede tener pocas colisiones pero muy graves.
+• Tasas por 100.000 habitantes, para comparar condados con poblaciones muy
+distintas.
+• Cocientes y diferencias de proporciones, para expresar cuántas veces más frecuente
+es un desenlace en un grupo que en otro, y a cuántos puntos porcentuales de distancia.
+• Tablas cruzadas, para observar dos variables a la vez; por ejemplo, la proporción de
+colisiones mortales con y sin alcohol dentro de cada banda de edad del conductor
+culpable.
+• Medidas de tendencia central, como la antigüedad media de los vehículos.
     """
 )
 
@@ -137,5 +150,30 @@ st.markdown(
 Los datos son públicos y anónimos: los partes no incluyen nombres, direcciones ni otros
 datos que permitan identificar a las personas. Se usaron solo con fines académicos y se citan
 sus fuentes.
+    """
+)
+
+st.subheader("11. Limitaciones metodológicas")
+st.markdown(
+    """
+• En 2017 SWITRS cambió los códigos de lesión, y entre 2016 y 2019 las víctimas con
+lesión grave aumentan un 23,9 % sin que los choques sean más graves. Por eso, para
+comparar años se usan solo los fallecidos.
+• El alcohol solo se registra cuando estuvo presente. Que no aparezca significa que no se
+reportó, no que el conductor estuviera sobrio.
+• La edad del conductor culpable falta en el 71,2 % de las colisiones con fuga y en el 2,2
+% de las demás, así que el objetivo 2 se analiza también sin las fugas.
+• Solo el 49,4 % de las colisiones tiene coordenadas, y la cobertura pasa del 34,3 % en
+2010 al 64,1 % en 2019. Por eso el análisis territorial se hace por condado.
+• No hay datos de exposición, como kilómetros recorridos o parque vehicular. Se
+describe cómo se reparten las colisiones y su gravedad, no el riesgo de chocar.
+• La población del Census cuenta a quienes viven en el condado, no a quienes lo
+atraviesan; los condados pequeños con carreteras de paso muestran tasas muy altas.
+    """
+)
+
+st.subheader("12. Herramientas tecnológicas")
+st.markdown(
+    """
     """
 )
