@@ -1,0 +1,91 @@
+table tabla_tasas
+	lineageTag: 8f7709b7-fdfc-4855-b793-f7b553878018
+
+	column condado_id
+		dataType: double
+		lineageTag: 40fdd2e4-edd2-4123-8286-23b297288c4a
+		summarizeBy: none
+		sourceColumn: condado_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column condado
+		dataType: string
+		lineageTag: 451d5376-5bc6-42a1-9434-c44714c86165
+		summarizeBy: none
+		sourceColumn: condado
+
+		annotation SummarizationSetBy = Automatic
+
+	column anio
+		dataType: double
+		lineageTag: 5a2107a6-5b70-42f2-9b9c-5605d32c74ca
+		summarizeBy: sum
+		sourceColumn: anio
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column habitantes
+		dataType: int64
+		formatString: 0
+		lineageTag: 204f0957-b45b-49a9-ba0e-b543e4d691c1
+		summarizeBy: sum
+		sourceColumn: habitantes
+
+		annotation SummarizationSetBy = Automatic
+
+	column colisiones
+		dataType: int64
+		formatString: 0
+		lineageTag: ba5a5d42-4ce2-4afb-a37b-60d35251d90b
+		summarizeBy: sum
+		sourceColumn: colisiones
+
+		annotation SummarizationSetBy = Automatic
+
+	column fallecidos
+		dataType: int64
+		formatString: 0
+		lineageTag: 7fa28c43-bdbe-41ac-a9b6-968ddfc19067
+		summarizeBy: sum
+		sourceColumn: fallecidos
+
+		annotation SummarizationSetBy = Automatic
+
+	column colisiones_por_100k
+		dataType: double
+		lineageTag: a4d32c3f-af2b-412a-b205-81515774baf5
+		summarizeBy: sum
+		sourceColumn: colisiones_por_100k
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column fallecidos_por_100k
+		dataType: double
+		lineageTag: 77212cf1-1917-4eb7-92c1-864c2c9a9788
+		summarizeBy: sum
+		sourceColumn: fallecidos_por_100k
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition tabla_tasas = m
+		mode: import
+		source =
+				let
+				  Origen = DuckDB.Contents("md:_share/colisiones_analitica_share/0e9efeee-9ce2-4ee0-a50f-bf2810696fa6", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkZGllcGFsb21pbm8yMDA3QGdtYWlsLmNvbSIsIm1kUmVnaW9uIjoiYXdzLXVzLWVhc3QtMSIsInNlc3Npb24iOiJlZGRpZXBhbG9taW5vX2VkZGllcGFsb21pbl9hYTZjOGQ2Mi05NzYyLTQyYWQtYmVjYi1jNWI2N2IwYTY2NDIiLCJwYXQiOiIwSG5SdjVXNVRPclQyU2E5NmZ3eFg5c0hpQXVIN3JrYk9ONXk5XzIxMXNNIiwidXNlcklkIjoiYWE2YzhkNjItOTc2Mi00MmFkLWJlY2ItYzViNjdiMGE2NjQyIiwiaXNzIjoibWRfcGF0IiwicmVhZE9ubHkiOmZhbHNlLCJ0b2tlblR5cGUiOiJyZWFkX3dyaXRlIiwiaWF0IjoxNzk0NTQwMjg5fQ.m6nJ3bhtX_WGD_8rY7SUF8qQq8guIA4Z-CZXs7iE7uc", null, null, null, []),
+				  #"Navegación 1" = Origen{[Item = "resumen_condado_anio", Schema = "main", Catalog = "colisiones_analitica_share"]}[Data]
+				in
+				  #"Navegación 1"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+

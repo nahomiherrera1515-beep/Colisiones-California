@@ -1,4 +1,4 @@
-table 'colisiones_analitica_share   main   hechos_victima'
+table hechos_victimas
 	lineageTag: abdc89bb-1efd-4bfa-a73f-9ac313175a02
 
 	column case_id
@@ -236,7 +236,7 @@ table 'colisiones_analitica_share   main   hechos_victima'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	partition 'colisiones_analitica_share   main   hechos_victima' = m
+	partition hechos_victimas = m
 		mode: import
 		source =
 				let
@@ -244,6 +244,8 @@ table 'colisiones_analitica_share   main   hechos_victima'
 				  #"Navegación 1" = Origen{[Item = "hechos_victima", Schema = "main", Catalog = "colisiones_analitica_share"]}[Data]
 				in
 				  #"Navegación 1"
+
+	changedProperty = Name
 
 	annotation PBI_ResultType = Table
 

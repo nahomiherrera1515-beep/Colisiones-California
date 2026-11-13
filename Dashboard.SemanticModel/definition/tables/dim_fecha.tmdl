@@ -1,4 +1,4 @@
-table 'colisiones_analitica_share   main   dim_fecha'
+table dim_fecha
 	lineageTag: 3830461b-9971-4b55-b3d7-8edcfb0ee0bd
 
 	column fecha
@@ -80,7 +80,7 @@ table 'colisiones_analitica_share   main   dim_fecha'
 
 		annotation SummarizationSetBy = Automatic
 
-	partition 'colisiones_analitica_share   main   dim_fecha' = m
+	partition dim_fecha = m
 		mode: import
 		source =
 				let
@@ -88,6 +88,8 @@ table 'colisiones_analitica_share   main   dim_fecha'
 				  #"Navegación 1" = Origen{[Item = "dim_fecha", Schema = "main", Catalog = "colisiones_analitica_share"]}[Data]
 				in
 				  #"Navegación 1"
+
+	changedProperty = Name
 
 	annotation PBI_ResultType = Table
 

@@ -1,0 +1,215 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 49.882311062551317,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 1665.2935136502424,
+            "y": 637.10546750750086
+          },
+          "nodeIndex": "_Medidas",
+          "nodeLineageTag": "0b2b21c9-c469-4ab9-965f-ab923fce5517",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1899.2935136502424,
+            "y": 553.10546750750086
+          },
+          "nodeIndex": "tabla_tasas",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 353.33585054680276,
+            "y": 269.53379237449076
+          },
+          "nodeIndex": "hechos_victimas",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 335.759506562573,
+            "y": 774.321364208656
+          },
+          "nodeIndex": "hechos_partie",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 641.30440153504958,
+            "y": 196.52271822483954
+          },
+          "nodeIndex": "hechos_colisiosns",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 624.46696930485484,
+            "y": 739.537682084369
+          },
+          "nodeIndex": "dim_tipo_partie",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 881.88260608583073,
+            "y": 970.27844728793684
+          },
+          "nodeIndex": "dim_superficie",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 242.97430228808417,
+            "y": 1128.2109350150017
+          },
+          "nodeIndex": "dim_sobriedad",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 122.55420657160533,
+            "y": 41.041715338687027
+          },
+          "nodeIndex": "dim_kabco",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1197.2935136502426,
+            "y": 780.87914984650513
+          },
+          "nodeIndex": "dim_iluminacion",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 927.1667946630813,
+            "y": 434.58351952504916
+          },
+          "nodeIndex": "dim_fuga",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1431.2935136502424,
+            "y": 553.10546750750086
+          },
+          "nodeIndex": "dim_fecha",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": 593.90744307493276
+          },
+          "nodeIndex": "dim_equipo_seguridad",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 409.85116026371207,
+            "y": -50
+          },
+          "nodeIndex": "dim_condado",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 912.03864641529265,
+            "y": 662.46781809189088
+          },
+          "nodeIndex": "dim_clima",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50.0042096880162,
+            "y": 363.5293060508659
+          },
+          "nodeIndex": "dim_banda_edad",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas las tablas",
+      "zoomValue": 44.905697313103978,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas las tablas",
+  "defaultDiagram": "Todas las tablas"
+}

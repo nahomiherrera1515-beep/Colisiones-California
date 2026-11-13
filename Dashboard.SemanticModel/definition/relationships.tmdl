@@ -1,124 +1,128 @@
 relationship ac2b4ba9-5cbf-4138-8754-34f105ec6a4b
 	joinOnDateBehavior: datePartOnly
-	fromColumn: 'colisiones_analitica_share   main   dim_fecha'.fecha
+	fromColumn: dim_fecha.fecha
 	toColumn: LocalDateTable_eae24aa1-9ce9-46d6-8520-9174ca4d1475.Date
 
 relationship 8f218864-fae4-440c-af89-21d111e54fdd
 	joinOnDateBehavior: datePartOnly
-	fromColumn: 'colisiones_analitica_share   main   hechos_colision'.fecha
+	fromColumn: hechos_colisiosns.fecha
 	toColumn: LocalDateTable_027d7677-2ea2-41a1-b1d8-837f9b1b0cb1.Date
 
 relationship 4236a194-1f41-4165-926e-67928b696e20
 	joinOnDateBehavior: datePartOnly
-	fromColumn: 'colisiones_analitica_share   main   hechos_parte'.fecha
+	fromColumn: hechos_partie.fecha
 	toColumn: LocalDateTable_c6525992-2c22-4f45-9a37-4aed3f6e2a44.Date
 
 relationship 3284d247-dc09-4560-aab8-38295917f7d2
 	joinOnDateBehavior: datePartOnly
-	fromColumn: 'colisiones_analitica_share   main   hechos_victima'.fecha
+	fromColumn: hechos_victimas.fecha
 	toColumn: LocalDateTable_7543e360-cf5b-4eb0-b525-89a4fd317514.Date
 
 relationship AutoDetected_8f67236f-d05e-4d04-8293-db00c2adf58f
-	fromColumn: 'colisiones_analitica_share   main   hechos_parte'.banda_edad_id
-	toColumn: 'colisiones_analitica_share   main   dim_banda_edad'.banda_edad_id
+	fromColumn: hechos_partie.banda_edad_id
+	toColumn: dim_banda_edad.banda_edad_id
 
 relationship AutoDetected_60ed279e-4c14-4be3-a59f-a78031347380
-	fromColumn: 'colisiones_analitica_share   main   hechos_victima'.banda_edad_id
-	toColumn: 'colisiones_analitica_share   main   dim_banda_edad'.banda_edad_id
+	fromColumn: hechos_victimas.banda_edad_id
+	toColumn: dim_banda_edad.banda_edad_id
 
 relationship AutoDetected_4a79c154-8356-4273-9992-8c1253441426
-	fromColumn: 'colisiones_analitica_share   main   hechos_colision'.clima_id
-	toColumn: 'colisiones_analitica_share   main   dim_clima'.clima_id
+	fromColumn: hechos_colisiosns.clima_id
+	toColumn: dim_clima.clima_id
 
 relationship AutoDetected_01ec8d65-57bb-4a10-b0da-94292140e67f
 	crossFilteringBehavior: bothDirections
 	fromCardinality: one
-	fromColumn: 'colisiones_analitica_share   main   dim_fuga'.orden
-	toColumn: 'colisiones_analitica_share   main   dim_clima'.orden
+	fromColumn: dim_fuga.orden
+	toColumn: dim_clima.orden
 
 relationship AutoDetected_288a49da-c4d5-44b6-8fa8-4af63fdd272e
 	crossFilteringBehavior: bothDirections
 	fromCardinality: one
-	fromColumn: 'colisiones_analitica_share   main   dim_iluminacion'.orden
-	toColumn: 'colisiones_analitica_share   main   dim_clima'.orden
+	fromColumn: dim_iluminacion.orden
+	toColumn: dim_clima.orden
 
 relationship AutoDetected_b19c2fc9-2968-4d04-9134-53007e3433ef
 	crossFilteringBehavior: bothDirections
 	fromCardinality: one
-	fromColumn: 'colisiones_analitica_share   main   dim_sobriedad'.orden
-	toColumn: 'colisiones_analitica_share   main   dim_clima'.orden
+	fromColumn: dim_sobriedad.orden
+	toColumn: dim_clima.orden
 
 relationship AutoDetected_073458d1-7ba1-4c55-9cef-970d6cbb8692
 	crossFilteringBehavior: bothDirections
 	fromCardinality: one
-	fromColumn: 'colisiones_analitica_share   main   dim_superficie'.orden
-	toColumn: 'colisiones_analitica_share   main   dim_clima'.orden
+	fromColumn: dim_superficie.orden
+	toColumn: dim_clima.orden
 
 relationship AutoDetected_7f559803-5cb3-4afb-b480-aa6b50207a75
 	crossFilteringBehavior: bothDirections
 	fromCardinality: one
-	fromColumn: 'colisiones_analitica_share   main   dim_tipo_parte'.orden
-	toColumn: 'colisiones_analitica_share   main   dim_clima'.orden
+	fromColumn: dim_tipo_partie.orden
+	toColumn: dim_clima.orden
 
 relationship AutoDetected_5232e7a3-50e6-45ca-83b0-afcdb9d1b016
-	fromColumn: 'colisiones_analitica_share   main   hechos_colision'.condado_id
-	toColumn: 'colisiones_analitica_share   main   dim_condado'.condado_id
+	fromColumn: hechos_colisiosns.condado_id
+	toColumn: dim_condado.condado_id
 
 relationship AutoDetected_2d3cacd1-0d44-41df-8bfd-e3eb2d5aa05a
-	fromColumn: 'colisiones_analitica_share   main   hechos_parte'.condado_id
-	toColumn: 'colisiones_analitica_share   main   dim_condado'.condado_id
+	fromColumn: hechos_partie.condado_id
+	toColumn: dim_condado.condado_id
 
 relationship AutoDetected_f2d3ffe2-ba2d-447e-86a6-45b754e1dd9b
-	fromColumn: 'colisiones_analitica_share   main   hechos_victima'.condado_id
-	toColumn: 'colisiones_analitica_share   main   dim_condado'.condado_id
+	fromColumn: hechos_victimas.condado_id
+	toColumn: dim_condado.condado_id
 
 relationship AutoDetected_09126ece-f1a4-4e45-82b3-7c8167a65374
-	fromColumn: 'colisiones_analitica_share   main   hechos_parte'.equipo_seguridad_id
-	toColumn: 'colisiones_analitica_share   main   dim_equipo_seguridad'.equipo_seguridad_id
+	fromColumn: hechos_partie.equipo_seguridad_id
+	toColumn: dim_equipo_seguridad.equipo_seguridad_id
 
 relationship AutoDetected_f507c2a6-4577-48ae-84c6-11d1cb7d3a8b
-	fromColumn: 'colisiones_analitica_share   main   hechos_victima'.equipo_seguridad_id
-	toColumn: 'colisiones_analitica_share   main   dim_equipo_seguridad'.equipo_seguridad_id
+	fromColumn: hechos_victimas.equipo_seguridad_id
+	toColumn: dim_equipo_seguridad.equipo_seguridad_id
 
 relationship AutoDetected_3233c29a-94c8-4076-9921-81785228b770
 	isActive: false
-	fromColumn: 'colisiones_analitica_share   main   hechos_colision'.fuga_id
-	toColumn: 'colisiones_analitica_share   main   dim_fuga'.fuga_id
+	fromColumn: hechos_colisiosns.fuga_id
+	toColumn: dim_fuga.fuga_id
 
 relationship AutoDetected_623a24f7-9664-4c7d-a213-2a59bf26e413
 	isActive: false
-	fromColumn: 'colisiones_analitica_share   main   hechos_colision'.iluminacion_id
-	toColumn: 'colisiones_analitica_share   main   dim_iluminacion'.iluminacion_id
+	fromColumn: hechos_colisiosns.iluminacion_id
+	toColumn: dim_iluminacion.iluminacion_id
 
 relationship AutoDetected_70225042-c4f7-44bc-9af7-d03c88902016
-	fromColumn: 'colisiones_analitica_share   main   hechos_victima'.kabco
-	toColumn: 'colisiones_analitica_share   main   dim_kabco'.kabco
+	fromColumn: hechos_victimas.kabco
+	toColumn: dim_kabco.kabco
 
 relationship AutoDetected_90c011b0-1ad3-4b18-a98e-06ac9d0b7287
-	fromColumn: 'colisiones_analitica_share   main   hechos_parte'.sobriedad_id
-	toColumn: 'colisiones_analitica_share   main   dim_sobriedad'.sobriedad_id
+	fromColumn: hechos_partie.sobriedad_id
+	toColumn: dim_sobriedad.sobriedad_id
 
 relationship AutoDetected_e1c4f92e-bd3c-4c03-90b6-51c0b505ed7e
 	isActive: false
-	fromColumn: 'colisiones_analitica_share   main   hechos_colision'.superficie_id
-	toColumn: 'colisiones_analitica_share   main   dim_superficie'.superficie_id
+	fromColumn: hechos_colisiosns.superficie_id
+	toColumn: dim_superficie.superficie_id
 
 relationship AutoDetected_5b41f170-c6ed-49e2-aa64-e13a32eba8ea
 	isActive: false
-	fromColumn: 'colisiones_analitica_share   main   hechos_parte'.tipo_parte_id
-	toColumn: 'colisiones_analitica_share   main   dim_tipo_parte'.tipo_parte_id
+	fromColumn: hechos_partie.tipo_parte_id
+	toColumn: dim_tipo_partie.tipo_parte_id
 
 relationship AutoDetected_6ca73709-1d0e-4989-9bd1-57f19c59c2fd
-	fromColumn: 'colisiones_analitica_share   main   hechos_victima'.tipo_parte_id
-	toColumn: 'colisiones_analitica_share   main   dim_tipo_parte'.tipo_parte_id
+	fromColumn: hechos_victimas.tipo_parte_id
+	toColumn: dim_tipo_partie.tipo_parte_id
 
 relationship AutoDetected_4ec65fcf-6044-4fab-a1a3-31e843cc9b3b
 	isActive: false
-	fromColumn: 'colisiones_analitica_share   main   hechos_parte'.case_id
-	toColumn: 'colisiones_analitica_share   main   hechos_colision'.case_id
+	fromColumn: hechos_partie.case_id
+	toColumn: hechos_colisiosns.case_id
 
 relationship AutoDetected_b1158192-9828-463d-97b8-f63e4b4a7d2f
 	isActive: false
-	fromColumn: 'colisiones_analitica_share   main   hechos_victima'.case_id
-	toColumn: 'colisiones_analitica_share   main   hechos_colision'.case_id
+	fromColumn: hechos_victimas.case_id
+	toColumn: hechos_colisiosns.case_id
+
+relationship AutoDetected_790824d1-36a4-4b84-a610-4271d566fd7f
+	fromColumn: tabla_tasas.condado_id
+	toColumn: dim_condado.condado_id
 

@@ -1,11 +1,11 @@
-table 'colisiones_analitica_share   main   dim_clima'
-	lineageTag: c5681b9f-5b06-488d-9d98-cb26990dffec
+table dim_condado
+	lineageTag: eed512a1-c050-43d0-ae39-c80c3a111519
 
-	column clima_id
+	column condado_id
 		dataType: double
-		lineageTag: fb68f0a5-1608-4203-9dac-b640250b6a7d
+		lineageTag: e2be22ff-244c-4515-b850-140ed1de0923
 		summarizeBy: none
-		sourceColumn: clima_id
+		sourceColumn: condado_id
 
 		annotation SummarizationSetBy = Automatic
 
@@ -13,46 +13,30 @@ table 'colisiones_analitica_share   main   dim_clima'
 
 	column codigo
 		dataType: string
-		lineageTag: d78f3a96-3154-4f0d-9e01-d760b1ab8a81
+		lineageTag: 74286de0-6169-42fb-bbe2-5ae46d1a1d55
 		summarizeBy: none
 		sourceColumn: codigo
 
 		annotation SummarizationSetBy = Automatic
 
-	column etiqueta
+	column nombre
 		dataType: string
-		lineageTag: f8d65e0c-4543-41b9-a876-99b966e05604
+		lineageTag: 9b27a91a-3055-4980-b61e-58900ef205fc
 		summarizeBy: none
-		sourceColumn: etiqueta
+		sourceColumn: nombre
 
 		annotation SummarizationSetBy = Automatic
 
-	column orden
-		dataType: double
-		lineageTag: 281e04c4-ac9e-4a9a-8f50-8056518bb5df
-		summarizeBy: none
-		sourceColumn: orden
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column es_adverso
-		dataType: string
-		lineageTag: 37a30b5d-b4fe-46f1-a774-8a5d1a8d8958
-		summarizeBy: none
-		sourceColumn: es_adverso
-
-		annotation SummarizationSetBy = Automatic
-
-	partition 'colisiones_analitica_share   main   dim_clima' = m
+	partition dim_condado = m
 		mode: import
 		source =
 				let
 				  Origen = DuckDB.Contents("md:_share/colisiones_analitica_share/0e9efeee-9ce2-4ee0-a50f-bf2810696fa6", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkZGllcGFsb21pbm8yMDA3QGdtYWlsLmNvbSIsIm1kUmVnaW9uIjoiYXdzLXVzLWVhc3QtMSIsInNlc3Npb24iOiJlZGRpZXBhbG9taW5vX2VkZGllcGFsb21pbl9hYTZjOGQ2Mi05NzYyLTQyYWQtYmVjYi1jNWI2N2IwYTY2NDIiLCJwYXQiOiIwSG5SdjVXNVRPclQyU2E5NmZ3eFg5c0hpQXVIN3JrYk9ONXk5XzIxMXNNIiwidXNlcklkIjoiYWE2YzhkNjItOTc2Mi00MmFkLWJlY2ItYzViNjdiMGE2NjQyIiwiaXNzIjoibWRfcGF0IiwicmVhZE9ubHkiOmZhbHNlLCJ0b2tlblR5cGUiOiJyZWFkX3dyaXRlIiwiaWF0IjoxNzk0NTQwMjg5fQ.m6nJ3bhtX_WGD_8rY7SUF8qQq8guIA4Z-CZXs7iE7uc", null, null, null, []),
-				  #"Navegación 1" = Origen{[Item = "dim_clima", Schema = "main", Catalog = "colisiones_analitica_share"]}[Data]
+				  #"Navegación 1" = Origen{[Item = "dim_condado", Schema = "main", Catalog = "colisiones_analitica_share"]}[Data]
 				in
 				  #"Navegación 1"
+
+	changedProperty = Name
 
 	annotation PBI_ResultType = Table
 

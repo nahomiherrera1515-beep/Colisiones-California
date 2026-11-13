@@ -110,7 +110,7 @@ table LocalDateTable_027d7677-2ea2-41a1-b1d8-837f9b1b0cb1
 
 	partition LocalDateTable_027d7677-2ea2-41a1-b1d8-837f9b1b0cb1 = calculated
 		mode: import
-		source = Calendar(Date(Year(MIN('colisiones_analitica_share   main   hechos_colision'[fecha])), 1, 1), Date(Year(MAX('colisiones_analitica_share   main   hechos_colision'[fecha])), 12, 31))
+		source = Calendar(Date(Year(MIN('hechos_colisiosns'[fecha])), 1, 1), Date(Year(MAX('hechos_colisiosns'[fecha])), 12, 31))
 
 	annotation __PBI_LocalDateTable = true
 

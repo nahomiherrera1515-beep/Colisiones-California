@@ -9,29 +9,31 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBI_QueryOrder = ["colisiones_analitica_share   main   dim_banda_edad","colisiones_analitica_share   main   dim_clima","colisiones_analitica_share   main   dim_condado","colisiones_analitica_share   main   dim_equipo_seguridad","colisiones_analitica_share   main   dim_fecha","colisiones_analitica_share   main   dim_fuga","colisiones_analitica_share   main   dim_iluminacion","colisiones_analitica_share   main   dim_kabco","colisiones_analitica_share   main   dim_sobriedad","colisiones_analitica_share   main   dim_superficie","colisiones_analitica_share   main   dim_tipo_parte","colisiones_analitica_share   main   hechos_colision","colisiones_analitica_share   main   hechos_parte","colisiones_analitica_share   main   hechos_victima"]
+annotation PBI_QueryOrder = ["dim_banda_edad","dim_clima","dim_condado","dim_equipo_seguridad","dim_fecha","dim_fuga","dim_iluminacion","dim_kabco","dim_sobriedad","dim_superficie","dim_tipo_partie","hechos_colisiosns","hechos_partie","hechos_victimas","_Medidas","tabla_tasas"]
 
 annotation PBI_ProTooling = ["DevMode"]
 
-ref table 'colisiones_analitica_share   main   dim_banda_edad'
-ref table 'colisiones_analitica_share   main   dim_clima'
-ref table 'colisiones_analitica_share   main   dim_condado'
-ref table 'colisiones_analitica_share   main   dim_equipo_seguridad'
-ref table 'colisiones_analitica_share   main   dim_fecha'
+ref table dim_banda_edad
+ref table dim_clima
+ref table dim_condado
+ref table dim_equipo_seguridad
+ref table dim_fecha
 ref table DateTableTemplate_f6d510b5-096e-4fa1-9f2c-f9c7f96f7c84
 ref table LocalDateTable_eae24aa1-9ce9-46d6-8520-9174ca4d1475
-ref table 'colisiones_analitica_share   main   dim_fuga'
-ref table 'colisiones_analitica_share   main   dim_iluminacion'
-ref table 'colisiones_analitica_share   main   dim_kabco'
-ref table 'colisiones_analitica_share   main   dim_sobriedad'
-ref table 'colisiones_analitica_share   main   dim_superficie'
-ref table 'colisiones_analitica_share   main   dim_tipo_parte'
-ref table 'colisiones_analitica_share   main   hechos_colision'
+ref table dim_fuga
+ref table dim_iluminacion
+ref table dim_kabco
+ref table dim_sobriedad
+ref table dim_superficie
+ref table dim_tipo_partie
+ref table hechos_colisiosns
 ref table LocalDateTable_027d7677-2ea2-41a1-b1d8-837f9b1b0cb1
-ref table 'colisiones_analitica_share   main   hechos_parte'
+ref table hechos_partie
 ref table LocalDateTable_c6525992-2c22-4f45-9a37-4aed3f6e2a44
-ref table 'colisiones_analitica_share   main   hechos_victima'
+ref table hechos_victimas
 ref table LocalDateTable_7543e360-cf5b-4eb0-b525-89a4fd317514
+ref table _Medidas
+ref table tabla_tasas
 
 ref cultureInfo es-US
 

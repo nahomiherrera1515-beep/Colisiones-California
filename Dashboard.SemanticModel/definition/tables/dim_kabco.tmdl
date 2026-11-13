@@ -1,58 +1,50 @@
-table 'colisiones_analitica_share   main   dim_iluminacion'
-	lineageTag: 9305d1c7-212c-468c-ae6c-8078ca611573
+table dim_kabco
+	lineageTag: 93643913-1aca-47cd-9620-dcbcbbeca3d6
 
-	column iluminacion_id
+	column kabco
+		dataType: string
+		lineageTag: 7a27f81a-4810-4cca-9978-c10e24a91ab9
+		summarizeBy: none
+		sourceColumn: kabco
+
+		annotation SummarizationSetBy = Automatic
+
+	column nivel
 		dataType: double
-		lineageTag: 4b00426c-a96a-4731-8127-d1697f490a1a
-		summarizeBy: sum
-		sourceColumn: iluminacion_id
+		lineageTag: 232253a7-ddc8-4cf9-aca1-74f81fbf511e
+		summarizeBy: none
+		sourceColumn: nivel
 
 		annotation SummarizationSetBy = Automatic
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column codigo
-		dataType: string
-		lineageTag: 6de6d15c-eee2-402c-9ae7-4afa94dc3ec5
-		summarizeBy: none
-		sourceColumn: codigo
-
-		annotation SummarizationSetBy = Automatic
-
 	column etiqueta
 		dataType: string
-		lineageTag: 2bbc2a7d-9421-4c23-ac5e-61e9ac53c6df
+		lineageTag: 53f590f9-a7a5-45f9-ae54-2688fc4347f7
 		summarizeBy: none
 		sourceColumn: etiqueta
 
 		annotation SummarizationSetBy = Automatic
 
-	column orden
-		dataType: double
-		lineageTag: 2e4f776f-6926-492c-a168-0e5a2c55c78c
-		summarizeBy: none
-		sourceColumn: orden
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
-
-	column es_oscuridad
+	column severidad_fuente
 		dataType: string
-		lineageTag: 11225a15-3257-4534-9f3d-7b31b2581549
+		lineageTag: c4182935-bd83-49f1-8513-7e1fb49dbceb
 		summarizeBy: none
-		sourceColumn: es_oscuridad
+		sourceColumn: severidad_fuente
 
 		annotation SummarizationSetBy = Automatic
 
-	partition 'colisiones_analitica_share   main   dim_iluminacion' = m
+	partition dim_kabco = m
 		mode: import
 		source =
 				let
 				  Origen = DuckDB.Contents("md:_share/colisiones_analitica_share/0e9efeee-9ce2-4ee0-a50f-bf2810696fa6", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkZGllcGFsb21pbm8yMDA3QGdtYWlsLmNvbSIsIm1kUmVnaW9uIjoiYXdzLXVzLWVhc3QtMSIsInNlc3Npb24iOiJlZGRpZXBhbG9taW5vX2VkZGllcGFsb21pbl9hYTZjOGQ2Mi05NzYyLTQyYWQtYmVjYi1jNWI2N2IwYTY2NDIiLCJwYXQiOiIwSG5SdjVXNVRPclQyU2E5NmZ3eFg5c0hpQXVIN3JrYk9ONXk5XzIxMXNNIiwidXNlcklkIjoiYWE2YzhkNjItOTc2Mi00MmFkLWJlY2ItYzViNjdiMGE2NjQyIiwiaXNzIjoibWRfcGF0IiwicmVhZE9ubHkiOmZhbHNlLCJ0b2tlblR5cGUiOiJyZWFkX3dyaXRlIiwiaWF0IjoxNzk0NTQwMjg5fQ.m6nJ3bhtX_WGD_8rY7SUF8qQq8guIA4Z-CZXs7iE7uc", null, null, null, []),
-				  #"Navegación 1" = Origen{[Item = "dim_iluminacion", Schema = "main", Catalog = "colisiones_analitica_share"]}[Data]
+				  #"Navegación 1" = Origen{[Item = "dim_kabco", Schema = "main", Catalog = "colisiones_analitica_share"]}[Data]
 				in
 				  #"Navegación 1"
+
+	changedProperty = Name
 
 	annotation PBI_ResultType = Table
 

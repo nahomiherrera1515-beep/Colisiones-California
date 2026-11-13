@@ -1,11 +1,11 @@
-table 'colisiones_analitica_share   main   dim_superficie'
-	lineageTag: a8314beb-7226-4f06-a1cd-ef6748275d5a
+table dim_fuga
+	lineageTag: b0114f9e-2145-4740-9697-7ca788a7cdaf
 
-	column superficie_id
+	column fuga_id
 		dataType: double
-		lineageTag: cfa9520a-6f56-49c5-a09a-abaf937c1e6c
+		lineageTag: e316d3fa-976a-4ee1-849b-81b508ad84ad
 		summarizeBy: sum
-		sourceColumn: superficie_id
+		sourceColumn: fuga_id
 
 		annotation SummarizationSetBy = Automatic
 
@@ -13,7 +13,7 @@ table 'colisiones_analitica_share   main   dim_superficie'
 
 	column codigo
 		dataType: string
-		lineageTag: a3b03e9a-4b75-4d77-a81d-94a6091bde6e
+		lineageTag: ae9ec0bf-0720-4707-812e-f6edb2826e03
 		summarizeBy: none
 		sourceColumn: codigo
 
@@ -21,7 +21,7 @@ table 'colisiones_analitica_share   main   dim_superficie'
 
 	column etiqueta
 		dataType: string
-		lineageTag: 950f2b89-2c41-41f2-8b8b-947106905fdc
+		lineageTag: 3efb2ff8-9d6a-49ca-8d86-3ba11290536a
 		summarizeBy: none
 		sourceColumn: etiqueta
 
@@ -29,7 +29,7 @@ table 'colisiones_analitica_share   main   dim_superficie'
 
 	column orden
 		dataType: double
-		lineageTag: bc18e89f-b2d4-4b08-9abd-dec6e1f5bbaa
+		lineageTag: 15ddd51d-ef98-4bae-8513-cd8ff5c49ea9
 		summarizeBy: none
 		sourceColumn: orden
 
@@ -37,22 +37,16 @@ table 'colisiones_analitica_share   main   dim_superficie'
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column es_adversa
-		dataType: string
-		lineageTag: f836600c-43df-4ba7-aa6c-4e447c0eea20
-		summarizeBy: none
-		sourceColumn: es_adversa
-
-		annotation SummarizationSetBy = Automatic
-
-	partition 'colisiones_analitica_share   main   dim_superficie' = m
+	partition dim_fuga = m
 		mode: import
 		source =
 				let
 				  Origen = DuckDB.Contents("md:_share/colisiones_analitica_share/0e9efeee-9ce2-4ee0-a50f-bf2810696fa6", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkZGllcGFsb21pbm8yMDA3QGdtYWlsLmNvbSIsIm1kUmVnaW9uIjoiYXdzLXVzLWVhc3QtMSIsInNlc3Npb24iOiJlZGRpZXBhbG9taW5vX2VkZGllcGFsb21pbl9hYTZjOGQ2Mi05NzYyLTQyYWQtYmVjYi1jNWI2N2IwYTY2NDIiLCJwYXQiOiIwSG5SdjVXNVRPclQyU2E5NmZ3eFg5c0hpQXVIN3JrYk9ONXk5XzIxMXNNIiwidXNlcklkIjoiYWE2YzhkNjItOTc2Mi00MmFkLWJlY2ItYzViNjdiMGE2NjQyIiwiaXNzIjoibWRfcGF0IiwicmVhZE9ubHkiOmZhbHNlLCJ0b2tlblR5cGUiOiJyZWFkX3dyaXRlIiwiaWF0IjoxNzk0NTQwMjg5fQ.m6nJ3bhtX_WGD_8rY7SUF8qQq8guIA4Z-CZXs7iE7uc", null, null, null, []),
-				  #"Navegación 1" = Origen{[Item = "dim_superficie", Schema = "main", Catalog = "colisiones_analitica_share"]}[Data]
+				  #"Navegación 1" = Origen{[Item = "dim_fuga", Schema = "main", Catalog = "colisiones_analitica_share"]}[Data]
 				in
 				  #"Navegación 1"
+
+	changedProperty = Name
 
 	annotation PBI_ResultType = Table
 

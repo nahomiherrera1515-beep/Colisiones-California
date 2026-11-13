@@ -1,4 +1,4 @@
-table 'colisiones_analitica_share   main   hechos_colision'
+table hechos_colisiosns
 	lineageTag: 652a7099-0b7e-4d0f-9420-d197a0daef7d
 
 	column case_id
@@ -512,7 +512,7 @@ table 'colisiones_analitica_share   main   hechos_colision'
 
 		annotation SummarizationSetBy = Automatic
 
-	partition 'colisiones_analitica_share   main   hechos_colision' = m
+	partition hechos_colisiosns = m
 		mode: import
 		source =
 				let
@@ -520,6 +520,8 @@ table 'colisiones_analitica_share   main   hechos_colision'
 				  #"Navegación 1" = Origen{[Item = "hechos_colision", Schema = "main", Catalog = "colisiones_analitica_share"]}[Data]
 				in
 				  #"Navegación 1"
+
+	changedProperty = Name
 
 	annotation PBI_ResultType = Table
 

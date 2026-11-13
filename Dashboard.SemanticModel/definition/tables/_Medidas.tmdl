@@ -1,0 +1,36 @@
+table _Medidas
+	lineageTag: 0b2b21c9-c469-4ab9-965f-ab923fce5517
+
+	measure Tasa_Mortalidad_100k = DIVIDE(SUM(tabla_tasas[fallecidos]), SUM(tabla_tasas[habitantes]), 0) * 100000
+		lineageTag: 9a190964-fc37-48e3-91eb-1c4af9a8e20e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Prop_Colisiones_Fatal =
+			
+			DIVIDE(
+			    CALCULATE(COUNTROWS(hechos_colisiosns), hechos_colisiosns[con_fallecido] = "True"),
+			    COUNTROWS(hechos_colisiosns),
+			    0
+			)
+		formatString: 0%;-0%;0%
+		lineageTag: e515be47-460c-457b-b0d0-b36073f2d651
+
+	column 'Columna 1'
+		dataType: string
+		lineageTag: 119cb0ab-4118-4d1a-88a4-3ef659f2a26e
+		summarizeBy: none
+		sourceColumn: Columna 1
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Medidas = m
+		mode: import
+		source =
+				let
+				  Origen = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Columna 1" = _t])
+				in
+				  Origen
+
+	annotation PBI_ResultType = Table
+
