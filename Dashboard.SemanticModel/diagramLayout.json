@@ -4,14 +4,14 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 49.882311062551317,
+        "x": 236.78259190173253,
         "y": 0
       },
       "nodes": [
         {
           "location": {
-            "x": 1665.2935136502424,
-            "y": 637.10546750750086
+            "x": 1453.7390658089928,
+            "y": 107.10590344205434
           },
           "nodeIndex": "_Medidas",
           "nodeLineageTag": "0b2b21c9-c469-4ab9-965f-ab923fce5517",
@@ -197,6 +197,19 @@
           "nodeIndex": "dim_banda_edad",
           "size": {
             "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1075.5212744439943,
+            "y": 29.635382649350504
+          },
+          "nodeIndex": "imagen",
+          "nodeLineageTag": "5c7d7b76-1a38-4c0a-b5b3-8b3624dce582",
+          "size": {
+            "height": 128,
             "width": 234
           },
           "zIndex": 0

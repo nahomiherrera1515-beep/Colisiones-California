@@ -50,6 +50,17 @@
           "type": "BaseTheme"
         }
       ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "dasboall1929400453428144.png",
+          "path": "dasboall1929400453428144.png",
+          "type": "Image"
+        }
+      ]
     }
   ],
   "settings": {

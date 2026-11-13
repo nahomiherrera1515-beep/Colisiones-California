@@ -36,7 +36,5 @@ table dim_condado
 				in
 				  #"Navegación 1"
 
-	changedProperty = Name
-
 	annotation PBI_ResultType = Table
 
