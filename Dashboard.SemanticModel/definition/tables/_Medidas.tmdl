@@ -13,7 +13,7 @@ table _Medidas
 			    COUNTROWS(hechos_colisiosns),
 			    0
 			)
-		formatString: 0%;-0%;0%
+		formatString: 0.00%;-0.00%;0.00%
 		lineageTag: e515be47-460c-457b-b0d0-b36073f2d651
 
 	measure Total_Colisiones = COUNTROWS(hechos_colisiosns)

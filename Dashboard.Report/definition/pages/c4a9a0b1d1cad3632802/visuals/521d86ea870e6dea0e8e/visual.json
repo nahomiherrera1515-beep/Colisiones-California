@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "521d86ea870e6dea0e8e",
   "position": {
-    "x": 1625,
+    "x": 1601.6666666666667,
     "y": 278.33333333333337,
-    "z": 1000,
+    "z": 0,
     "height": 96.666666666666671,
-    "width": 166.66666666666669,
-    "tabOrder": 1
+    "width": 190,
+    "tabOrder": 0
   },
   "visual": {
     "visualType": "cardVisual",
@@ -207,5 +207,23 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "6335a7e59109ab79d21d",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "Prop_Colisiones_Fatal"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }
