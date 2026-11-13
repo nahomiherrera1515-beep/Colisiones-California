@@ -1,0 +1,249 @@
+table 'colisiones_analitica_share   main   hechos_victima'
+	lineageTag: abdc89bb-1efd-4bfa-a73f-9ac313175a02
+
+	column case_id
+		dataType: int64
+		formatString: 0
+		lineageTag: fe430fd4-7fb4-4560-bffc-24f35ec71607
+		summarizeBy: sum
+		sourceColumn: case_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column numero_parte
+		dataType: double
+		lineageTag: b2c87139-a90d-4545-8ca0-befb198ba3d8
+		summarizeBy: sum
+		sourceColumn: numero_parte
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column numero_victima
+		dataType: double
+		lineageTag: cd34f9d6-b391-4780-ae74-59e36679e9a8
+		summarizeBy: sum
+		sourceColumn: numero_victima
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column rol_victima_id
+		dataType: double
+		lineageTag: 3c0eb618-365b-41a4-9830-91e2f654ea09
+		summarizeBy: sum
+		sourceColumn: rol_victima_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column sexo_id
+		dataType: double
+		lineageTag: 1c4898ce-cc79-4710-b728-a3df30138c72
+		summarizeBy: sum
+		sourceColumn: sexo_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column edad
+		dataType: double
+		lineageTag: f0c80bd6-15c0-4cf2-9c13-d7b83764216f
+		summarizeBy: sum
+		sourceColumn: edad
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column edad_en_cuarentena
+		dataType: string
+		lineageTag: bcfb9831-3c2e-4bef-b4d1-d05b25a8c987
+		summarizeBy: none
+		sourceColumn: edad_en_cuarentena
+
+		annotation SummarizationSetBy = Automatic
+
+	column lesion_id
+		dataType: double
+		lineageTag: 2bb27465-3a32-4a6f-b317-f023f1f98b00
+		summarizeBy: sum
+		sourceColumn: lesion_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column asiento_id
+		dataType: double
+		lineageTag: 39aaf244-da20-42d9-aa86-9418c803a622
+		summarizeBy: sum
+		sourceColumn: asiento_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column eyeccion_id
+		dataType: double
+		lineageTag: 1c6ea3fe-de1a-4e4f-a883-84c48b8b59cf
+		summarizeBy: sum
+		sourceColumn: eyeccion_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column kabco
+		dataType: string
+		lineageTag: 6b0a6494-14ec-438f-b6dc-e3f35acf546d
+		summarizeBy: none
+		sourceColumn: kabco
+
+		annotation SummarizationSetBy = Automatic
+
+	column nivel_lesion
+		dataType: double
+		lineageTag: 102043ff-a90f-4c51-b43d-b1a9da50c4e2
+		summarizeBy: sum
+		sourceColumn: nivel_lesion
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column banda_edad_id
+		dataType: double
+		lineageTag: acd52daa-1147-436d-988d-edd83087e2e7
+		summarizeBy: none
+		sourceColumn: banda_edad_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column equipo_seguridad_id
+		dataType: double
+		lineageTag: c2d899f1-1eed-41b9-9597-862f809969f9
+		summarizeBy: none
+		sourceColumn: equipo_seguridad_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column equipo_seguridad_2_id
+		dataType: double
+		lineageTag: d350da97-3a33-4c63-be27-624029f3a46e
+		summarizeBy: sum
+		sourceColumn: equipo_seguridad_2_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tipo_parte_id
+		dataType: double
+		lineageTag: ff13ecc5-bea3-435c-a58d-cb42e533651f
+		summarizeBy: none
+		sourceColumn: tipo_parte_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tipo_vehiculo_id
+		dataType: double
+		lineageTag: 72c91a3d-abdb-485f-a100-a52d46fb72fb
+		summarizeBy: sum
+		sourceColumn: tipo_vehiculo_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column anio_vehiculo
+		dataType: double
+		lineageTag: 60e27454-92d7-4a4e-a065-ca7ce4fe35c2
+		summarizeBy: sum
+		sourceColumn: anio_vehiculo
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column edad_vehiculo
+		dataType: int64
+		formatString: 0
+		lineageTag: 7f69005e-a22e-4220-8328-70f3d7237aa1
+		summarizeBy: sum
+		sourceColumn: edad_vehiculo
+
+		annotation SummarizationSetBy = Automatic
+
+	column parte_culpable
+		dataType: string
+		lineageTag: 0c6df4de-1771-4c90-a494-2fda59e9a138
+		summarizeBy: none
+		sourceColumn: parte_culpable
+
+		annotation SummarizationSetBy = Automatic
+
+	column es_ocupante
+		dataType: string
+		lineageTag: 9262dfeb-b5e9-461b-b083-f133b3dd1f51
+		summarizeBy: none
+		sourceColumn: es_ocupante
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 24f69a05-72c3-411e-b732-70d20b790617
+		summarizeBy: none
+		sourceColumn: fecha
+
+		variation Variation
+			isDefault
+			relationship: 3284d247-dc09-4560-aab8-38295917f7d2
+			defaultHierarchy: LocalDateTable_7543e360-cf5b-4eb0-b525-89a4fd317514.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column anio
+		dataType: int64
+		formatString: 0
+		lineageTag: a701dd2f-4558-4bb4-a716-d94251ddc82a
+		summarizeBy: sum
+		sourceColumn: anio
+
+		annotation SummarizationSetBy = Automatic
+
+	column condado_id
+		dataType: double
+		lineageTag: 408a4a92-1a6e-4224-98d0-ecbd6b2e494f
+		summarizeBy: none
+		sourceColumn: condado_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'colisiones_analitica_share   main   hechos_victima' = m
+		mode: import
+		source =
+				let
+				  Origen = DuckDB.Contents("md:_share/colisiones_analitica_share/0e9efeee-9ce2-4ee0-a50f-bf2810696fa6", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkZGllcGFsb21pbm8yMDA3QGdtYWlsLmNvbSIsIm1kUmVnaW9uIjoiYXdzLXVzLWVhc3QtMSIsInNlc3Npb24iOiJlZGRpZXBhbG9taW5vX2VkZGllcGFsb21pbl9hYTZjOGQ2Mi05NzYyLTQyYWQtYmVjYi1jNWI2N2IwYTY2NDIiLCJwYXQiOiIwSG5SdjVXNVRPclQyU2E5NmZ3eFg5c0hpQXVIN3JrYk9ONXk5XzIxMXNNIiwidXNlcklkIjoiYWE2YzhkNjItOTc2Mi00MmFkLWJlY2ItYzViNjdiMGE2NjQyIiwiaXNzIjoibWRfcGF0IiwicmVhZE9ubHkiOmZhbHNlLCJ0b2tlblR5cGUiOiJyZWFkX3dyaXRlIiwiaWF0IjoxNzk0NTQwMjg5fQ.m6nJ3bhtX_WGD_8rY7SUF8qQq8guIA4Z-CZXs7iE7uc", null, null, null, []),
+				  #"Navegación 1" = Origen{[Item = "hechos_victima", Schema = "main", Catalog = "colisiones_analitica_share"]}[Data]
+				in
+				  #"Navegación 1"
+
+	annotation PBI_ResultType = Table
+

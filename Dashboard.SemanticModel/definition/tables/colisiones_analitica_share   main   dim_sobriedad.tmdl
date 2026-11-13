@@ -1,0 +1,58 @@
+table 'colisiones_analitica_share   main   dim_sobriedad'
+	lineageTag: 92d55f1d-6c62-4111-a9da-5d34e5bf9542
+
+	column sobriedad_id
+		dataType: double
+		lineageTag: e06481f5-caa3-4fe0-8afa-b712e6380689
+		summarizeBy: none
+		sourceColumn: sobriedad_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column codigo
+		dataType: string
+		lineageTag: 0b425d83-8d09-4e54-a5de-d220d804656f
+		summarizeBy: none
+		sourceColumn: codigo
+
+		annotation SummarizationSetBy = Automatic
+
+	column etiqueta
+		dataType: string
+		lineageTag: eee96e41-ec5c-42e6-a29c-043dcec09a6a
+		summarizeBy: none
+		sourceColumn: etiqueta
+
+		annotation SummarizationSetBy = Automatic
+
+	column orden
+		dataType: double
+		lineageTag: 89c88e69-ab3a-47d6-b88c-ab4be31cde6a
+		summarizeBy: none
+		sourceColumn: orden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column bebio
+		dataType: string
+		lineageTag: 1a2fcd6f-f128-48ec-a85f-20e40acfb81f
+		summarizeBy: none
+		sourceColumn: bebio
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'colisiones_analitica_share   main   dim_sobriedad' = m
+		mode: import
+		source =
+				let
+				  Origen = DuckDB.Contents("md:_share/colisiones_analitica_share/0e9efeee-9ce2-4ee0-a50f-bf2810696fa6", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkZGllcGFsb21pbm8yMDA3QGdtYWlsLmNvbSIsIm1kUmVnaW9uIjoiYXdzLXVzLWVhc3QtMSIsInNlc3Npb24iOiJlZGRpZXBhbG9taW5vX2VkZGllcGFsb21pbl9hYTZjOGQ2Mi05NzYyLTQyYWQtYmVjYi1jNWI2N2IwYTY2NDIiLCJwYXQiOiIwSG5SdjVXNVRPclQyU2E5NmZ3eFg5c0hpQXVIN3JrYk9ONXk5XzIxMXNNIiwidXNlcklkIjoiYWE2YzhkNjItOTc2Mi00MmFkLWJlY2ItYzViNjdiMGE2NjQyIiwiaXNzIjoibWRfcGF0IiwicmVhZE9ubHkiOmZhbHNlLCJ0b2tlblR5cGUiOiJyZWFkX3dyaXRlIiwiaWF0IjoxNzk0NTQwMjg5fQ.m6nJ3bhtX_WGD_8rY7SUF8qQq8guIA4Z-CZXs7iE7uc", null, null, null, []),
+				  #"Navegación 1" = Origen{[Item = "dim_sobriedad", Schema = "main", Catalog = "colisiones_analitica_share"]}[Data]
+				in
+				  #"Navegación 1"
+
+	annotation PBI_ResultType = Table
+

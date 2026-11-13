@@ -1,0 +1,525 @@
+table 'colisiones_analitica_share   main   hechos_colision'
+	lineageTag: 652a7099-0b7e-4d0f-9420-d197a0daef7d
+
+	column case_id
+		dataType: int64
+		formatString: 0
+		lineageTag: fbd9734f-c064-488e-a1b6-a1955ed30d4c
+		summarizeBy: sum
+		sourceColumn: case_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 19ab8bdd-d21e-4eb4-a716-fd3976203a09
+		summarizeBy: none
+		sourceColumn: fecha
+
+		variation Variation
+			isDefault
+			relationship: 8f218864-fae4-440c-af89-21d111e54fdd
+			defaultHierarchy: LocalDateTable_027d7677-2ea2-41a1-b1d8-837f9b1b0cb1.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column hora
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 248ea82d-25bb-4323-9ba7-0529eed42eb2
+		summarizeBy: none
+		sourceColumn: hora
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column ubicacion_id
+		dataType: double
+		lineageTag: 873574aa-9f34-4898-8590-2c48cf236498
+		summarizeBy: sum
+		sourceColumn: ubicacion_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column jurisdiccion
+		dataType: double
+		lineageTag: ed2a69d4-99d2-4550-a316-6860e5c96a22
+		summarizeBy: sum
+		sourceColumn: jurisdiccion
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column iluminacion_id
+		dataType: double
+		lineageTag: 217e3b5e-b13a-4479-b7e9-ddc13a1bc862
+		summarizeBy: sum
+		sourceColumn: iluminacion_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column superficie_id
+		dataType: double
+		lineageTag: bd118065-fdaa-4afc-90f1-c09701317fbf
+		summarizeBy: sum
+		sourceColumn: superficie_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column dispositivo_control_id
+		dataType: double
+		lineageTag: 3730bba4-e061-42bf-af2d-9d5b67b03fb1
+		summarizeBy: sum
+		sourceColumn: dispositivo_control_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tipo_colision_id
+		dataType: double
+		lineageTag: f04f2a34-f305-4492-b5bf-df15b6d57f78
+		summarizeBy: sum
+		sourceColumn: tipo_colision_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column implicado_con_id
+		dataType: double
+		lineageTag: 77730c41-2575-4e04-bd16-b287355c57e6
+		summarizeBy: sum
+		sourceColumn: implicado_con_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column factor_primario_id
+		dataType: double
+		lineageTag: e2a124f6-cf9f-4dfc-bb8b-043f772436fe
+		summarizeBy: sum
+		sourceColumn: factor_primario_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column categoria_infraccion_id
+		dataType: double
+		lineageTag: 30e9fb92-4575-4317-a006-c3aef1bca167
+		summarizeBy: sum
+		sourceColumn: categoria_infraccion_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column infraccion_vehicular_id
+		dataType: double
+		lineageTag: 5d345c51-efda-4bfe-bed4-a0efedb6c0e9
+		summarizeBy: sum
+		sourceColumn: infraccion_vehicular_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column fuga_id
+		dataType: double
+		lineageTag: 0660c663-7f2f-4ad2-8886-c92e4da5d953
+		summarizeBy: sum
+		sourceColumn: fuga_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column accion_peaton_id
+		dataType: double
+		lineageTag: 62599aa3-da1a-4744-b8db-a07cce593193
+		summarizeBy: sum
+		sourceColumn: accion_peaton_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column en_interseccion
+		dataType: string
+		lineageTag: ac6eb4f2-228c-4ce8-a066-8fec9d8ab2af
+		summarizeBy: none
+		sourceColumn: en_interseccion
+
+		annotation SummarizationSetBy = Automatic
+
+	column vehiculo_remolcado
+		dataType: string
+		lineageTag: 4016be35-e22a-4789-8005-80246bfcdcb0
+		summarizeBy: none
+		sourceColumn: vehiculo_remolcado
+
+		annotation SummarizationSetBy = Automatic
+
+	column carretera_estatal
+		dataType: string
+		lineageTag: f738e9eb-cedc-46e1-8ba5-54a90c1d83cc
+		summarizeBy: none
+		sourceColumn: carretera_estatal
+
+		annotation SummarizationSetBy = Automatic
+
+	column condicion_especial
+		dataType: string
+		lineageTag: 83dc1b80-4800-4932-9072-b1d90fc11bf6
+		summarizeBy: none
+		sourceColumn: condicion_especial
+
+		annotation SummarizationSetBy = Automatic
+
+	column anio
+		dataType: int64
+		formatString: 0
+		lineageTag: 780225df-39cb-4744-a912-bbaee0cdd45b
+		summarizeBy: sum
+		sourceColumn: anio
+
+		annotation SummarizationSetBy = Automatic
+
+	column mes
+		dataType: int64
+		formatString: 0
+		lineageTag: 1b0c301f-9c29-45c0-a3b5-6d5bf2bf8df5
+		summarizeBy: sum
+		sourceColumn: mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column dia_semana
+		dataType: int64
+		formatString: 0
+		lineageTag: 86062954-4de7-41a3-95af-c0d1beebbfae
+		summarizeBy: sum
+		sourceColumn: dia_semana
+
+		annotation SummarizationSetBy = Automatic
+
+	column hora_del_dia
+		dataType: int64
+		formatString: 0
+		lineageTag: da713599-e1d2-49fa-873f-c3c7029827d5
+		summarizeBy: sum
+		sourceColumn: hora_del_dia
+
+		annotation SummarizationSetBy = Automatic
+
+	column condado_id
+		dataType: double
+		lineageTag: 0934bc5d-dbb1-4720-bdcc-52d78c42d9d9
+		summarizeBy: none
+		sourceColumn: condado_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column rango_poblacion_id
+		dataType: double
+		lineageTag: 93bec78e-8eb1-4545-baf2-4e048f13ede5
+		summarizeBy: sum
+		sourceColumn: rango_poblacion_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column clima_id
+		dataType: double
+		lineageTag: fb430003-c521-4639-8471-f6f94f5cf121
+		summarizeBy: none
+		sourceColumn: clima_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column clima_2_id
+		dataType: double
+		lineageTag: 45331c1c-9f29-4245-ab37-88c1fdff5d82
+		summarizeBy: sum
+		sourceColumn: clima_2_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column condicion_via_id
+		dataType: double
+		lineageTag: 36953ec4-ed60-4adf-bec3-ed46dcf34eb4
+		summarizeBy: sum
+		sourceColumn: condicion_via_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column condicion_via_2_id
+		dataType: double
+		lineageTag: 508e0e61-e115-45f3-8b7e-358ae3bcdd8b
+		summarizeBy: sum
+		sourceColumn: condicion_via_2_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column severidad
+		dataType: string
+		lineageTag: 3133de2b-006f-4cd9-9444-945a1fe1559b
+		summarizeBy: none
+		sourceColumn: severidad
+
+		annotation SummarizationSetBy = Automatic
+
+	column nivel_severidad
+		dataType: double
+		lineageTag: ee0ff220-4ca9-4f10-b4fd-97519c1b9372
+		summarizeBy: sum
+		sourceColumn: nivel_severidad
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column con_fallecido
+		dataType: string
+		lineageTag: 33483045-5523-4326-bca2-6b979fadd0ea
+		summarizeBy: none
+		sourceColumn: con_fallecido
+
+		annotation SummarizationSetBy = Automatic
+
+	column es_grave
+		dataType: string
+		lineageTag: ee17f0d8-6c64-4294-a25b-fd57532d6cf9
+		summarizeBy: none
+		sourceColumn: es_grave
+
+		annotation SummarizationSetBy = Automatic
+
+	column victimas
+		dataType: int64
+		formatString: 0
+		lineageTag: c70d2aaf-3d60-4dd0-ad2c-4b7701302254
+		summarizeBy: sum
+		sourceColumn: victimas
+
+		annotation SummarizationSetBy = Automatic
+
+	column fallecidos
+		dataType: int64
+		formatString: 0
+		lineageTag: 128a6447-9978-41bd-8d87-e185ed84a023
+		summarizeBy: sum
+		sourceColumn: fallecidos
+
+		annotation SummarizationSetBy = Automatic
+
+	column heridos_graves
+		dataType: int64
+		formatString: 0
+		lineageTag: 4cff135f-2669-4925-8f35-c593392a1d41
+		summarizeBy: sum
+		sourceColumn: heridos_graves
+
+		annotation SummarizationSetBy = Automatic
+
+	column heridos_visibles
+		dataType: int64
+		formatString: 0
+		lineageTag: 302811e0-e80a-41bd-945a-e8de82babd42
+		summarizeBy: sum
+		sourceColumn: heridos_visibles
+
+		annotation SummarizationSetBy = Automatic
+
+	column posibles_lesionados
+		dataType: int64
+		formatString: 0
+		lineageTag: 6f8814b5-edc7-43d7-b626-434246243b88
+		summarizeBy: sum
+		sourceColumn: posibles_lesionados
+
+		annotation SummarizationSetBy = Automatic
+
+	column partes
+		dataType: int64
+		formatString: 0
+		lineageTag: 7213f62b-3aec-412d-8bd3-d3772446cab0
+		summarizeBy: sum
+		sourceColumn: partes
+
+		annotation SummarizationSetBy = Automatic
+
+	column peaton_implicado
+		dataType: string
+		lineageTag: 555b6720-30e1-413c-85fd-3ad925206547
+		summarizeBy: none
+		sourceColumn: peaton_implicado
+
+		annotation SummarizationSetBy = Automatic
+
+	column ciclista_implicado
+		dataType: string
+		lineageTag: c6b8da44-e15d-4f45-a33f-9ad94e16ee54
+		summarizeBy: none
+		sourceColumn: ciclista_implicado
+
+		annotation SummarizationSetBy = Automatic
+
+	column motociclista_implicado
+		dataType: string
+		lineageTag: 6d4ae702-56b1-4861-97e0-c4df0f6bc34c
+		summarizeBy: none
+		sourceColumn: motociclista_implicado
+
+		annotation SummarizationSetBy = Automatic
+
+	column camion_implicado
+		dataType: string
+		lineageTag: 1b30c0b4-d727-47e0-8002-1b1e1db06f05
+		summarizeBy: none
+		sourceColumn: camion_implicado
+
+		annotation SummarizationSetBy = Automatic
+
+	column alcohol_implicado
+		dataType: string
+		lineageTag: b98bb7dc-ae89-4688-bc44-2e73e80652b2
+		summarizeBy: none
+		sourceColumn: alcohol_implicado
+
+		annotation SummarizationSetBy = Automatic
+
+	column hubo_fuga
+		dataType: string
+		lineageTag: 0699d34d-5945-4340-853f-c4a2210f931f
+		summarizeBy: none
+		sourceColumn: hubo_fuga
+
+		annotation SummarizationSetBy = Automatic
+
+	column tipo_parte_culpable_id
+		dataType: double
+		lineageTag: f9f27448-2c95-4448-b100-6d8a3a03db2f
+		summarizeBy: sum
+		sourceColumn: tipo_parte_culpable_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tipo_vehiculo_culpable_id
+		dataType: double
+		lineageTag: 2a0e62f5-c46c-4772-9547-7a8720e035d0
+		summarizeBy: sum
+		sourceColumn: tipo_vehiculo_culpable_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column hay_conductor_culpable
+		dataType: string
+		lineageTag: 68ba9384-bfdb-443c-8cb5-53476647b608
+		summarizeBy: none
+		sourceColumn: hay_conductor_culpable
+
+		annotation SummarizationSetBy = Automatic
+
+	column edad_conductor_culpable
+		dataType: double
+		lineageTag: a892a3da-17c9-4c5f-b769-321221760278
+		summarizeBy: sum
+		sourceColumn: edad_conductor_culpable
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column banda_edad_conductor_culpable_id
+		dataType: double
+		lineageTag: bf5edcbc-5bf3-447a-8f65-c6180bf56d3e
+		summarizeBy: sum
+		sourceColumn: banda_edad_conductor_culpable_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column conductor_culpable_bebio
+		dataType: string
+		lineageTag: 86bae4f6-9347-4cb7-aef8-95f49b068145
+		summarizeBy: none
+		sourceColumn: conductor_culpable_bebio
+
+		annotation SummarizationSetBy = Automatic
+
+	column anio_vehiculo_culpable
+		dataType: double
+		lineageTag: f03b5872-d299-4242-8c68-9afbfc65ed13
+		summarizeBy: sum
+		sourceColumn: anio_vehiculo_culpable
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column edad_vehiculo_culpable
+		dataType: int64
+		formatString: 0
+		lineageTag: 8f8e5e6e-c5a0-482c-a3f1-ee041c17f577
+		summarizeBy: sum
+		sourceColumn: edad_vehiculo_culpable
+
+		annotation SummarizationSetBy = Automatic
+
+	column tiene_coordenadas
+		dataType: string
+		lineageTag: d181f895-fa6a-4ad0-ac41-ec696bf87af9
+		summarizeBy: none
+		sourceColumn: tiene_coordenadas
+
+		annotation SummarizationSetBy = Automatic
+
+	column tiene_datos_caltrans
+		dataType: string
+		lineageTag: 3bd553fc-ea0f-447f-9982-f3fcbd713fb0
+		summarizeBy: none
+		sourceColumn: tiene_datos_caltrans
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'colisiones_analitica_share   main   hechos_colision' = m
+		mode: import
+		source =
+				let
+				  Origen = DuckDB.Contents("md:_share/colisiones_analitica_share/0e9efeee-9ce2-4ee0-a50f-bf2810696fa6", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkZGllcGFsb21pbm8yMDA3QGdtYWlsLmNvbSIsIm1kUmVnaW9uIjoiYXdzLXVzLWVhc3QtMSIsInNlc3Npb24iOiJlZGRpZXBhbG9taW5vX2VkZGllcGFsb21pbl9hYTZjOGQ2Mi05NzYyLTQyYWQtYmVjYi1jNWI2N2IwYTY2NDIiLCJwYXQiOiIwSG5SdjVXNVRPclQyU2E5NmZ3eFg5c0hpQXVIN3JrYk9ONXk5XzIxMXNNIiwidXNlcklkIjoiYWE2YzhkNjItOTc2Mi00MmFkLWJlY2ItYzViNjdiMGE2NjQyIiwiaXNzIjoibWRfcGF0IiwicmVhZE9ubHkiOmZhbHNlLCJ0b2tlblR5cGUiOiJyZWFkX3dyaXRlIiwiaWF0IjoxNzk0NTQwMjg5fQ.m6nJ3bhtX_WGD_8rY7SUF8qQq8guIA4Z-CZXs7iE7uc", null, null, null, []),
+				  #"Navegación 1" = Origen{[Item = "hechos_colision", Schema = "main", Catalog = "colisiones_analitica_share"]}[Data]
+				in
+				  #"Navegación 1"
+
+	annotation PBI_ResultType = Table
+

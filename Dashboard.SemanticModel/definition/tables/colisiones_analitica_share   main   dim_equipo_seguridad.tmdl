@@ -1,0 +1,50 @@
+table 'colisiones_analitica_share   main   dim_equipo_seguridad'
+	lineageTag: d7c5f2dd-1042-4b27-8ca2-4bc11d0e447b
+
+	column equipo_seguridad_id
+		dataType: double
+		lineageTag: 057503cf-ed1d-42f6-b194-7b503f9e4307
+		summarizeBy: none
+		sourceColumn: equipo_seguridad_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column codigo
+		dataType: string
+		lineageTag: ae1e0cd4-f87b-413e-8b66-d8f35f90b8bf
+		summarizeBy: none
+		sourceColumn: codigo
+
+		annotation SummarizationSetBy = Automatic
+
+	column etiqueta
+		dataType: string
+		lineageTag: 576bace8-910f-4ee2-b75d-8e5298bbd321
+		summarizeBy: none
+		sourceColumn: etiqueta
+
+		annotation SummarizationSetBy = Automatic
+
+	column orden
+		dataType: double
+		lineageTag: 97d88c15-76e6-4014-a8a1-623e5864375d
+		summarizeBy: sum
+		sourceColumn: orden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'colisiones_analitica_share   main   dim_equipo_seguridad' = m
+		mode: import
+		source =
+				let
+				  Origen = DuckDB.Contents("md:_share/colisiones_analitica_share/0e9efeee-9ce2-4ee0-a50f-bf2810696fa6", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkZGllcGFsb21pbm8yMDA3QGdtYWlsLmNvbSIsIm1kUmVnaW9uIjoiYXdzLXVzLWVhc3QtMSIsInNlc3Npb24iOiJlZGRpZXBhbG9taW5vX2VkZGllcGFsb21pbl9hYTZjOGQ2Mi05NzYyLTQyYWQtYmVjYi1jNWI2N2IwYTY2NDIiLCJwYXQiOiIwSG5SdjVXNVRPclQyU2E5NmZ3eFg5c0hpQXVIN3JrYk9ONXk5XzIxMXNNIiwidXNlcklkIjoiYWE2YzhkNjItOTc2Mi00MmFkLWJlY2ItYzViNjdiMGE2NjQyIiwiaXNzIjoibWRfcGF0IiwicmVhZE9ubHkiOmZhbHNlLCJ0b2tlblR5cGUiOiJyZWFkX3dyaXRlIiwiaWF0IjoxNzk0NTQwMjg5fQ.m6nJ3bhtX_WGD_8rY7SUF8qQq8guIA4Z-CZXs7iE7uc", null, null, null, []),
+				  #"Navegación 1" = Origen{[Item = "dim_equipo_seguridad", Schema = "main", Catalog = "colisiones_analitica_share"]}[Data]
+				in
+				  #"Navegación 1"
+
+	annotation PBI_ResultType = Table
+

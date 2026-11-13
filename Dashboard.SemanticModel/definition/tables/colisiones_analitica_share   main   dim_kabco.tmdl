@@ -1,0 +1,48 @@
+table 'colisiones_analitica_share   main   dim_kabco'
+	lineageTag: 93643913-1aca-47cd-9620-dcbcbbeca3d6
+
+	column kabco
+		dataType: string
+		lineageTag: 7a27f81a-4810-4cca-9978-c10e24a91ab9
+		summarizeBy: none
+		sourceColumn: kabco
+
+		annotation SummarizationSetBy = Automatic
+
+	column nivel
+		dataType: double
+		lineageTag: 232253a7-ddc8-4cf9-aca1-74f81fbf511e
+		summarizeBy: none
+		sourceColumn: nivel
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column etiqueta
+		dataType: string
+		lineageTag: 53f590f9-a7a5-45f9-ae54-2688fc4347f7
+		summarizeBy: none
+		sourceColumn: etiqueta
+
+		annotation SummarizationSetBy = Automatic
+
+	column severidad_fuente
+		dataType: string
+		lineageTag: c4182935-bd83-49f1-8513-7e1fb49dbceb
+		summarizeBy: none
+		sourceColumn: severidad_fuente
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'colisiones_analitica_share   main   dim_kabco' = m
+		mode: import
+		source =
+				let
+				  Origen = DuckDB.Contents("md:_share/colisiones_analitica_share/0e9efeee-9ce2-4ee0-a50f-bf2810696fa6", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkZGllcGFsb21pbm8yMDA3QGdtYWlsLmNvbSIsIm1kUmVnaW9uIjoiYXdzLXVzLWVhc3QtMSIsInNlc3Npb24iOiJlZGRpZXBhbG9taW5vX2VkZGllcGFsb21pbl9hYTZjOGQ2Mi05NzYyLTQyYWQtYmVjYi1jNWI2N2IwYTY2NDIiLCJwYXQiOiIwSG5SdjVXNVRPclQyU2E5NmZ3eFg5c0hpQXVIN3JrYk9ONXk5XzIxMXNNIiwidXNlcklkIjoiYWE2YzhkNjItOTc2Mi00MmFkLWJlY2ItYzViNjdiMGE2NjQyIiwiaXNzIjoibWRfcGF0IiwicmVhZE9ubHkiOmZhbHNlLCJ0b2tlblR5cGUiOiJyZWFkX3dyaXRlIiwiaWF0IjoxNzk0NTQwMjg5fQ.m6nJ3bhtX_WGD_8rY7SUF8qQq8guIA4Z-CZXs7iE7uc", null, null, null, []),
+				  #"Navegación 1" = Origen{[Item = "dim_kabco", Schema = "main", Catalog = "colisiones_analitica_share"]}[Data]
+				in
+				  #"Navegación 1"
+
+	annotation PBI_ResultType = Table
+

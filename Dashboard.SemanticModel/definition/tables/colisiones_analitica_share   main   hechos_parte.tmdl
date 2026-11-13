@@ -1,0 +1,373 @@
+table 'colisiones_analitica_share   main   hechos_parte'
+	lineageTag: 0be00b13-7f1c-4639-9703-4f30ec111e94
+
+	column case_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 7b76e01f-7873-41d3-a482-fdc282116386
+		summarizeBy: sum
+		sourceColumn: case_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column numero_parte
+		dataType: double
+		lineageTag: 810013b4-eb3f-424a-accf-23617743fd85
+		summarizeBy: sum
+		sourceColumn: numero_parte
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tipo_parte_id
+		dataType: double
+		lineageTag: 4f59a8b0-29dd-46d0-a4df-662d93c057d8
+		summarizeBy: sum
+		sourceColumn: tipo_parte_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column culpable
+		dataType: string
+		lineageTag: c6f2abe8-b48b-4e69-a904-9c24fcd03711
+		summarizeBy: none
+		sourceColumn: culpable
+
+		annotation SummarizationSetBy = Automatic
+
+	column sexo_id
+		dataType: double
+		lineageTag: d300a2b9-c6d2-4529-9e1a-0d0deefcd47f
+		summarizeBy: sum
+		sourceColumn: sexo_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column edad
+		dataType: double
+		lineageTag: 48fc74de-2c44-4533-a8db-e1c82a57669d
+		summarizeBy: sum
+		sourceColumn: edad
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column edad_en_cuarentena
+		dataType: string
+		lineageTag: 18d06a36-a8ac-488f-ac04-24e20cc76e9c
+		summarizeBy: none
+		sourceColumn: edad_en_cuarentena
+
+		annotation SummarizationSetBy = Automatic
+
+	column raza_id
+		dataType: double
+		lineageTag: 7e8f8498-8525-49a8-855e-11c5c6cb9096
+		summarizeBy: sum
+		sourceColumn: raza_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column sobriedad_id
+		dataType: double
+		lineageTag: 089f5a3c-4e30-4f57-a065-5cfe31d6e5ef
+		summarizeBy: none
+		sourceColumn: sobriedad_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column droga_fisica_id
+		dataType: double
+		lineageTag: c4540fd6-ee02-4e6b-8202-5a00b436a746
+		summarizeBy: sum
+		sourceColumn: droga_fisica_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column direccion_id
+		dataType: double
+		lineageTag: b103cc08-2fc0-4840-9576-035386d82c8d
+		summarizeBy: sum
+		sourceColumn: direccion_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column movimiento_previo_id
+		dataType: double
+		lineageTag: f622259d-30f9-4d96-b463-d38395a5060b
+		summarizeBy: sum
+		sourceColumn: movimiento_previo_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tipo_vehiculo_id
+		dataType: double
+		lineageTag: e97fe346-8624-401a-bc0d-bccf5154d14c
+		summarizeBy: sum
+		sourceColumn: tipo_vehiculo_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column anio_vehiculo
+		dataType: double
+		lineageTag: b8e663e9-7eba-4691-88c0-45696fd35f3a
+		summarizeBy: sum
+		sourceColumn: anio_vehiculo
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column anio_vehiculo_en_cuarentena
+		dataType: string
+		lineageTag: 20e8cf94-f4c6-4f56-b3e1-0bcc52cd2cca
+		summarizeBy: none
+		sourceColumn: anio_vehiculo_en_cuarentena
+
+		annotation SummarizationSetBy = Automatic
+
+	column marca_vehiculo_id
+		dataType: double
+		lineageTag: 27ac0493-d2e6-4b87-8315-bc7a19f8c2f9
+		summarizeBy: sum
+		sourceColumn: marca_vehiculo_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column vehiculo_chp_id
+		dataType: double
+		lineageTag: bf3333e4-7ec5-487f-b68b-24fcf17b12ce
+		summarizeBy: sum
+		sourceColumn: vehiculo_chp_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column remolque_chp_id
+		dataType: double
+		lineageTag: e160a3d8-0e63-431a-b4a9-0ee4e0f725c9
+		summarizeBy: sum
+		sourceColumn: remolque_chp_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column responsabilidad_financiera_id
+		dataType: double
+		lineageTag: 07e9ed48-7af8-4c11-b36d-93688d7e4aee
+		summarizeBy: sum
+		sourceColumn: responsabilidad_financiera_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column uso_celular_id
+		dataType: double
+		lineageTag: bb347b4d-76fe-449c-b03d-ee67f8dffe60
+		summarizeBy: sum
+		sourceColumn: uso_celular_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column materiales_peligrosos
+		dataType: string
+		lineageTag: 1a7cf104-08d6-4318-b509-466fe3dea016
+		summarizeBy: none
+		sourceColumn: materiales_peligrosos
+
+		annotation SummarizationSetBy = Automatic
+
+	column relacion_bus_escolar
+		dataType: string
+		lineageTag: db439929-87d5-4b9d-a8df-8093da6ddf73
+		summarizeBy: none
+		sourceColumn: relacion_bus_escolar
+
+		annotation SummarizationSetBy = Automatic
+
+	column otra_infraccion_categoria_id
+		dataType: double
+		lineageTag: c6e9af11-afb4-41b4-83c0-8d4996104b3f
+		summarizeBy: sum
+		sourceColumn: otra_infraccion_categoria_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column otra_infraccion_vehicular_id
+		dataType: double
+		lineageTag: 12bc91ef-0670-46c1-8036-bbc458efbcec
+		summarizeBy: sum
+		sourceColumn: otra_infraccion_vehicular_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column fecha
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f4f7fd4f-0115-4c05-ac6e-f6b1f3c258a8
+		summarizeBy: none
+		sourceColumn: fecha
+
+		variation Variation
+			isDefault
+			relationship: 4236a194-1f41-4165-926e-67928b696e20
+			defaultHierarchy: LocalDateTable_c6525992-2c22-4f45-9a37-4aed3f6e2a44.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column anio
+		dataType: int64
+		formatString: 0
+		lineageTag: 526ec2a6-0d09-4ddd-b679-43da7701cf9c
+		summarizeBy: sum
+		sourceColumn: anio
+
+		annotation SummarizationSetBy = Automatic
+
+	column condado_id
+		dataType: double
+		lineageTag: 6cf3b624-9caa-45ca-bd7a-fef4999aa25c
+		summarizeBy: none
+		sourceColumn: condado_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column banda_edad_id
+		dataType: double
+		lineageTag: 1e5eeb66-a39c-4bcd-bf88-d04c1770a8d6
+		summarizeBy: none
+		sourceColumn: banda_edad_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column edad_vehiculo
+		dataType: int64
+		formatString: 0
+		lineageTag: 659685fe-ff0b-48c8-8b49-40577bdd4f38
+		summarizeBy: sum
+		sourceColumn: edad_vehiculo
+
+		annotation SummarizationSetBy = Automatic
+
+	column equipo_seguridad_id
+		dataType: double
+		lineageTag: 52e0728e-537e-4402-9ef4-268c85c776f8
+		summarizeBy: none
+		sourceColumn: equipo_seguridad_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column equipo_seguridad_2_id
+		dataType: double
+		lineageTag: cd1c94a7-0e19-4140-8542-f57c36c76e0e
+		summarizeBy: sum
+		sourceColumn: equipo_seguridad_2_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column factor_asociado_id
+		dataType: double
+		lineageTag: 64af8315-ca0f-4064-8ff1-fa68d3aaf3b6
+		summarizeBy: sum
+		sourceColumn: factor_asociado_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column factor_asociado_2_id
+		dataType: double
+		lineageTag: addd23da-5036-41ee-abfb-10333b9f1358
+		summarizeBy: sum
+		sourceColumn: factor_asociado_2_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column usaba_celular
+		dataType: string
+		lineageTag: c8e98733-b3e5-45e5-b43d-87fe0965b6a5
+		summarizeBy: none
+		sourceColumn: usaba_celular
+
+		annotation SummarizationSetBy = Automatic
+
+	column nivel_max_victimas
+		dataType: double
+		lineageTag: 2939e0d5-24a4-4d94-a540-5fbce78f1894
+		summarizeBy: sum
+		sourceColumn: nivel_max_victimas
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column victimas
+		dataType: int64
+		formatString: 0
+		lineageTag: 82d8b384-68d8-4e58-b117-a0190f86c6d1
+		summarizeBy: sum
+		sourceColumn: victimas
+
+		annotation SummarizationSetBy = Automatic
+
+	column fallecidos
+		dataType: int64
+		formatString: 0
+		lineageTag: 2c410346-d857-452e-b3c4-3ac95fb482cb
+		summarizeBy: sum
+		sourceColumn: fallecidos
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'colisiones_analitica_share   main   hechos_parte' = m
+		mode: import
+		source =
+				let
+				  Origen = DuckDB.Contents("md:_share/colisiones_analitica_share/0e9efeee-9ce2-4ee0-a50f-bf2810696fa6", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkZGllcGFsb21pbm8yMDA3QGdtYWlsLmNvbSIsIm1kUmVnaW9uIjoiYXdzLXVzLWVhc3QtMSIsInNlc3Npb24iOiJlZGRpZXBhbG9taW5vX2VkZGllcGFsb21pbl9hYTZjOGQ2Mi05NzYyLTQyYWQtYmVjYi1jNWI2N2IwYTY2NDIiLCJwYXQiOiIwSG5SdjVXNVRPclQyU2E5NmZ3eFg5c0hpQXVIN3JrYk9ONXk5XzIxMXNNIiwidXNlcklkIjoiYWE2YzhkNjItOTc2Mi00MmFkLWJlY2ItYzViNjdiMGE2NjQyIiwiaXNzIjoibWRfcGF0IiwicmVhZE9ubHkiOmZhbHNlLCJ0b2tlblR5cGUiOiJyZWFkX3dyaXRlIiwiaWF0IjoxNzk0NTQwMjg5fQ.m6nJ3bhtX_WGD_8rY7SUF8qQq8guIA4Z-CZXs7iE7uc", null, null, null, []),
+				  #"Navegación 1" = Origen{[Item = "hechos_parte", Schema = "main", Catalog = "colisiones_analitica_share"]}[Data]
+				in
+				  #"Navegación 1"
+
+	annotation PBI_ResultType = Table
+

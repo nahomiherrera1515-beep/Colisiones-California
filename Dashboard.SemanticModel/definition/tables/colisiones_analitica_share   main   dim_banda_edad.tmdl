@@ -1,0 +1,52 @@
+table 'colisiones_analitica_share   main   dim_banda_edad'
+	lineageTag: 67144ae1-ba3a-4be1-a5c6-15b0d55f741f
+
+	column banda_edad_id
+		dataType: double
+		lineageTag: bf550130-2782-4c29-a0c1-5f3673d1981d
+		summarizeBy: none
+		sourceColumn: banda_edad_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column etiqueta
+		dataType: string
+		lineageTag: ef54961e-e1ba-4424-879c-fc9976e276eb
+		summarizeBy: none
+		sourceColumn: etiqueta
+
+		annotation SummarizationSetBy = Automatic
+
+	column edad_min
+		dataType: double
+		lineageTag: 2e8a1cf3-92df-4790-a8b0-3e00a554fd18
+		summarizeBy: sum
+		sourceColumn: edad_min
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column edad_max
+		dataType: double
+		lineageTag: 3e59a463-66ef-4343-b46f-4a953450a372
+		summarizeBy: sum
+		sourceColumn: edad_max
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'colisiones_analitica_share   main   dim_banda_edad' = m
+		mode: import
+		source =
+				let
+				  Origen = DuckDB.Contents("md:_share/colisiones_analitica_share/0e9efeee-9ce2-4ee0-a50f-bf2810696fa6", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkZGllcGFsb21pbm8yMDA3QGdtYWlsLmNvbSIsIm1kUmVnaW9uIjoiYXdzLXVzLWVhc3QtMSIsInNlc3Npb24iOiJlZGRpZXBhbG9taW5vX2VkZGllcGFsb21pbl9hYTZjOGQ2Mi05NzYyLTQyYWQtYmVjYi1jNWI2N2IwYTY2NDIiLCJwYXQiOiIwSG5SdjVXNVRPclQyU2E5NmZ3eFg5c0hpQXVIN3JrYk9ONXk5XzIxMXNNIiwidXNlcklkIjoiYWE2YzhkNjItOTc2Mi00MmFkLWJlY2ItYzViNjdiMGE2NjQyIiwiaXNzIjoibWRfcGF0IiwicmVhZE9ubHkiOmZhbHNlLCJ0b2tlblR5cGUiOiJyZWFkX3dyaXRlIiwiaWF0IjoxNzk0NTQwMjg5fQ.m6nJ3bhtX_WGD_8rY7SUF8qQq8guIA4Z-CZXs7iE7uc", null, null, null, []),
+				  #"Navegación 1" = Origen{[Item = "dim_banda_edad", Schema = "main", Catalog = "colisiones_analitica_share"]}[Data]
+				in
+				  #"Navegación 1"
+
+	annotation PBI_ResultType = Table
+
