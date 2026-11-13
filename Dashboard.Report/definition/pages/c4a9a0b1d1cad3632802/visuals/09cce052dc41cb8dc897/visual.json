@@ -1,0 +1,176 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "09cce052dc41cb8dc897",
+  "position": {
+    "x": 171.42857142857144,
+    "y": 735.71428571428578,
+    "z": 5013,
+    "height": 310,
+    "width": 580,
+    "tabOrder": 17
+  },
+  "visual": {
+    "visualType": "esriVisual",
+    "query": {
+      "queryState": {
+        "Color": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Tasa_Mortalidad_100k"
+                }
+              },
+              "queryRef": "_Medidas.Tasa_Mortalidad_100k",
+              "nativeQueryRef": "Tasa_Mortalidad_100k"
+            }
+          ]
+        },
+        "Location": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_condado"
+                    }
+                  },
+                  "Property": "Condado_Mapa"
+                }
+              },
+              "queryRef": "dim_condado.Condado_Mapa",
+              "nativeQueryRef": "Condado_Mapa"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Medidas"
+                  }
+                },
+                "Property": "Tasa_Mortalidad_100k"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "mapTools": [
+        {
+          "properties": {
+            "basemaps": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "share": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "mapObject": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "'{\"portalUrl\":\"https://www.arcgis.com\",\"version\":\"2.4\",\"isAuthorNamedUser\":false,\"map\":{\"webmap\":{\"is3d\":false,\"itemData\":{\"operationalLayers\":[{\"id\":\"MyLayer\",\"visibility\":true,\"opacity\":1,\"minScale\":0,\"maxScale\":0,\"refreshInterval\":0,\"title\":\"Condado_Mapa\",\"objectIdField\":\"objectId\",\"type\":\"DataLayer\",\"layerType\":\"ArcGISFeatureLayer\",\"popupEnabled\":true,\"disablePopup\":false,\"visible\":true,\"geometryType\":\"polygon\",\"source\":[{\"attributes\":{},\"geometry\":{\"rings\":[],\"type\":\"polygon\",\"spatialReference\":{\"latestWkid\":3857,\"wkid\":102100}}}],\"spatialReference\":{\"latestWkid\":3857,\"wkid\":102100},\"esriMaps\":{\"isTimeEnabled\":\"false\",\"clusterInfo\":null,\"lastShareInfo\":null},\"timeInfo\":null,\"showLabels\":true,\"featureCollection\":{\"layers\":[{\"popupInfo\":{\"popupElements\":[{\"type\":\"fields\",\"fieldInfos\":[{\"fieldName\":\"dim_condado_Condado_Mapa\",\"isEditable\":true,\"label\":\"Condado_Mapa\",\"tooltip\":\"\",\"visible\":true},{\"fieldName\":\"expression/_Medidas_Tasa_Mortalidad_100k\",\"isEditable\":true,\"label\":\"Tasa_Mortalidad_100k\",\"visible\":true},{\"fieldName\":\"ROW_ID\",\"format\":{\"digitSeparator\":true,\"places\":0},\"isEditable\":true,\"label\":\"ROW_ID\",\"tooltip\":\"\",\"visible\":true}]}],\"expressionInfos\":[{\"name\":\"_Medidas_Tasa_Mortalidad_100k\",\"title\":\"Tasa_Mortalidad_100k\",\"expression\":\"// PowerBI number format: #,0.00\\n\\nif (IsEmpty($feature[\\\"_Medidas_Tasa_Mortalidad_100k\\\"]))\\n{\\n  return $feature[\\\"_Medidas_Tasa_Mortalidad_100k\\\"] \\n}\\nText($feature[\\\"_Medidas_Tasa_Mortalidad_100k\\\"], \\\"#,###.00\\\")\"}],\"fieldInfos\":[{\"fieldName\":\"dim_condado_Condado_Mapa\",\"isEditable\":true,\"label\":\"Condado_Mapa\",\"tooltip\":\"\",\"visible\":true},{\"fieldName\":\"_Medidas_Tasa_Mortalidad_100k\",\"format\":{\"digitSeparator\":true,\"places\":2},\"isEditable\":true,\"label\":\"Tasa_Mortalidad_100k\",\"tooltip\":\"\",\"visible\":false},{\"fieldName\":\"expression/_Medidas_Tasa_Mortalidad_100k\",\"isEditable\":true,\"label\":\"Tasa_Mortalidad_100k\",\"visible\":true},{\"fieldName\":\"ROW_ID\",\"format\":{\"digitSeparator\":true,\"places\":0},\"isEditable\":true,\"label\":\"ROW_ID\",\"tooltip\":\"\",\"visible\":true}],\"title\":\"\",\"actions\":[]},\"layerDefinition\":{\"objectIdField\":\"objectId\",\"fields\":[{\"alias\":\"objectId\",\"editable\":false,\"name\":\"objectId\",\"nullable\":false,\"type\":\"esriFieldTypeOID\"},{\"alias\":\"Condado_Mapa\",\"editable\":true,\"length\":-1,\"name\":\"dim_condado_Condado_Mapa\",\"nullable\":true,\"type\":\"esriFieldTypeString\"},{\"alias\":\"Tasa_Mortalidad_100k\",\"editable\":true,\"name\":\"_Medidas_Tasa_Mortalidad_100k\",\"nullable\":true,\"type\":\"esriFieldTypeDouble\"},{\"alias\":\"ROW_ID\",\"editable\":true,\"name\":\"ROW_ID\",\"nullable\":true,\"type\":\"esriFieldTypeInteger\"}],\"geometryType\":\"polygon\",\"drawingInfo\":{\"renderer\":{\"authoringInfo\":{\"classificationMethod\":\"esriClassifyNaturalBreaks\",\"type\":\"classedColor\"},\"type\":\"classBreaks\",\"visualVariables\":[],\"classBreakInfos\":[{\"classMaxValue\":11.284691,\"symbol\":{\"type\":\"esriSFS\",\"color\":[88,44,14,255],\"outline\":{\"type\":\"esriSLS\",\"color\":[255,255,255,204],\"width\":1,\"style\":\"esriSLSSolid\"},\"style\":\"esriSFSSolid\"}},{\"classMaxValue\":20.023319,\"symbol\":{\"type\":\"esriSFS\",\"color\":[145,69,5,255],\"outline\":{\"type\":\"esriSLS\",\"color\":[255,255,255,204],\"width\":1,\"style\":\"esriSLSSolid\"},\"style\":\"esriSFSSolid\"}},{\"classMaxValue\":36.492765,\"symbol\":{\"type\":\"esriSFS\",\"color\":[200,87,0,255],\"outline\":{\"type\":\"esriSLS\",\"color\":[255,255,255,204],\"width\":1,\"style\":\"esriSLSSolid\"},\"style\":\"esriSFSSolid\"}},{\"classMaxValue\":65.952185,\"symbol\":{\"type\":\"esriSFS\",\"color\":[255,110,0,255],\"outline\":{\"type\":\"esriSLS\",\"color\":[255,255,255,204],\"width\":1,\"style\":\"esriSLSSolid\"},\"style\":\"esriSFSSolid\"}},{\"classMaxValue\":190.47619047619048,\"symbol\":{\"type\":\"esriSFS\",\"color\":[255,162,0,255],\"outline\":{\"type\":\"esriSLS\",\"color\":[255,255,255,204],\"width\":1,\"style\":\"esriSLSSolid\"},\"style\":\"esriSFSSolid\"}}],\"defaultLabel\":\"Otro\",\"defaultSymbol\":{\"type\":\"esriSFS\",\"color\":[170,170,170,255],\"outline\":{\"type\":\"esriSLS\",\"color\":[153,153,153,64],\"width\":0.375,\"style\":\"esriSLSSolid\"},\"style\":\"esriSFSSolid\"},\"field\":\"_Medidas_Tasa_Mortalidad_100k\",\"minValue\":3.863697217668253},\"transparency\":0},\"featureReduction\":null,\"locationProvider\":{\"type\":\"cachedstdgeo\",\"adminLevel\":\"Admin3\",\"targetSR\":{\"latestWkid\":3857,\"wkid\":102100},\"useExactMatch\":false,\"sourceCountry\":\"US\",\"geographyLevel\":\"US.Counties\",\"lookupFields\":[{\"lookupField\":\"Location\",\"outField\":\"dim_condado_Condado_Mapa\"}]},\"minScale\":0,\"maxScale\":0,\"definitionExpression\":null,\"templates\":[{\"name\":\"New Feature\",\"description\":\"\",\"prototype\":{\"attributes\":{\"dim_condado_Condado_Mapa\":null,\"_Medidas_Tasa_Mortalidad_100k\":null,\"ROW_ID\":null}}}],\"elevationInfo\":null,\"name\":\"Condado_Mapa\",\"type\":\"DataLayer\",\"queryParameters\":{\"tableId\":\"\"}},\"featureSet\":{\"features\":[{\"attributes\":{},\"geometry\":{\"rings\":[],\"type\":\"polygon\",\"spatialReference\":{\"latestWkid\":3857,\"wkid\":102100}}}]}}]}}],\"tables\":[],\"baseMap\":{\"baseMapLayers\":[{\"id\":\"VectorTile_2846\",\"opacity\":1,\"title\":\"Dark Gray Base\",\"visibility\":true,\"layerType\":\"VectorTileLayer\",\"styleUrl\":\"https://cdn.arcgis.com/sharing/rest/content/items/5e9b3685f4c24d8781073dd928ebda50/resources/styles/root.json\"},{\"id\":\"VectorTile_1645\",\"opacity\":1,\"title\":\"Dark Gray Reference\",\"visibility\":true,\"layerType\":\"VectorTileLayer\",\"styleUrl\":\"https://cdn.arcgis.com/sharing/rest/content/items/747cb7a5329c478cbe6981076cc879c5/resources/styles/root.json\",\"isReference\":true}],\"title\":\"Dark Gray Canvas\",\"origItemId\":\"a343955125bf4002987c400ad6d0346c\"},\"version\":\"2.26\",\"authoringApp\":\"ArcGIS for Power BI\",\"authoringAppVersion\":\"2026.2.992\",\"bookmarks\":[],\"initialState\":{\"viewpoint\":{\"targetGeometry\":{\"spatialReference\":{\"latestWkid\":3857,\"wkid\":102100},\"xmin\":-14250971.751313886,\"ymin\":4161886.854105661,\"xmax\":-12910572.023305392,\"ymax\":4846762.627540658}}}}},\"webmapExtensions\":{\"format\":2}},\"embedCheckPassed\":false}'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "geometryCache": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "'{\"key\":\"cachedstdgeo@@us\",\"compressionMethod\":\"pako\",\"data\":\"H4sIAAAAAAAAA31VQY7cQAj8irXn/VGUA+5mZsjQ4ED3SM7rw+wqN1eOVkFDFQX+8ZFkk7YW68/WfNk8P7dGKjcPE/r4/IcrBV0HNLf5heUEER5kd77GSGlwB4lVexs02a/hQSGGM29Vtkk2kE16iIGuUjgQ31lFZZ5IDF0JEjvrZh4T1BxuoFOxEyCHrkGJ3uverqG7sgHhlDIZiSr5lNMX0HNQ98CTOhwJM9iqVUH064NeHIin0hMoOvlRTV1jjzV21z5B5qo5DuSOIsrIHYOjcb/GzrWDLBkHh5AC3decDJTNB8G9e3KASc5V+4y8X6uzc1kcjOMpdgej2N+N4ld/Of1eaGNvwYkc8N1SGEWHLqnlKvuVBa9h4xfBMzPJJJUWoHW6/qcxXZKb75IHCAop96Z0vPc1XQYHJalFXUhD0zA6ECtXgoLWrUGb8X3wd4odnvw37S58h1eJGvKrem7vv4EyEPtVXNd14Z9/ATOVMfmuBgAA\"}'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualTooltip": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

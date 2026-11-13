@@ -35,6 +35,12 @@ table dim_condado
 
 		annotation SummarizationSetBy = Automatic
 
+	column Condado_Mapa = dim_condado[nombre] & " County, California"
+		lineageTag: fc4e5c09-c8ca-4917-a371-ec14e830a789
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
 	partition dim_condado = m
 		mode: import
 		source =
