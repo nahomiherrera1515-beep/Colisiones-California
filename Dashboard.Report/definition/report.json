@@ -39,6 +39,9 @@
       }
     ]
   },
+  "publicCustomVisuals": [
+    "simpleImageEBC4593F96F1425FB3D84C5BF02B5075"
+  ],
   "resourcePackages": [
     {
       "name": "SharedResources",

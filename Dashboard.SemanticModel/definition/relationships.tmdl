@@ -3,11 +3,6 @@ relationship ac2b4ba9-5cbf-4138-8754-34f105ec6a4b
 	fromColumn: dim_fecha.fecha
 	toColumn: LocalDateTable_eae24aa1-9ce9-46d6-8520-9174ca4d1475.Date
 
-relationship 8f218864-fae4-440c-af89-21d111e54fdd
-	joinOnDateBehavior: datePartOnly
-	fromColumn: hechos_colisiosns.fecha
-	toColumn: LocalDateTable_027d7677-2ea2-41a1-b1d8-837f9b1b0cb1.Date
-
 relationship 4236a194-1f41-4165-926e-67928b696e20
 	joinOnDateBehavior: datePartOnly
 	fromColumn: hechos_partie.fecha
@@ -125,4 +120,17 @@ relationship AutoDetected_b1158192-9828-463d-97b8-f63e4b4a7d2f
 relationship AutoDetected_790824d1-36a4-4b84-a610-4271d566fd7f
 	fromColumn: tabla_tasas.condado_id
 	toColumn: dim_condado.condado_id
+
+relationship AutoDetected_b1c30095-9814-43f8-9792-1a3d179ceb08
+	fromColumn: dim_condado.imagen
+	toColumn: imagenes.imagen
+
+relationship AutoDetected_cbb73c5a-fdb4-4698-9e3b-8ab13df0d951
+	isActive: false
+	fromColumn: tabla_tasas.condado
+	toColumn: imagenes.Condado
+
+relationship 81e23e37-e220-cd3e-aca8-02e7ef2e8728
+	fromColumn: hechos_colisiosns.fecha
+	toColumn: dim_fecha.fecha
 

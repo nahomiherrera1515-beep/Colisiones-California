@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "17a2867879e7b5d09606",
+  "position": {
+    "x": 113.63636363636363,
+    "y": 577.27272727272725,
+    "z": 5012,
+    "height": 36.36363636363636,
+    "width": 285.45454545454544,
+    "tabOrder": 16
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "CLIMA",
+                    "textStyle": {
+                      "fontFamily": "DIN",
+                      "fontSize": "24pt",
+                      "color": "#ffffff"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

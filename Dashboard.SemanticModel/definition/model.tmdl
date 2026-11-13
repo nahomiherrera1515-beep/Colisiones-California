@@ -9,7 +9,7 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBI_QueryOrder = ["dim_banda_edad","dim_clima","dim_condado","dim_equipo_seguridad","dim_fecha","dim_fuga","dim_iluminacion","dim_kabco","dim_sobriedad","dim_superficie","dim_tipo_partie","hechos_colisiosns","hechos_partie","hechos_victimas","_Medidas","tabla_tasas"]
+annotation PBI_QueryOrder = ["dim_banda_edad","dim_clima","dim_condado","dim_equipo_seguridad","dim_fecha","dim_fuga","dim_iluminacion","dim_kabco","dim_sobriedad","dim_superficie","dim_tipo_partie","hechos_colisiosns","hechos_partie","hechos_victimas","_Medidas","tabla_tasas","imagenes"]
 
 annotation PBI_ProTooling = ["DevMode"]
 
@@ -27,13 +27,13 @@ ref table dim_sobriedad
 ref table dim_superficie
 ref table dim_tipo_partie
 ref table hechos_colisiosns
-ref table LocalDateTable_027d7677-2ea2-41a1-b1d8-837f9b1b0cb1
 ref table hechos_partie
 ref table LocalDateTable_c6525992-2c22-4f45-9a37-4aed3f6e2a44
 ref table hechos_victimas
 ref table LocalDateTable_7543e360-cf5b-4eb0-b525-89a4fd317514
 ref table _Medidas
 ref table tabla_tasas
+ref table imagenes
 
 ref cultureInfo es-US
 

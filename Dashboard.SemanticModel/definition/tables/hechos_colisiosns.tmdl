@@ -17,11 +17,6 @@ table hechos_colisiosns
 		summarizeBy: none
 		sourceColumn: fecha
 
-		variation Variation
-			isDefault
-			relationship: 8f218864-fae4-440c-af89-21d111e54fdd
-			defaultHierarchy: LocalDateTable_027d7677-2ea2-41a1-b1d8-837f9b1b0cb1.'Jerarquía de fechas'
-
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date
