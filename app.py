@@ -6,13 +6,13 @@ import streamlit as st
 # configuracion inicial de la pagina
 st.set_page_config(
     page_title="Perfiles de riesgo en Colisiones de Tránsito en California",
-    page_icon="🚗",
+    page_icon="🚙",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
-# título de la aplicación
-st.title("🚗 Perfiles de riesgo en Colisiones de Tránsito en California")
+# banner principal
+st.image("assets/banner.svg", use_container_width=True)
 
 st.markdown("<br>", unsafe_allow_html=True)
 
