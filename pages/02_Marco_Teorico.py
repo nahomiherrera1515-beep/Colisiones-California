@@ -51,3 +51,84 @@ st.markdown(
     """
     )
 
+st.markdown("---")
+
+st.header("2. Definiciones Estadísticas Generales")
+
+# definicion de tasa
+st.subheader("Tasa")
+st.markdown(
+    """
+Medida de frecuencia que expresa la relación entre el número de eventos registrados 
+en una población durante un período determinado y la población total expuesta al riesgo, 
+multiplicada por una constante de amplificación $k$ (por ejemplo, $10^5$) para facilitar 
+su lectura y comparación (**Organización Panamericana de la Salud [OPS], 2018; Siegel & Swanson, 2004**). 
+Esta medida estandariza la ocurrencia del fenómeno respecto al volumen demográfico.
+"""
+)
+
+#formula
+st.latex(r"T = \left(\frac{N}{P}\right) \times k")
+
+st.markdown(
+    """
+**Donde:**
+* **$T$**: Tasa del evento.
+* **$N$**: Número total de eventos o casos registrados.
+* **$P$**: Población total o población expuesta al riesgo.
+* **$k$**: Constante de amplificación (ej. $10^3, 10^5$).
+"""
+)
+
+
+# proporcion condicional
+st.subheader("Proporción Condicional")
+st.markdown(
+    """
+Medida que expresa el peso relativo o frecuencia de un desenlace específico dentro 
+del total de eventos ocurridos en una categoría, estrato o subgrupo determinado 
+(**Agresti & Franklin, 2013; Organización Panamericana de la Salud [OPS], 2018**). 
+A diferencia de las tasas, su denominador corresponde al total de casos del subgrupo 
+y no a la población total, lo que permite aislar la distribución interna del fenómeno 
+(**Porta, 2014**). Para valores agregados, se calcula mediante el cociente de los 
+totales acumulados del estrato, evitando promedios aritméticos simples que sesgarían 
+el parámetro real (**Triola, 2018**).
+"""
+)
+
+#formula
+st.latex(r"p_{j|i} = \frac{n_{ij}}{n_{i\cdot}}")
+
+st.markdown(
+    """
+**Donde:**
+* **$p_{j|i}$**: Proporción del desenlace $j$ condicionado a la categoría o estrato $i$.
+* **$n_{ij}$**: Número de casos en la categoría $i$ que presentan el desenlace $j$.
+* **$n_{i\cdot}$**: Total de casos registrados en la categoría de exposición $i$ (denominador del grupo).
+"""
+)
+
+# cociente de proporciones
+st.subheader("Cociente de Proporciones")
+st.markdown(
+    """
+Medida de razón relativa que cuantifica cuántas veces es más frecuente un evento 
+o desenlace en un grupo, categoría o condición de interés en comparación con un 
+grupo o categoría de referencia (**Agresti & Franklin, 2013; Porta, 2014**). 
+Permite evaluar de forma puramente descriptiva la magnitud de las asociaciones 
+relativas entre diferentes estratos.
+"""
+)
+
+#formula
+st.latex(r"CP = \frac{p_1}{p_2}")
+
+st.markdown(
+    """
+**Donde:**
+* **$CP$**: Cociente de proporciones.
+* **$p_1$**: Proporción del desenlace en el grupo de interés o expuesto.
+* **$p_2$**: Proporción del desenlace en el grupo de referencia.
+"""
+)
+
