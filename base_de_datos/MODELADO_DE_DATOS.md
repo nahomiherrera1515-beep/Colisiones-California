@@ -38,7 +38,6 @@ erDiagram
         DATE fecha
         TIME hora
         USMALLINT ubicacion_id FK
-        BOOLEAN alcohol_implicado
     }
     PARTE {
         INTEGER case_id PK
@@ -123,6 +122,8 @@ Dos catálogos se arman desde la fuente porque tienen miles de valores:
 - `distrito_caltrans` casi depende del condado, pero seis condados tienen tramos en dos distritos. Se queda en `colision_carretera`.
 - Toda colisión con una cita del código vehicular tiene como factor primario "infracción al código vehicular". Parece que la cita determina el factor, pero hay 40.804 colisiones con ese factor y sin cita, y 224.356 sin cita con otros factores. Cuando no hay cita, el factor es el único dato, así que los dos se quedan.
 - `rampa_interseccion` determina `tipo_ubicacion` cuando existe (una rampa es siempre de tipo rampa), pero el 78 % de las filas no tiene rampa y ahí `tipo_ubicacion` es el único dato. Quitarlo perdería información, así que se quedan los dos. En los datos nunca se contradicen.
+- La cita del código vehicular casi determina `categoria_infraccion`. De 4.087.775 colisiones con cita, 4.057 tienen una categoría distinta de la habitual para su sección, repartidas en 90 secciones. Como no se cumple siempre, pasar la categoría al catálogo `infraccion_vehicular` borraría esas excepciones, así que se queda en `colision`.
+- `accion_peaton` casi se deduce de las partes: si ninguna parte es peatón, la acción es "no pedestrian involved", salvo en 6 colisiones. Es otro dato del parte policial y no lo forzamos a coincidir.
 
 ## 4. Tipos y rangos
 
