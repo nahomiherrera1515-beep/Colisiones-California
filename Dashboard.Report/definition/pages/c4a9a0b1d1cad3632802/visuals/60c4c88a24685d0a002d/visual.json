@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "60c4c88a24685d0a002d",
   "position": {
-    "x": 114.16666666666667,
-    "y": 406.66666666666669,
+    "x": 95,
+    "y": 394,
     "z": 13000,
-    "height": 33.333333333333336,
-    "width": 285,
+    "height": 46,
+    "width": 304,
     "tabOrder": 13000
   },
   "visual": {
@@ -22,7 +22,7 @@
                     "value": "AÑO",
                     "textStyle": {
                       "fontFamily": "DIN",
-                      "fontSize": "24pt",
+                      "fontSize": "28pt",
                       "color": "#ffffff"
                     }
                   }

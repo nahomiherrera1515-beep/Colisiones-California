@@ -14,7 +14,7 @@
               "name": {
                 "expr": {
                   "Literal": {
-                    "Value": "'dasboall.png'"
+                    "Value": "'diseño dashboard1.png'"
                   }
                 }
               },
@@ -23,14 +23,14 @@
                   "ResourcePackageItem": {
                     "PackageName": "RegisteredResources",
                     "PackageType": 1,
-                    "ItemName": "dasboall1929400453428144.png"
+                    "ItemName": "dise_o_dashboard12729755714666786.png"
                   }
                 }
               },
               "scaling": {
                 "expr": {
                   "Literal": {
-                    "Value": "'Fit'"
+                    "Value": "'Normal'"
                   }
                 }
               }

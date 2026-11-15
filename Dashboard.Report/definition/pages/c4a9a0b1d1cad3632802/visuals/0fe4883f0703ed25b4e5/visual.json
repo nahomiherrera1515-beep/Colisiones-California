@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "0fe4883f0703ed25b4e5",
   "position": {
-    "x": 188.33333333333334,
-    "y": 786.66666666666674,
+    "x": 95,
+    "y": 786,
     "z": 17000,
-    "height": 246.66666666666669,
-    "width": 548.33333333333337,
+    "height": 270,
+    "width": 796,
     "tabOrder": 17000
   },
   "visual": {
@@ -231,6 +231,13 @@
                   }
                 }
               }
+            },
+            "areaShow": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
             }
           }
         }
@@ -286,6 +293,18 @@
                   "Name": "MaxSeasonality"
                 }
               ]
+            },
+            "lineColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 2,
+                      "Percent": 0.6
+                    }
+                  }
+                }
+              }
             }
           },
           "selector": {

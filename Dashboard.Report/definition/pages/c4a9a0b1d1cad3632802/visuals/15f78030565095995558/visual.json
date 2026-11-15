@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "15f78030565095995558",
   "position": {
-    "x": 960,
-    "y": 250,
+    "x": 891.42857142857144,
+    "y": 211.42857142857144,
     "z": 11000,
-    "height": 28.333333333333336,
-    "width": 199.16666666666669,
+    "height": 78.571428571428569,
+    "width": 260,
     "tabOrder": 11000
   },
   "visual": {
@@ -19,7 +19,16 @@
               {
                 "textRuns": [
                   {
-                    "value": "Nº de colisiones ",
+                    "value": "Nº de colisiones",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontFamily": "Tahoma",
+                      "fontSize": "18pt",
+                      "color": "#ffffff"
+                    }
+                  },
+                  {
+                    "value": " ",
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontFamily": "Tahoma",
