@@ -132,3 +132,39 @@ st.markdown(
 """
 )
 
+# tablas de contigencia
+st.subheader("Tablas de Contingencia (Tablas Cruzadas)")
+st.markdown(
+    """
+Es la técnica de estadística descriptiva bivariada que permite resumir y analizar simultáneamente 
+la distribución de frecuencias de dos o más variables categóricas (**Fleiss et al., 2003; Snedecor & Cochran, 1989**). 
+Organiza los datos en una estructura matricial de celdas formadas por la intersección de las categorías 
+de las variables, facilitando la observación de frecuencias conjuntas, marginales y el cálculo 
+posterior de proporciones condicionales cruzadas.
+"""
+)
+
+
+# media aritmetica poblacional
+st.subheader("Media Aritmética Poblacional")
+st.markdown(
+    """
+Es el valor promedio de una variable cuantitativa calculado sobre 
+la totalidad de los elementos que conforman la población o censo de estudio (**Hogg et al., 2014; Snedecor & Cochran, 1989**). 
+Al calcularse sobre la totalidad de los elementos de un censo y no sobre una muestra, representa 
+el valor exacto del centro de gravedad de la distribución, exento de error de muestreo.
+"""
+)
+
+#formulas
+st.latex(r"\mu = \frac{\sum_{i=1}^{N} X_i}{N}")
+
+st.markdown(
+    """
+**Donde:**
+* **$\mu$**: Media aritmética poblacional (parámetro).
+* **$X_i$**: Valor de la variable cuantitativa correspondiente a la observación $i$-ésima.
+* **$N$**: Tamaño total de la población (número total de elementos del universo).
+* **$\sum_{i=1}^{N}$**: Sumatoria de los valores desde la primera observación hasta la $N$-ésima.
+"""
+)
