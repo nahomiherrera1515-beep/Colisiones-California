@@ -4,10 +4,10 @@
   "position": {
     "x": 959.30504889923486,
     "y": 397.6755475436828,
-    "z": 17002,
+    "z": 18000,
     "height": 647.0948602574839,
     "width": 886.04902698329329,
-    "tabOrder": 17002
+    "tabOrder": 18000
   },
   "visual": {
     "visualType": "azureMap",
@@ -69,21 +69,21 @@
             "zoom": {
               "expr": {
                 "Literal": {
-                  "Value": "4.98D"
+                  "Value": "8.46D"
                 }
               }
             },
             "centerLatitude": {
               "expr": {
                 "Literal": {
-                  "Value": "37.725928271080704D"
+                  "Value": "39.72521386579808D"
                 }
               }
             },
             "centerLongitude": {
               "expr": {
                 "Literal": {
-                  "Value": "-119.18568304279972D"
+                  "Value": "-121.574335D"
                 }
               }
             },

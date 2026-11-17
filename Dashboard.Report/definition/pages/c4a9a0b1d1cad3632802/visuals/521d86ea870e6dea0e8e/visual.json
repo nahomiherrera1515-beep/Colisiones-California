@@ -207,23 +207,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "6335a7e59109ab79d21d",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Medidas"
-              }
-            },
-            "Property": "Prop_Colisiones_Fatal"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

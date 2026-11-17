@@ -54,7 +54,5 @@ table dim_sobriedad
 				in
 				  #"Navegación 1"
 
-	changedProperty = Name
-
 	annotation PBI_ResultType = Table
 

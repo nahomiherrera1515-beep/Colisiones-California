@@ -48,7 +48,5 @@ table dim_banda_edad
 				in
 				  #"Navegación 1"
 
-	changedProperty = Name
-
 	annotation PBI_ResultType = Table
 

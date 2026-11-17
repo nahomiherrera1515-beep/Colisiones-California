@@ -46,7 +46,5 @@ table dim_equipo_seguridad
 				in
 				  #"Navegación 1"
 
-	changedProperty = Name
-
 	annotation PBI_ResultType = Table
 

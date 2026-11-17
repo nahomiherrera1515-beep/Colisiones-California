@@ -245,7 +245,5 @@ table hechos_victimas
 				in
 				  #"Navegación 1"
 
-	changedProperty = Name
-
 	annotation PBI_ResultType = Table
 

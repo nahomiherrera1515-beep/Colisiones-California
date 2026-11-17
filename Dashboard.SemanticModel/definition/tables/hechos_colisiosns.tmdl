@@ -516,7 +516,5 @@ table hechos_colisiosns
 				in
 				  #"Navegación 1"
 
-	changedProperty = Name
-
 	annotation PBI_ResultType = Table
 
