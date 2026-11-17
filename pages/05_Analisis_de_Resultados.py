@@ -11,15 +11,17 @@ st.set_page_config(page_title="Análisis de los Resultados", page_icon="📊", l
 # titulo
 st.title("Análisis de los Resultados")
 
-# Consulta para el objetivo 1
-
-# Consulta para el objetivo 2
-
-# conexion a la base de datos de MotherDuck con el token almacenado en secreto. Objetivo 3
+# conexion a la base de datos de MotherDuck con el token almacenado en secreto. 
+# Cambio de posicion al inicio del archivo y dejarlo conectado
 @st.cache_resource
 def get_motherduck_connection():
   token = st.secrets["motherduck_token"]
   return duckdb.connect(f"md:?motherduck_token={token}")
+
+# Consulta para el objetivo 1
+
+# Consulta para el objetivo 2
+
 
 # consulta sql resguardada en @st.cache_data para que solo se ejecute en la nube con motherduck
 # y la app no se vuelva pesada, consulta especificamente orientada al objetivo 3
@@ -66,7 +68,23 @@ def cargar_datos_obj3_completo():
     """
   return conn.execute(query).df()
 
-# Consulta para el objetivo 4
+# Consulta para el objetivo 4, con las misma forma de evitar que la app se pegue o pese mucho  
+@st.cache_data
+def datos_obj4_completo():
+    conn = get_motherduck_connection()
+    query = """
+        SELECT 
+            edad_vehiculo,
+            kabco,
+            COUNT(*) AS total_victimas
+        FROM colisiones_normalizada.vw_victima
+        WHERE es_ocupante = TRUE 
+          AND edad_vehiculo IS NOT NULL 
+          AND edad_vehiculo >= 0
+          AND anio BETWEEN 2010 AND 2019
+        GROUP BY 1, 2
+    """
+    return conn.execute(query).df()
 
 # pestaña para cada objetivo
 tab_obj1, tab_obj2, tab_obj3, tab_obj4 = st.tabs([
@@ -130,20 +148,20 @@ with tab_obj3:
           ["Sin clasificar"] if "Sin clasificar" in cats else []
       )
 
-    # aplicar orden categórico porque no obedece el orden
+    # aplicar orden categórico porque no obedece el orden y ya me estoy estresando :[
     df_sub["categoria"] = pd.Categorical(
         df_sub["categoria"], categories=final_order, ordered=True
     )
     df_sub = df_sub.sort_values("categoria")
 
-    # 1. Forzar el orden explícito y físico de la severidad
+    # forzar el orden explícito y físico de la severidad
     df_sub["Severidad"] = pd.Categorical(
         df_sub["Severidad"],
         categories=["No Grave (B, C u O)", "Grave (K o A)"],
         ordered=True
     )
 
-    # 2. Ordenar el DataFrame completo por categoría y luego por severidad
+    # ordenar el DataFrame completo por categoría y luego por severidad para ser mas explicitos
     df_sub = df_sub.sort_values(["categoria", "Severidad"])
 
     # gráfico de barras interactivo con Plotly
@@ -216,4 +234,73 @@ with tab_obj3:
 
 # Pestaña 4: Objetivo 4
 with tab_obj4:
-  st.info("Espacio reservado para Antigüedad del Vehículo y Lesiones.")
+    st.markdown("### Antigüedad del Vehículo y Lesiones")
+
+    # Mensaje de carga mientras se ejecuta la consulta a la vista de MotherDuck
+    with st.spinner("Consultando la vista de víctimas en MotherDuck..."):
+        df_obj4 = datos_obj4_completo()
+
+    if not df_obj4.empty:
+        df_chart = df_obj4[df_obj4["edad_vehiculo"] <= 25].copy()
+
+        # Orden segun el nivel de lesion
+        orden_kabco = ["K", "A", "B", "C", "O"]
+        df_chart["kabco"] = pd.Categorical(df_chart["kabco"], categories=orden_kabco, ordered=True)
+        df_chart = df_chart.sort_values(["edad_vehiculo", "kabco"])
+
+        # Grafico de barras apiladas
+        fig_obj4 = px.bar(
+            df_chart,
+            x="edad_vehiculo",
+            y="total_victimas",
+            color="kabco",
+            barmode="stack",
+            title="Víctimas por Antigüedad del Vehículo y Nivel de Lesión (KABCO)",
+            labels={
+                "edad_vehiculo": "Antigüedad del Vehículo (Años)",
+                "total_victimas": "Total de Víctimas",
+                "kabco": "Nivel de Lesión"
+            },
+            color_discrete_map={
+                "K": "#FF4B4B",
+                "A": "#00E5FF",
+                "B": "#3B82F6",
+                "C": "#60A5FA",
+                "O": "#94A3B8"
+            }
+        )
+
+        fig_obj4.update_layout(
+            plot_bgcolor="#0E1219",
+            paper_bgcolor="#0E1219",
+            font_color="#E9EEF6",
+            legend_title_text="Nivel KABCO",
+            xaxis=dict(showgrid=False, dtick=1),
+            yaxis=dict(showgrid=True, gridcolor="#161C26"),
+        )
+
+        st.plotly_chart(fig_obj4, use_container_width=True)
+        st.success("Se han cargado los registros exitosamente.") # Mensaje de exito porque se ve bien :)
+
+        # Tabla de frecuencias pivoteada
+        with st.expander("Ver tabla de frecuencias por Antigüedad del Vehículo y Nivel de Lesión (KABCO)"):
+            tabla_pivote_obj4 = (
+                df_obj4.pivot(
+                    index="edad_vehiculo",
+                    columns="kabco",
+                    values="total_victimas"
+                )
+                .fillna(0)
+                .astype(int)
+            )
+            
+            for col in orden_kabco:
+                if col not in tabla_pivote_obj4.columns:
+                    tabla_pivote_obj4[col] = 0
+            tabla_pivote_obj4 = tabla_pivote_obj4[orden_kabco]
+            tabla_pivote_obj4["Total Víctimas"] = tabla_pivote_obj4.sum(axis=1)
+            tabla_mostrar = tabla_pivote_obj4.reset_index()
+            st.dataframe(tabla_mostrar, use_container_width=True, hide_index=True)
+    else:
+        st.warning("No se encontraron registros en la consulta.") # Mensaje con el 
+        #mismo objetivo que el anterior
