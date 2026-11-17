@@ -24,6 +24,16 @@ table _Medidas
 		formatString: 0
 		lineageTag: 9b21e163-035b-409a-82b0-73bbf2a2b1c9
 
+	measure Porcentaje_Total =
+			
+			DIVIDE(
+			    [Total_Colisiones],
+			    CALCULATE([Total_Colisiones], ALL(dim_superficie)),
+			    0
+			)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: e88eea9b-ff8a-4138-8dd3-81bd96f75361
+
 	column 'Columna 1'
 		dataType: string
 		lineageTag: 119cb0ab-4118-4d1a-88a4-3ef659f2a26e
