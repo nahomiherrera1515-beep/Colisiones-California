@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "f15f2201007e5e7b24bc",
   "position": {
-    "x": 910,
-    "y": 198.33333333333334,
+    "x": 910.09756097560967,
+    "y": 198.8780487804878,
     "z": 12000,
-    "height": 68.333333333333343,
-    "width": 245,
+    "height": 90.8780487804878,
+    "width": 251.56097560975607,
     "tabOrder": 12000
   },
   "visual": {
@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Colisiones con Alcohol",
+                    "value": "Colisiones relacionadas con Alcohol ",
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontFamily": "Tahoma",

@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "dca3359c730e33707910",
   "position": {
-    "x": 1221.4285714285716,
-    "y": 377.14285714285717,
+    "x": 1220.9268292682925,
+    "y": 376.6829268292683,
     "z": 19000,
-    "height": 635.71428571428578,
-    "width": 674.28571428571433,
+    "height": 637.46341463414626,
+    "width": 674.34146341463406,
     "tabOrder": 19000
   },
   "visual": {
@@ -29,6 +29,24 @@
               "queryRef": "dim_sobriedad.etiqueta",
               "nativeQueryRef": "etiqueta",
               "active": true
+            }
+          ]
+        },
+        "Tooltips": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Prop_Colisiones_Fatal"
+                }
+              },
+              "queryRef": "_Medidas.Prop_Colisiones_Fatal",
+              "nativeQueryRef": "Prop_Colisiones_Fatal"
             }
           ]
         },

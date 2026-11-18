@@ -3,7 +3,7 @@
   "name": "3444600293bbd7d093c6",
   "position": {
     "x": 580.82926829268285,
-    "y": 243.65853658536585,
+    "y": 258.14634146341461,
     "z": 10000,
     "height": 100.09756097560975,
     "width": 280.53658536585363,
@@ -337,6 +337,25 @@
           ]
         },
         "howCreated": "User"
+      },
+      {
+        "name": "ef9f4d38d08d0a30dba8",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "hechos_colisiosns"
+                  }
+                },
+                "Property": "case_id"
+              }
+            },
+            "Function": 5
+          }
+        },
+        "type": "Advanced"
       }
     ]
   }

@@ -327,5 +327,37 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "6d2263f58bd489932400",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_clima"
+              }
+            },
+            "Property": "etiqueta"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "822fcd374c280ebc9830",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "Total_Colisiones"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "943c0385766b51646600",
   "position": {
-    "x": 52,
-    "y": 528,
+    "x": 51.365853658536579,
+    "y": 540,
     "z": 20000,
-    "height": 486,
-    "width": 484,
+    "height": 474.14634146341461,
+    "width": 484.68292682926824,
     "tabOrder": 20000
   },
   "visual": {
@@ -505,5 +505,37 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "35db088106d055c57b2b",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "hechos_colisiosns"
+              }
+            },
+            "Property": "severidad"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "f74ae0bc8ba800bc35db",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "Total_Colisiones"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }
