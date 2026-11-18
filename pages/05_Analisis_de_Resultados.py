@@ -20,7 +20,73 @@ def get_motherduck_connection():
 
 # Consulta para el objetivo 1
 
+@st.cache_data
+def cargar_datos_obj1_temporal():
+    conn = get_motherduck_connection()
+    query = """
+        SELECT 
+            'Año' AS dimension,
+            CAST(anio AS VARCHAR) AS categoria,
+            CAST(anio AS BIGINT) AS orden_cat,
+            COUNT(*) AS total_colisiones
+        FROM colisiones_normalizada.vw_colision 
+        WHERE anio BETWEEN 2010 AND 2019
+        GROUP BY 1, 2, 3
+
+        UNION ALL
+
+        SELECT 
+            'Mes' AS dimension,
+            CAST(mes AS VARCHAR) AS categoria,
+            CAST(mes AS BIGINT) AS orden_cat,
+            COUNT(*) AS total_colisiones
+        FROM colisiones_normalizada.vw_colision 
+        WHERE anio BETWEEN 2010 AND 2019
+        GROUP BY 1, 2, 3
+
+        UNION ALL
+
+        SELECT 
+            'Día de la semana' AS dimension,
+            CAST(dia_semana AS VARCHAR) AS categoria,
+            CAST(dia_semana AS BIGINT) AS orden_cat,
+            COUNT(*) AS total_colisiones
+        FROM colisiones_normalizada.vw_colision 
+        WHERE anio BETWEEN 2010 AND 2019
+        GROUP BY 1, 2, 3
+
+        UNION ALL
+
+        SELECT 
+            'Hora' AS dimension,
+            CAST(hora AS VARCHAR) AS categoria,
+            CAST(EXTRACT(HOUR FROM hora) AS BIGINT) AS orden_cat,
+            COUNT(*) AS total_colisiones
+        FROM colisiones_normalizada.vw_colision 
+        WHERE anio BETWEEN 2010 AND 2019
+        GROUP BY 1, 2, 3;
+    """
+    return conn.execute(query).df()
+
+@st.cache_data
+def cargar_datos_obj1_geografico():
+    conn = get_motherduck_connection()
+    query = """
+        SELECT 
+            COALESCE(c.nombre, 'No especificado') AS condado,
+            COUNT(*) AS total_colisiones,
+            -- Temporalmente en 0 para evitar el error de "poblacion"
+            0 AS tasa_100k 
+        FROM colisiones_normalizada.vw_colision v
+        LEFT JOIN colisiones_normalizada.condado c ON v.condado_id = c.condado_id
+        WHERE v.anio BETWEEN 2010 AND 2019
+        GROUP BY 1
+        ORDER BY total_colisiones DESC;
+    """
+    return conn.execute(query).df()
+
 # Consulta para el objetivo 2
+
 
 
 # consulta sql resguardada en @st.cache_data para que solo se ejecute en la nube con motherduck
@@ -94,9 +160,124 @@ tab_obj1, tab_obj2, tab_obj3, tab_obj4 = st.tabs([
     "Antigüedad del Vehículo y Lesiones",
 ])
 
+
 # Pestaña 1: Objetivo 1
 with tab_obj1:
-  st.info("Espacio reservado para Patrones Temporales y Geográficos.")
+    st.markdown("### Patrones Temporales y Geográficos")
+
+# Sub-pestañas para separar Tiempo de Geografía (más limpio visualmente)
+    sub_tab_temp, sub_tab_geo = st.tabs(["🕒 Análisis Temporal", "🗺️ Análisis por Condado"])
+    
+    # ---------------------------------------------------------
+    # SUB-PESTAÑA TEMPORAL
+    # ---------------------------------------------------------
+    with sub_tab_temp:
+        with st.spinner("Consultando patrones temporales en MotherDuck..."):
+            df_obj1_temp = cargar_datos_obj1_temporal()
+            
+        if not df_obj1_temp.empty:
+            dim_temporal = st.selectbox(
+                "Seleccione la dimensión temporal a analizar:",
+                ["Año", "Mes", "Día de la semana", "Hora"]
+            )
+            
+            # Filtrar y ordenar usando la columna orden_cat que trajimos de SQL
+            df_sub_temp = df_obj1_temp[df_obj1_temp["dimension"] == dim_temporal].copy()
+            df_sub_temp = df_sub_temp.sort_values("orden_cat")
+            
+            # Gráfico de barras
+            fig_temp = px.bar(
+                df_sub_temp,
+                x="categoria",
+                y="total_colisiones",
+                title=f"Distribución de Colisiones por {dim_temporal}",
+                labels={
+                    "categoria": dim_temporal,
+                    "total_colisiones": "Total de Colisiones"
+                },
+                text_auto='.2s',
+                color_discrete_sequence=["#2563EB"]
+            )
+            
+            fig_temp.update_layout(
+                plot_bgcolor="#0E1219",
+                paper_bgcolor="#0E1219",
+                font_color="#E9EEF6",
+                xaxis=dict(showgrid=False, type='category'),
+                yaxis=dict(showgrid=True, gridcolor="#161C26"),
+            )
+            
+            st.plotly_chart(fig_temp, use_container_width=True)
+            st.success("Patrones temporales cargados exitosamente.")
+            
+            # Tabla desplegable temporal
+            with st.expander(f"Ver tabla de frecuencias — {dim_temporal}"):
+                tabla_temp = df_sub_temp[["categoria", "total_colisiones"]].rename(
+                    columns={"categoria": dim_temporal, "total_colisiones": "Total de Colisiones"}
+                )
+                st.dataframe(tabla_temp, use_container_width=True, hide_index=True)
+        else:
+            st.warning("No se encontraron registros temporales.")
+
+    # ---------------------------------------------------------
+    # SUB-PESTAÑA GEOGRÁFICA
+    # ---------------------------------------------------------
+    with sub_tab_geo:
+        with st.spinner("Consultando distribución geográfica en MotherDuck..."):
+            df_obj1_geo = cargar_datos_obj1_geografico()
+            
+        if not df_obj1_geo.empty:
+            metrica_geo = st.radio(
+                "Seleccione la métrica para ordenar los condados:",
+                ["Mayor número de colisiones absolutas", "Mayor tasa por 100.000 habitantes"],
+                horizontal=True
+            )
+            
+            if metrica_geo == "Mayor número de colisiones absolutas":
+                df_chart_geo = df_obj1_geo.sort_values("total_colisiones", ascending=False).head(15)
+                x_val = "total_colisiones"
+                color_val = "tasa_100k"
+            else:
+                df_chart_geo = df_obj1_geo.sort_values("tasa_100k", ascending=False).head(15)
+                x_val = "tasa_100k"
+                color_val = "total_colisiones"
+                
+            # Gráfico de barras horizontales
+            fig_geo = px.bar(
+                df_chart_geo,
+                x=x_val,
+                y="condado",
+                orientation='h',
+                color=color_val,
+                title=f"Top 15 Condados por {metrica_geo.lower()}",
+                labels={
+                    "condado": "Condado",
+                    "total_colisiones": "Total Colisiones",
+                    "tasa_100k": "Tasa por 100k habs."
+                },
+                color_continuous_scale="Teal"
+            )
+            
+            fig_geo.update_layout(
+                plot_bgcolor="#0E1219",
+                paper_bgcolor="#0E1219",
+                font_color="#E9EEF6",
+                yaxis=dict(categoryorder="total ascending", showgrid=False),
+                xaxis=dict(showgrid=True, gridcolor="#161C26"),
+            )
+            
+            st.plotly_chart(fig_geo, use_container_width=True)
+            st.success("Datos geográficos cargados exitosamente.")
+            
+            with st.expander("Ver tabla completa de condados (Tasas y Conteos)"):
+                tabla_geo = df_obj1_geo.rename(columns={
+                    "condado": "Condado", 
+                    "total_colisiones": "Total de Colisiones",
+                    "tasa_100k": "Tasa (100k habs)"
+                })
+                st.dataframe(tabla_geo, use_container_width=True, hide_index=True)
+        else:
+            st.warning("No se encontraron registros geográficos.")
 
 # Pestaña 2: Objetivo 2
 with tab_obj2:
