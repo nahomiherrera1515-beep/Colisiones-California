@@ -6,7 +6,7 @@
     "y": 111.95121951219511,
     "z": 0,
     "height": 511.02439024390242,
-    "width": 1000.9756097560975,
+    "width": 968.04878048780483,
     "tabOrder": 0
   },
   "visual": {
@@ -19,7 +19,20 @@
               {
                 "textRuns": [
                   {
-                    "value": "COLIOSIONES DE ",
+                    "value": "COLISIONES ",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontFamily": "Tahoma",
+                      "fontSize": "88pt",
+                      "color": "#ffffff"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "DE ",
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontFamily": "Tahoma",
