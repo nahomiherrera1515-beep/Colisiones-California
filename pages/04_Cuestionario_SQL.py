@@ -404,3 +404,104 @@ def grafico_5(df):
         y=alt.Y("condado:N", sort=list(df.condado), title=None),
         tooltip=["condado", "primer_anio_aumento", "ultimo_anio_aumento", "anios_de_racha",
                  "aumento_pct"])
+
+PREGUNTAS = {
+    1: {
+        "titulo": "Perfil de la semana",
+        "sql": SQL_1,
+        "grafico": grafico_1,
+        "enunciado": "¿Cuántas colisiones y cuántos muertos hubo cada día de la semana entre "
+                     "2001 y 2020, cómo cambia cada día frente al anterior y qué día es el más "
+                     "letal? La letalidad se mide como muertos por cada 1.000 colisiones.",
+        "tecnicas": "CTE `por_dia` y `nombres`; self join de `por_dia` con el día anterior; "
+                    "ventanas `SUM() OVER ()` y `RANK()`; subconsulta con la media de los "
+                    "siete días.",
+        "explicacion": """
+1. El CTE `por_dia` recorre la tabla `collisions` una sola vez y agrupa por día de la
+   semana. En SQLite, `strftime('%w', fecha)` devuelve 0 para el domingo y 6 para el
+   sábado; la fórmula `(w + 6) % 7 + 1` lo pasa a 1 = lunes, ..., 7 = domingo.
+2. Por cada día cuenta las colisiones con `COUNT(*)` y suma los muertos con
+   `SUM(killed_victims)`. `SUM` ignora los nulos y `COALESCE` deja un 0 si un grupo no
+   tuviera ningún dato.
+3. El CTE `nombres` es una pequeña tabla escrita con `VALUES` que traduce el número del
+   día a su nombre.
+4. El self join une `por_dia d` con `por_dia a`, donde `a` es el día anterior. El lunes
+   (1) se compara con el domingo (7) gracias al `CASE`. Así sale la variación porcentual
+   frente al día previo.
+5. `SUM(d.colisiones) OVER ()` pone el total de la semana en cada fila sin perder el
+   detalle, y con eso se calcula el porcentaje de cada día. `RANK()` ordena los días de
+   mayor a menor letalidad.
+6. La subconsulta `(SELECT AVG(colisiones) FROM por_dia)` da la media diaria; el
+   cociente indica si un día está por encima (más de 1) o por debajo (menos de 1).
+7. Se multiplica por `100.0` o `1000.0` para que SQLite haga una división decimal; entre
+   dos enteros, SQLite trunca el resultado.
+""",
+        "lectura": "El viernes concentra más colisiones (16,51 %) y el domingo menos "
+                   "(11,68 %). Sin embargo, el domingo es el día más letal, con 11,55 muertos "
+                   "por cada 1.000 colisiones, seguido del sábado con 10,24. De lunes a jueves "
+                   "la letalidad se mantiene entre 6,29 y 6,95. El fin de semana tiene menos "
+                   "colisiones, pero son más graves.",
+    },
+    2: {
+        "titulo": "Culpabilidad por edad y sexo",
+        "sql": SQL_2,
+        "grafico": grafico_2,
+        "enunciado": "Entre los conductores de 16 a 100 años, agrupados en cuatro grupos de "
+                     "edad, ¿qué porcentaje de hombres y de mujeres fue declarado culpable de la "
+                     "colisión? Ambos sexos deben quedar en la misma fila.",
+        "tecnicas": "CTE `por_grupo_sexo`; self join hombres contra mujeres del mismo grupo; "
+                    "ventana `RANK()`; subconsulta con el porcentaje de todos los conductores.",
+        "explicacion": """
+1. El CTE `por_grupo_sexo` lee la tabla `parties` (una fila por cada parte de la
+   colisión) y se queda solo con conductores (`party_type = 'driver'`), con sexo
+   informado y con edad entre 16 y 100 años, para descartar edades imposibles.
+2. Un `CASE` asigna cada edad a su grupo: 16 a 24, 25 a 44, 45 a 64 y 65 o más. Se agrupa
+   por grupo y sexo.
+3. `at_fault` vale 1 si el conductor fue declarado culpable y 0 si no, así que
+   `SUM(at_fault)` cuenta directamente a los culpables.
+4. El self join toma el CTE dos veces: `h` con los hombres y `m` con las mujeres, unidos
+   por el mismo grupo de edad. Así cada fila muestra los dos sexos lado a lado y se puede
+   restar un porcentaje del otro.
+5. La subconsulta escalar calcula el porcentaje de culpables de todos los conductores.
+   `diferencia_con_total_puntos` dice cuántos puntos está cada grupo por encima o por
+   debajo de ese total.
+6. `RANK()` ordena los grupos de edad del más culpable al menos culpable, tomando a
+   hombres y mujeres juntos.
+""",
+        "lectura": "Los jóvenes de 16 a 24 años son el grupo con mayor culpabilidad: 62,77 % "
+                   "en hombres y 53,82 % en mujeres. El porcentaje baja hasta el grupo de 45 a "
+                   "64 años y vuelve a subir a partir de los 65. Los hombres son declarados "
+                   "culpables más a menudo en todos los grupos menos en el de 65 o más, donde "
+                   "las mujeres los superan por 1,83 puntos.",
+    },
+    3: {
+        "titulo": "Peso de las motocicletas en la mortalidad",
+        "sql": SQL_3,
+        "grafico": grafico_3,
+        "enunciado": "Para cada año entre 2001 y 2020, ¿qué parte de las colisiones y de los "
+                     "muertos corresponde a colisiones con motocicleta, y cuánto más letales son "
+                     "que el resto?",
+        "tecnicas": "CTE `por_anio`; self join del grupo con moto contra el resto del mismo "
+                    "año; ventana `RANK()`; subconsulta con el porcentaje de todo el periodo.",
+        "explicacion": """
+1. El CTE `por_anio` saca el año de la fecha con `substr(collision_date, 1, 4)` y agrupa
+   por año y por `motorcycle_collision`, que vale 1 si hubo una moto involucrada y 0 si
+   no. Para cada combinación cuenta colisiones y suma muertos.
+2. El self join pone en la misma fila el grupo con moto (`m`, moto = 1) y el resto (`r`,
+   moto = 0) del mismo año. Sumando los dos se obtiene el total del año, y con él los
+   porcentajes.
+3. Se calcula la letalidad de cada grupo (muertos por cada 1.000 colisiones) y el
+   cociente entre ambas: cuántas veces más letal es una colisión con moto.
+4. `RANK()` ordena los años según el porcentaje de muertos que corresponde a motos.
+5. La subconsulta suma con `CASE` los muertos con moto de los veinte años y los divide
+   entre todos los muertos. La última columna dice cuántos puntos se aleja cada año de
+   ese porcentaje del periodo.
+""",
+        "lectura": "Las colisiones con moto son apenas entre el 1,9 % y el 3,8 % del total, "
+                   "pero explican entre el 7,7 % y el 17 % de los muertos. Una colisión con moto "
+                   "es entre 4,3 y 5,9 veces más letal que una sin moto. El año con mayor peso "
+                   "de las motos en la mortalidad fue 2014 (16,95 %) y el de mayor cociente fue "
+                   "2008 (5,87). Desde 2008, todos los años quedan por encima del porcentaje "
+                   "del periodo.",
+    },
+}
