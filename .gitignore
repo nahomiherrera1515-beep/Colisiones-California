@@ -14,3 +14,6 @@ data/raw/*
 # Base normalizada intermedia: se reconstruye con base_de_datos/01-03
 *.duckdb
 *.duckdb.wal
+
+# Token para conectar motherduck
+.streamlit/secrets.toml

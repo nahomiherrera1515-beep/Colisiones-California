@@ -22,7 +22,7 @@ col1, col2 = st.columns([1.8, 1.2], gap="large")
 with col1:
   st.markdown("### Acerca del Proyecto")
   st.markdown("""
-    Esta plataforma interactiva recopila la investigación descriptiva e inferencial sobre colisiones de tránsito en California 
+    Esta plataforma interactiva recopila la investigación descriptiva sobre colisiones de tránsito en California 
     durante el período decenal **2010–2019** a partir del registro oficial **SWITRS** 
     (*Statewide Integrated Traffic Records System*), administrado por la **California Highway Patrol (CHP)**.
     """)
