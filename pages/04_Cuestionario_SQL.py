@@ -624,3 +624,60 @@ st.info(
     "SWITRS* de Kaggle, y quedaron guardados en la app. Quien tenga ese archivo puede "
     "indicar su ruta en la barra lateral y volver a ejecutarlas en vivo.")
 
+pestanas = st.tabs(["Los datos"] + [f"Pregunta {n}" for n in PREGUNTAS])
+
+with pestanas[0]:
+    st.subheader("Los datos")
+    st.markdown(
+        "La fuente es la base SWITRS (Statewide Integrated Traffic Records System) de la "
+        "Patrulla de Carreteras de California, publicada en Kaggle como un archivo SQLite. "
+        "Las consultas usan dos de sus tablas:\n\n"
+        "- `collisions`: una fila por colisión, con la fecha, el condado, la gravedad, los "
+        "muertos (`killed_victims`) y si hubo una moto (`motorcycle_collision`).\n"
+        "- `parties`: una fila por cada parte involucrada (conductor, peatón, ciclista, etc.), "
+        "con su tipo, sexo, edad y si fue declarada culpable (`at_fault`).\n\n"
+        "Las consultas sobre colisiones toman los veinte años de 2001 a 2020.")
+    if hay_fuente:
+        if st.button("Contar filas y ver una muestra", key="muestra"):
+            with st.spinner("Contando filas..."):
+                st.dataframe(filas_por_tabla(ruta), hide_index=True)
+            st.markdown("Primeras filas de `collisions` (columnas que usan las consultas):")
+            st.dataframe(consultar(ruta, """
+                SELECT case_id, collision_date, county_location, collision_severity,
+                       killed_victims, motorcycle_collision
+                FROM collisions LIMIT 5"""), hide_index=True)
+            st.markdown("Primeras filas de `parties`:")
+            st.dataframe(consultar(ruta, """
+                SELECT case_id, party_number, party_type, party_sex, party_age, at_fault,
+                       vehicle_make
+                FROM parties LIMIT 5"""), hide_index=True)
+
+for pestana, (numero, p) in zip(pestanas[1:], PREGUNTAS.items()):
+    with pestana:
+        st.subheader(f"Pregunta {numero}. {p['titulo']}")
+        st.markdown(f"**Enunciado.** {p['enunciado']}")
+        st.markdown(f"**Técnicas.** {p['tecnicas']}")
+
+        st.markdown("#### Consulta")
+        st.code(p["sql"], language="sql")
+
+        st.markdown("#### Explicación")
+        st.markdown(p["explicacion"])
+
+        st.markdown("#### Resultado")
+        if hay_fuente and st.button("Ejecutar en vivo", key=f"ejecutar_{numero}"):
+            with st.spinner("Recorriendo switrs.sqlite..."):
+                ejecutar(numero, ruta)
+
+        if numero in st.session_state.en_vivo:
+            df, segundos = st.session_state.en_vivo[numero]
+            st.caption(f"Ejecutada en vivo sobre switrs.sqlite: {len(df)} filas en "
+                       f"{segundos:.1f} s.")
+        else:
+            df = resultado_guardado(numero)
+            st.caption(f"Resultado guardado ({len(df)} filas), obtenido sobre el "
+                       f"switrs.sqlite completo.")
+        st.dataframe(df, hide_index=True)
+        st.altair_chart(p["grafico"](df))
+        st.markdown("#### Qué muestra")
+        st.markdown(p["lectura"])
