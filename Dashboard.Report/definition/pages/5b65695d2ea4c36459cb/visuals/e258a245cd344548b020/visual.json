@@ -1,0 +1,39 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "e258a245cd344548b020",
+  "position": {
+    "x": 57.951219512195117,
+    "y": 111.95121951219511,
+    "z": 0,
+    "height": 418.82926829268291,
+    "width": 865.31707317073165,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "COLIOSIONES DE TRÁFICO EN CALIFORNIA",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontFamily": "Tahoma",
+                      "fontSize": "80pt",
+                      "color": "#ffffff"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

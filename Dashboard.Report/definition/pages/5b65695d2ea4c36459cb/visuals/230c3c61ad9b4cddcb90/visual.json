@@ -1,0 +1,52 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "230c3c61ad9b4cddcb90",
+  "position": {
+    "x": 1506.7317073170732,
+    "y": 352.97560975609753,
+    "z": 5000,
+    "height": 150.14634146341461,
+    "width": 271.3170731707317,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "58",
+                    "textStyle": {
+                      "fontFamily": "DIN",
+                      "fontSize": "66pt",
+                      "color": "#ffffff"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "center"
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Condados",
+                    "textStyle": {
+                      "fontFamily": "DIN",
+                      "fontSize": "36pt",
+                      "color": "#ffffff"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "center"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
