@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "a95b01a380d703a4ede5",
+  "position": {
+    "x": 138.29268292682926,
+    "y": 675.65853658536582,
+    "z": 12000,
+    "height": 57.951219512195117,
+    "width": 557.1219512195122,
+    "tabOrder": 12000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Distribución Geográfica",
+                    "textStyle": {
+                      "fontFamily": "DIN",
+                      "fontSize": "40pt",
+                      "color": "#ffffff"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

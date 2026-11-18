@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "1188ef858210655cb550",
+  "position": {
+    "x": 138.29268292682926,
+    "y": 924.58536585365846,
+    "z": 16001,
+    "height": 67.170731707317074,
+    "width": 604.53658536585363,
+    "tabOrder": 16001
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Severidad y Factores Humanos",
+                    "textStyle": {
+                      "fontFamily": "DIN",
+                      "fontSize": "36pt",
+                      "color": "#ffffff"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
