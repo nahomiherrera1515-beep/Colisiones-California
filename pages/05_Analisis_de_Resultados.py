@@ -88,6 +88,32 @@ def cargar_datos_obj1_geografico():
 
 # Consulta para el objetivo 2
 
+@st.cache_data
+def cargar_datos_obj2_conductor_alcohol():
+    conn = get_motherduck_connection()
+    query = """
+        SELECT 
+            CASE 
+                WHEN p.edad BETWEEN 16 AND 24 THEN '16-24 años'
+                WHEN p.edad BETWEEN 25 AND 34 THEN '25-34 años'
+                WHEN p.edad BETWEEN 35 AND 44 THEN '35-44 años'
+                WHEN p.edad BETWEEN 45 AND 54 THEN '45-54 años'
+                WHEN p.edad BETWEEN 55 AND 64 THEN '55-64 años'
+                WHEN p.edad >= 65 THEN '65+ años'
+                ELSE 'Desconocido / Menor de 16'
+            END AS grupo_edad,
+            FALSE AS alcohol_involucrado,
+            c.es_grave,
+            COUNT(*) AS total_colisiones
+        FROM colisiones_normalizada.vw_colision c
+        INNER JOIN colisiones_normalizada.vw_parte p 
+            ON c.case_id = p.case_id
+        WHERE c.anio BETWEEN 2010 AND 2019
+        GROUP BY 1, 2, 3;
+    """
+    return conn.execute(query).df()
+
+
 # consulta sql resguardada en @st.cache_data para que solo se ejecute en la nube con motherduck
 # y la app no se vuelva pesada, consulta especificamente orientada al objetivo 3
 @st.cache_data
@@ -281,7 +307,59 @@ with tab_obj1:
 # Pestaña 2: Objetivo 2
 with tab_obj2:
     st.markdown("### Edad del Conductor, Alcohol y Gravedad")
-
+    with st.spinner("Consultando datos de conductores en MotherDuck..."):
+        df_obj2 = cargar_datos_obj2_conductor_alcohol()
+        
+    if not df_obj2.empty:
+        df_obj2["Gravedad"] = df_obj2["es_grave"].map({True: "Grave (K o A)", False: "No Grave"})
+        df_obj2["Alcohol Involucrado"] = df_obj2["alcohol_involucrado"].map({True: "Sí", False: "No"})
+        
+        orden_edades = ['16-24 años', '25-34 años', '35-44 años', '45-54 años', '55-64 años', '65+ años', 'Desconocido / Menor de 16']
+        df_obj2["grupo_edad"] = pd.Categorical(df_obj2["grupo_edad"], categories=orden_edades, ordered=True)
+        df_obj2 = df_obj2.sort_values("grupo_edad")
+        
+        vista_obj2 = st.radio(
+            "Seleccione cómo desea agrupar la información:",
+            ["Por Rango de Edad", "Por Consumo de Alcohol"],
+            horizontal=True
+        )
+        
+        if vista_obj2 == "Por Rango de Edad":
+            fig_obj2 = px.bar(
+                df_obj2,
+                x="grupo_edad",
+                y="total_colisiones",
+                color="Gravedad",
+                barmode="group",
+                facet_col="Alcohol Involucrado", 
+                title="Colisiones por Edad del Conductor Culpable y Presencia de Alcohol",
+                labels={"grupo_edad": "Edad del Conductor", "total_colisiones": "Total de Colisiones"},
+                color_discrete_map={"Grave (K o A)": "#FF4B4B", "No Grave": "#3B82F6"}
+            )
+        else:
+            fig_obj2 = px.bar(
+                df_obj2,
+                x="Alcohol Involucrado",
+                y="total_colisiones",
+                color="Gravedad",
+                barmode="group",
+                title="Impacto del Alcohol en la Gravedad del Choque",
+                labels={"total_colisiones": "Total de Colisiones"},
+                color_discrete_map={"Grave (K o A)": "#FF4B4B", "No Grave": "#3B82F6"}
+            )
+            
+        fig_obj2.update_layout(
+            plot_bgcolor="#0E1219",
+            paper_bgcolor="#0E1219",
+            font_color="#E9EEF6",
+        )
+        
+        st.plotly_chart(fig_obj2, use_container_width=True)
+        
+        with st.expander("Ver tabla detallada (Edad, Alcohol y Gravedad)"):
+            st.dataframe(df_obj2.drop(columns=["es_grave", "alcohol_involucrado"]), use_container_width=True, hide_index=True)
+    else:
+        st.warning("No se encontraron registros para el objetivo 2.")
 
 # Pestaña 3: Objetivo 3
 with tab_obj3:
