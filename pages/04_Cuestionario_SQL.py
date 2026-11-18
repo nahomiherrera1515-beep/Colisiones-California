@@ -504,4 +504,123 @@ PREGUNTAS = {
                    "2008 (5,87). Desde 2008, todos los años quedan por encima del porcentaje "
                    "del periodo.",
     },
+    4: {
+        "titulo": "Mayores caídas interanuales por mes",
+        "sql": SQL_4,
+        "grafico": grafico_4,
+        "enunciado": "Comparando cada mes de 2002 a 2020 con el mismo mes del año anterior, "
+                     "¿cuáles son los diez meses con mayor caída porcentual de colisiones?",
+        "tecnicas": "CTE `serie` y `comparacion`; self join de la serie con el año anterior; "
+                    "ventanas `RANK()`, `SUM() OVER ()` y `COUNT() OVER ()`; subconsulta en el "
+                    "`FROM` para quedarse con los diez primeros.",
+        "explicacion": """
+1. El CTE `serie` agrupa las colisiones por año y mes, sacados de la fecha con `substr`,
+   y cuenta colisiones y muertos de cada mes.
+2. El CTE `comparacion` hace el self join: cada mes `s` se une con `p`, el mismo mes del
+   año anterior (`p.anio = s.anio - 1`). Los meses de 2001 no tienen con quién
+   compararse, por eso quedan 19 x 12 = 228 meses. `NULLIF` evita dividir entre cero si
+   un mes previo no tuviera muertos.
+3. En la subconsulta del `FROM`, `RANK() OVER (ORDER BY var_colisiones)` ordena de la
+   caída más fuerte a la menor. En la misma pasada, `SUM(CASE ...) OVER ()` cuenta
+   cuántos meses bajaron y `COUNT(*) OVER ()` cuántos se compararon.
+4. El filtro `WHERE puesto <= 10` va en la consulta exterior porque SQL no permite
+   filtrar por una función de ventana en el mismo nivel donde se calcula.
+""",
+        "lectura": "Nueve de los diez meses son de 2020, el año de la pandemia. La mayor caída "
+                   "fue abril de 2020, con 46,05 % menos colisiones que en abril de 2019. En "
+                   "esos meses los muertos bajaron mucho menos que las colisiones, así que la "
+                   "letalidad subió (11,21 en abril de 2020 frente a 7,15 un año antes). Agosto "
+                   "de 2006 aparece en segundo lugar, pero parece un problema de registro de la "
+                   "fuente más que una caída real. En total, 149 de los 228 meses tuvieron menos "
+                   "colisiones que el mismo mes del año anterior.",
+    },
+    5: {
+        "titulo": "Rachas de años con más muertos",
+        "sql": SQL_5,
+        "grafico": grafico_5,
+        "enunciado": "Entre los condados con datos en los veinte años y con un total de muertos "
+                     "igual o mayor que la media por condado, ¿cuál es la racha más larga de años "
+                     "seguidos en que los muertos superaron al año anterior?",
+        "tecnicas": "CTE `serie`, `condados_validos`, `aumentos`, `islas`, `rachas` y "
+                    "`mejor_racha`; self join de la serie con el año anterior; ventanas "
+                    "`ROW_NUMBER()` y `RANK()`; subconsulta con la media por condado.",
+        "explicacion": """
+1. El CTE `serie` suma los muertos de cada condado en cada año.
+2. `condados_validos` se queda con los condados que tienen los 20 años
+   (`COUNT(*) = 20`) y cuyo total de muertos es igual o mayor que la media. Esa media sale
+   de una subconsulta anidada: primero suma los muertos por condado y luego promedia esos
+   totales.
+3. `aumentos` es el self join: une cada año con el anterior del mismo condado y guarda
+   solo los años en que los muertos subieron.
+4. `islas` agrupa los años de aumento que son seguidos. Si a cada año se le resta su
+   número de fila (`ROW_NUMBER()`), los años consecutivos dan el mismo valor. Por
+   ejemplo, 2012, 2013 y 2014 con filas 1, 2 y 3 dan 2011 las tres veces. Cuando hay un
+   hueco, el valor cambia.
+5. `rachas` agrupa por ese valor para obtener el año de inicio, el de fin y la duración
+   de cada racha. `mejor_racha` numera las rachas de cada condado de la más larga a la
+   más corta y se queda con la primera; si hay empate, gana la más antigua.
+6. La consulta final ordena los condados con `RANK()` según la duración de su racha; por
+   eso hay empates (dos terceros puestos y luego el quinto). Vuelve a unir con
+   `aumentos` para mostrar los muertos del año previo a la racha y los del último año, y
+   calcula el aumento porcentual.
+""",
+        "lectura": "Quince condados cumplen las condiciones. Riverside tiene la racha más "
+                   "larga: siete años seguidos de aumento, de 2012 a 2018, en los que pasó de "
+                   "203 a 318 muertos (56,65 % más). Le sigue Los Ángeles, con cinco años (2012 "
+                   "a 2016) y un salto de 542 a 847 muertos. Las rachas más largas se concentran "
+                   "entre 2011 y 2018, mientras que las de dos años se dieron sobre todo a "
+                   "comienzos de la década de 2000.",
+    },
 }
+
+# ---------------------------------------------------------------------------
+# Página
+# ---------------------------------------------------------------------------
+
+if "en_vivo" not in st.session_state:
+    st.session_state.en_vivo = {}
+
+
+def ejecutar(numero, ruta):
+    inicio = time.time()
+    df = consultar(ruta, PREGUNTAS[numero]["sql"])
+    st.session_state.en_vivo[numero] = (df, time.time() - inicio)
+
+
+def resultado_guardado(numero):
+    guardado = RESULTADOS_GUARDADOS[numero]
+    return pd.DataFrame(guardado["filas"], columns=guardado["columnas"])
+
+
+with st.sidebar:
+    st.header("Fuente de datos")
+    st.markdown("Los resultados ya están guardados en la app. El archivo `switrs.sqlite` "
+                "solo hace falta para volver a ejecutar las consultas en vivo.")
+    ruta = st.text_input("Ruta de switrs.sqlite (opcional)", RUTA_POR_DEFECTO)
+    hay_fuente = Path(ruta).is_file()
+    if hay_fuente:
+        st.success(f"Archivo encontrado ({Path(ruta).stat().st_size / 1e9:.1f} GB).")
+        if st.button("Ejecutar todas en vivo", type="primary"):
+            with st.spinner("Ejecutando las cinco consultas (unos dos o tres minutos)..."):
+                for n in PREGUNTAS:
+                    ejecutar(n, ruta)
+        st.caption("El archivo se abre en modo solo lectura. Cada resultado queda en caché, "
+                   "así que volver a ejecutar una consulta es inmediato.")
+    else:
+        st.info("No se encontró el archivo: se muestran los resultados guardados.")
+
+st.title("Cuestionario SQL")
+st.markdown("Perfiles de riesgo en colisiones de tránsito en California · Computación II · "
+            "UCV EECA · Formulario G8")
+st.markdown(
+    "Cada pregunta se responde con una sola consulta SQL escrita para SQLite, que se ejecuta "
+    "directamente sobre la fuente cruda `switrs.sqlite`, sin crear tablas, vistas ni "
+    "índices. Todas usan al menos un CTE (`WITH`), una función de ventana (`OVER`), una "
+    "subconsulta y un self join (una tabla unida consigo misma).")
+
+st.info(
+    "Los resultados que se muestran se obtuvieron ejecutando cada consulta sobre el archivo "
+    "completo `switrs.sqlite` (9,9 GB) del conjunto *California Traffic Collision Data from "
+    "SWITRS* de Kaggle, y quedaron guardados en la app. Quien tenga ese archivo puede "
+    "indicar su ruta en la barra lateral y volver a ejecutarlas en vivo.")
+
