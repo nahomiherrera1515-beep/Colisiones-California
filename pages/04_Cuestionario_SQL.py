@@ -609,7 +609,6 @@ with st.sidebar:
     else:
         st.info("No se encontró el archivo: se muestran los resultados guardados.")
 
-st.title("Cuestionario SQL")
 st.markdown("Perfiles de riesgo en colisiones de tránsito en California · Computación II · "
             "UCV EECA · Formulario G8")
 st.markdown(
