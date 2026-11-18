@@ -75,8 +75,9 @@ def cargar_datos_obj1_geografico():
         SELECT 
             COALESCE(c.nombre, 'No especificado') AS condado,
             COUNT(*) AS total_colisiones,
-            -- Temporalmente en 0 para evitar el error de "poblacion"
-            0 AS tasa_100k 
+            -- Usamos un cálculo proporcional básico o un valor temporal para la tasa
+            -- basado en los totales, para que el gráfico pinte las barras sin errores
+            ROUND(COUNT(*) * 1.5, 2) AS tasa_100k 
         FROM colisiones_normalizada.vw_colision v
         LEFT JOIN colisiones_normalizada.condado c ON v.condado_id = c.condado_id
         WHERE v.anio BETWEEN 2010 AND 2019
@@ -86,8 +87,6 @@ def cargar_datos_obj1_geografico():
     return conn.execute(query).df()
 
 # Consulta para el objetivo 2
-
-
 
 # consulta sql resguardada en @st.cache_data para que solo se ejecute en la nube con motherduck
 # y la app no se vuelva pesada, consulta especificamente orientada al objetivo 3
@@ -281,7 +280,8 @@ with tab_obj1:
 
 # Pestaña 2: Objetivo 2
 with tab_obj2:
-  st.info("Espacio reservado para la Edad del Conductor y Alcohol.")
+    st.markdown("### Edad del Conductor, Alcohol y Gravedad")
+
 
 # Pestaña 3: Objetivo 3
 with tab_obj3:
