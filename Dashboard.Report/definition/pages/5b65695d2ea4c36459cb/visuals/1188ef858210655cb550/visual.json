@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "1188ef858210655cb550",
   "position": {
-    "x": 138.29268292682926,
-    "y": 924.58536585365846,
+    "x": 137.77777777777777,
+    "y": 924.44444444444446,
     "z": 17000,
-    "height": 67.170731707317074,
-    "width": 621.65853658536582,
+    "height": 67.777777777777771,
+    "width": 371.11111111111109,
     "tabOrder": 17000
   },
   "visual": {
@@ -19,11 +19,11 @@
               {
                 "textRuns": [
                   {
-                    "value": "Severidad y Factores Humanos",
+                    "value": "Antigüedad del vehículo y la gravedad de las lesiones ",
                     "textStyle": {
                       "fontFamily": "DIN",
-                      "fontSize": "36pt",
-                      "color": "#ffffff"
+                      "fontSize": "24pt",
+                      "color": "rgba(255,255,255,var(--O42jJQ,1))"
                     }
                   }
                 ]

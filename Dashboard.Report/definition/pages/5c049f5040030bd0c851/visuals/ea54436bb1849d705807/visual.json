@@ -323,20 +323,6 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "fc67e16486a5c8730c09",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Medidas"
-              }
-            },
-            "Property": "Total Víctimas Ocupantes"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
         "name": "559ca308c48e10aba640",
         "field": {
           "Column": {
@@ -407,20 +393,6 @@
             }
           ]
         }
-      },
-      {
-        "name": "a3cfdb7997d6e0da3480",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Medidas"
-              }
-            },
-            "Property": "% Víctimas Graves o Fatales"
-          }
-        },
-        "type": "Advanced"
       }
     ]
   }

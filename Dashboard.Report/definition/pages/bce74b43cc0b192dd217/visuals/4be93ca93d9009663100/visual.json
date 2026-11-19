@@ -174,23 +174,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "25c5fd827041ed4e4966",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Parámetro"
-              }
-            },
-            "Property": "Parámetro"
-          }
-        },
-        "type": "Categorical"
-      }
-    ]
   }
 }

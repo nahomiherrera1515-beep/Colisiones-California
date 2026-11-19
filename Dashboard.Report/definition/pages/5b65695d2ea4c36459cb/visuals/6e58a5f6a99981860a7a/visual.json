@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "6e58a5f6a99981860a7a",
   "position": {
-    "x": 138.29268292682926,
-    "y": 800.780487804878,
+    "x": 137.77777777777777,
+    "y": 791.11111111111109,
     "z": 16000,
-    "height": 57.951219512195117,
-    "width": 450.4390243902439,
+    "height": 115.55555555555556,
+    "width": 355.55555555555554,
     "tabOrder": 16000
   },
   "visual": {
@@ -19,10 +19,10 @@
               {
                 "textRuns": [
                   {
-                    "value": "Análisis del Entorno",
+                    "value": "Análisis del Entorno y Severidad",
                     "textStyle": {
                       "fontFamily": "DIN",
-                      "fontSize": "40pt",
+                      "fontSize": "28pt",
                       "color": "#ffffff"
                     }
                   }

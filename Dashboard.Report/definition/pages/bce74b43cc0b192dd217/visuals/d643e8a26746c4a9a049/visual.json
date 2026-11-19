@@ -569,48 +569,6 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "9c9d53a375198dac9119",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Medidas"
-              }
-            },
-            "Property": "Porcentaje_Total"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "10f27e6308d1558d7c68",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Medidas"
-              }
-            },
-            "Property": "Total_Colisiones"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "83793dc9dbb309c3c0a1",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Medidas"
-              }
-            },
-            "Property": "% Choques Graves"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
         "name": "c2c9407441a032504e71",
         "field": {
           "Column": {
@@ -752,27 +710,6 @@
                   }
                 }
               }
-            }
-          ]
-        }
-      },
-      {
-        "name": "2e8753602e49d44ede06",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "dim_superficie"
-              }
-            },
-            "Property": "etiqueta"
-          }
-        },
-        "type": "Categorical",
-        "objects": {
-          "general": [
-            {
-              "properties": {}
             }
           ]
         }

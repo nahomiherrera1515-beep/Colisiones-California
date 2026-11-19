@@ -2,8 +2,8 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "5ae657c255e160ca6190",
   "position": {
-    "x": 57.951219512195117,
-    "y": 906.14634146341461,
+    "x": 57.558302933954096,
+    "y": 906.97931895927661,
     "z": 7000,
     "height": 94.829268292682926,
     "width": 702,
@@ -113,6 +113,33 @@
               "expr": {
                 "Literal": {
                   "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualLink": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "type": {
+              "expr": {
+                "Literal": {
+                  "Value": "'PageNavigation'"
+                }
+              }
+            },
+            "navigationSection": {
+              "expr": {
+                "Literal": {
+                  "Value": "'5c049f5040030bd0c851'"
                 }
               }
             }

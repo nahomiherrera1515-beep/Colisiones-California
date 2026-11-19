@@ -69,21 +69,21 @@
             "zoom": {
               "expr": {
                 "Literal": {
-                  "Value": "7.33D"
+                  "Value": "8.98D"
                 }
               }
             },
             "centerLatitude": {
               "expr": {
                 "Literal": {
-                  "Value": "33.81790890468733D"
+                  "Value": "38.63074622843689D"
                 }
               }
             },
             "centerLongitude": {
               "expr": {
                 "Literal": {
-                  "Value": "-118.29530499999998D"
+                  "Value": "-119.80783000000002D"
                 }
               }
             },
