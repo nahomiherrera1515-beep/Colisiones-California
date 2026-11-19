@@ -11,6 +11,8 @@
 [![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white)](app.py)
 [![Power BI](https://img.shields.io/badge/Power%20BI-F2C811?style=flat-square&logo=powerbi&logoColor=black)](#)
 
+**[Abrir aplicación](https://colisiones-california.streamlit.app)** ·
+**[Dashboard Power BI](--------)** ·
 [Planteamiento](#planteamiento-del-problema) ·
 [Objetivos](#objetivos) ·
 [Tasas por habitante](#población-y-tasas-por-habitante) ·
@@ -184,6 +186,12 @@ flowchart LR
 Antes de subirla comprobamos que la data cruda en Parquet es idéntica al `.sqlite` fila por fila, y que la base normalizada de la nube es idéntica a la local.
 
 ## Cómo usar
+
+Puedes explorar los datos directamente sin instalar nada:
+- **Aplicación web (Streamlit):** [colisiones-california.streamlit.app](https://colisiones-california.streamlit.app)
+- **Dashboard (Power BI):** [app.powerbi.com](-----)
+
+Si prefieres ejecutar la aplicación de forma local:
 
 ### 1. Clonar el repositorio
 
