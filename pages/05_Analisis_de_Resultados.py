@@ -233,7 +233,6 @@ with tab_obj1:
             )
             
             st.plotly_chart(fig_temp, use_container_width=True)
-            st.success("Patrones temporales cargados exitosamente.")
             
             # Tabla desplegable temporal
             with st.expander(f"Ver tabla de frecuencias — {dim_temporal}"):
@@ -292,7 +291,6 @@ with tab_obj1:
             )
             
             st.plotly_chart(fig_geo, use_container_width=True)
-            st.success("Datos geográficos cargados exitosamente.")
             
             with st.expander("Ver tabla completa de condados (Tasas y Conteos)"):
                 tabla_geo = df_obj1_geo.rename(columns={
@@ -453,7 +451,6 @@ with tab_obj3:
     )
 
     st.plotly_chart(fig, use_container_width=True)
-    st.success("Se han cargado los registros exitosamente.")
 
     # tabla resumen pivoteada que se actualiza dinamicamente con el filtro segun la dimension seleccionada
     with st.expander(
@@ -539,7 +536,6 @@ with tab_obj4:
         )
 
         st.plotly_chart(fig_obj4, use_container_width=True)
-        st.success("Se han cargado los registros exitosamente.") # Mensaje de exito porque se ve bien :)
 
         # Tabla de frecuencias pivoteada
         with st.expander("Ver tabla de frecuencias por Antigüedad del Vehículo y Nivel de Lesión (KABCO)"):
