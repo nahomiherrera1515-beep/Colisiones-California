@@ -483,6 +483,22 @@ with tab_obj3:
       )
 
       st.dataframe(tabla_pivote, use_container_width=True, hide_index=True)
+
+    # analisis
+    st.markdown("""
+    En los datos se observa con claridad que el volumen total de colisiones está 
+    dominado por las condiciones cotidianas de mayor circulación: en **iluminación**, luz diurna concentra la 
+    mayor cantidad de registros (cerca de los 2,8–3 millones) frente a oscuridad 
+    con alumbrado (alrededor de 0,9 millones), oscuridad sin alumbrado, amanecer o atardecer, 
+    oscuridad con alumbrado averiado y sin clasificar; en **clima**, despejado supera los 3,5 millones 
+    y deja muy atrás a nublado (cerca de 0,5 millones), lluvia, niebla, nieve, viento fuerte, otro y 
+    sin clasificar; y en **superficie de la calzada**, seca domina ampliamente el total (cerca de 4 millones)
+    por encima de mojada, nieve o hielo, resbaladiza y sin clasificar.
+    
+    Al contrastar las colisiones no graves (B, C u O) y graves (K o A) dentro de cada categoría, se ve 
+    que las colisiones más frecuentes en los datos son las no graves, lo cual no resta importancia a 
+    las graves, sino que refleja una diferencia de frecuencia y escala entre ambos desenlaces.
+    """)
   else:
     st.warning("No se encontraron registros en la consulta.")
     # mensaje por si
@@ -556,6 +572,26 @@ with tab_obj4:
             tabla_pivote_obj4["Total Víctimas"] = tabla_pivote_obj4.sum(axis=1)
             tabla_mostrar = tabla_pivote_obj4.reset_index()
             st.dataframe(tabla_mostrar, use_container_width=True, hide_index=True)
+
+        # analisis
+        st.markdown("""
+        En los datos se observa con claridad que el volumen total de víctimas está concentrado en los vehículos 
+        con menos años de antigüedad, alcanzando su punto máximo en los automóviles de 1 año 
+        (superando las 270.000 víctimas) y manteniéndose elevado entre los 0 y 5 años. Tras una etapa relativamente 
+        estable entre los 6 y 11 años (donde se aprecia un leve repunte alrededor de los 9 y 10 años), 
+        las frecuencias comienzan a descender de manera sostenida a partir de los 12 años hasta caer por debajo 
+        de las 20.000 víctimas en los vehículos de 25 años, lo cual refleja la distribución habitual del parque 
+        automotor en circulación.
+
+        Al desglosar los registros según la escala de severidad **KABCO**, se distingue una marcada 
+        diferencia de escala entre los desenlaces leves y los graves en todos los tramos de edad: 
+        los niveles **O** (sin lesión aparente) y **C** (posible lesión), seguidos por **B** 
+        (lesión visible no incapacitante), absorben la gran mayoría de los casos en cada año de antigüedad, 
+        mientras que los niveles **A** (lesión incapacitante) y **K** (fallecido) mantienen frecuencias reducidas 
+        en toda la distribución. Esto muestra que, aunque la exposición del parque vehicular concentre más 
+        víctimas en los vehículos de menor antigüedad y de edad intermedia, los desenlaces 
+        no graves siguen siendo ampliamente predominantes frente a los graves en cada tramo.
+        """)
     else:
         st.warning("No se encontraron registros en la consulta.") # Mensaje con el 
-        #mismo objetivo que el anterior
+        # mismo objetivo que el anterior
