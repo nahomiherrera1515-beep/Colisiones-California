@@ -236,6 +236,46 @@ table hechos_victimas
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	column 'Tramo Antigüedad' =
+			
+			VAR Edad = hechos_victimas[edad_vehiculo]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(Edad) || Edad < 0, "Sin dato",
+			    Edad <= 4, "0-4 años",
+			    Edad <= 9, "5-9 años",
+			    Edad <= 14, "10-14 años",
+			    Edad <= 19, "15-19 años",
+			    "20+ años"
+			)
+		lineageTag: 74e5e52a-7793-439c-b888-ccb3e43c4759
+		summarizeBy: none
+		sortByColumn: 'Orden Antigüedad'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Orden Antigüedad' =
+			
+			VAR Edad = hechos_victimas[edad_vehiculo]
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(Edad) || Edad < 0, 99,
+			    Edad <= 4, 1,
+			    Edad <= 9, 2,
+			    Edad <= 14, 3,
+			    Edad <= 19, 4,
+			    5
+			)
+		formatString: 0
+		lineageTag: 207ed73a-cff8-47fd-9b94-ef06125b1849
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
 	partition hechos_victimas = m
 		mode: import
 		source =

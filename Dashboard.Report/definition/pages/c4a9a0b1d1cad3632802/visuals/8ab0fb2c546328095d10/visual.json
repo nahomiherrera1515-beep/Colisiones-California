@@ -178,6 +178,11 @@
         }
       ]
     },
+    "syncGroup": {
+      "groupName": "etiqueta",
+      "fieldChanges": true,
+      "filterChanges": true
+    },
     "drillFilterOtherVisuals": true
   }
 }

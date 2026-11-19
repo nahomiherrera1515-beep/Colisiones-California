@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "4be93ca93d9009663100",
   "position": {
-    "x": 997.67725085520431,
-    "y": 273.83798668578157,
-    "z": 16000,
-    "height": 181.39586379185533,
-    "width": 146.51204383188315,
-    "tabOrder": 16000
+    "x": 842.4442520333281,
+    "y": 211.04711075783166,
+    "z": 14000,
+    "height": 71.511830917942959,
+    "width": 305.23342464975656,
+    "tabOrder": 14000
   },
   "visual": {
     "visualType": "slicer",
@@ -88,7 +88,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'''dim_clima''[etiqueta]'"
+                                "Value": "'''dim_superficie''[etiqueta]'"
                               }
                             }
                           ]
@@ -116,7 +116,7 @@
                                 "0": [
                                   {
                                     "Literal": {
-                                      "Value": "'''dim_clima''[etiqueta]'"
+                                      "Value": "'''dim_superficie''[etiqueta]'"
                                     }
                                   }
                                 ]
@@ -140,7 +140,7 @@
                         },
                         "valueMap": [
                           {
-                            "0": "Clima"
+                            "0": "Superficie"
                           }
                         ]
                       }
@@ -174,5 +174,23 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "25c5fd827041ed4e4966",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Parámetro"
+              }
+            },
+            "Property": "Parámetro"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
   }
 }

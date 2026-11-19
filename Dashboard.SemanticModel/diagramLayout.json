@@ -4,8 +4,8 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 777.00925691318866,
-        "y": 0
+        "x": 1358.5673633631197,
+        "y": 908.92104334858277
       },
       "nodes": [
         {
@@ -35,24 +35,26 @@
         },
         {
           "location": {
-            "x": 353.33585054680276,
-            "y": 269.53379237449076
+            "x": 1783.7503372409906,
+            "y": 1058.9210433485828
           },
           "nodeIndex": "hechos_victimas",
+          "nodeLineageTag": "abdc89bb-1efd-4bfa-a73f-9ac313175a02",
           "size": {
-            "height": 300,
+            "height": 641.50795964127383,
             "width": 234
           },
           "zIndex": 0
         },
         {
           "location": {
-            "x": 335.759506562573,
-            "y": 774.321364208656
+            "x": 1424.6660336154873,
+            "y": 1048.647430150007
           },
           "nodeIndex": "hechos_partie",
+          "nodeLineageTag": "0be00b13-7f1c-4639-9703-4f30ec111e94",
           "size": {
-            "height": 300,
+            "height": 621.913240645463,
             "width": 234
           },
           "zIndex": 0
@@ -230,7 +232,7 @@
         }
       ],
       "name": "Todas las tablas",
-      "zoomValue": 50.346892102823183,
+      "zoomValue": 79.594903920552824,
       "pinKeyFieldsToTop": false,
       "showExtraHeaderInfo": false,
       "hideKeyFieldsWhenCollapsed": false,
