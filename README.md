@@ -11,8 +11,8 @@
 [![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white)](app.py)
 [![Power BI](https://img.shields.io/badge/Power%20BI-F2C811?style=flat-square&logo=powerbi&logoColor=black)](#)
 
-**[Abrir aplicación](https://colisiones-california.streamlit.app)** ·
-**[Dashboard Power BI](--------)** ·
+**[Aplicación_Web](https://colisiones-california.streamlit.app)** ·
+**[Dashboard Power BI](https://app.powerbi.com/view?r=eyJrIjoiNTI5MzRiN2MtN2RiZC00MWUyLThmMGQtODM1ZmQzMDc4MTI0IiwidCI6IjRjODE4Zjc5LWFiODQtNDU1Mi05YjdjLTJmZTcxNWIwZDBkNSIsImMiOjR9&pageName=5b65695d2ea4c36459cb)** ·
 [Planteamiento](#planteamiento-del-problema) ·
 [Objetivos](#objetivos) ·
 [Tasas por habitante](#población-y-tasas-por-habitante) ·
@@ -189,7 +189,7 @@ Antes de subirla comprobamos que la data cruda en Parquet es idéntica al `.sqli
 
 Puedes explorar los datos directamente sin instalar nada:
 - **Aplicación web (Streamlit):** [colisiones-california.streamlit.app](https://colisiones-california.streamlit.app)
-- **Dashboard (Power BI):** [app.powerbi.com](-----)
+- **Dashboard (Power BI):** [app.powerbi.com](https://app.powerbi.com/view?r=eyJrIjoiNTI5MzRiN2MtN2RiZC00MWUyLThmMGQtODM1ZmQzMDc4MTI0IiwidCI6IjRjODE4Zjc5LWFiODQtNDU1Mi05YjdjLTJmZTcxNWIwZDBkNSIsImMiOjR9&pageName=5b65695d2ea4c36459cb)
 
 Si prefieres ejecutar la aplicación de forma local:
 
