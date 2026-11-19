@@ -19,30 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Nº",
-                    "textStyle": {
-                      "fontWeight": "bold",
-                      "fontFamily": "DIN",
-                      "fontSize": "24pt",
-                      "color": "#ffffff"
-                    }
-                  },
-                  {
-                    "value": " ",
-                    "textStyle": {
-                      "fontFamily": "DIN",
-                      "fontSize": "24pt",
-                      "color": "#ffffff"
-                    }
-                  },
-                  {
-                    "value": "de colisiones por año",
-                    "textStyle": {
-                      "fontWeight": "bold",
-                      "fontFamily": "DIN",
-                      "fontSize": "24pt",
-                      "color": "#ffffff"
-                    }
+                    "value": ""
                   }
                 ]
               }

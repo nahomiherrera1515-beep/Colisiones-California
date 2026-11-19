@@ -1,0 +1,49 @@
+table Parámetro
+	lineageTag: 040e2a3c-65ef-4c7d-b708-207020dd3d2f
+
+	column Parámetro
+		lineageTag: 257870b1-288a-43cc-9bd1-6b74b74b0fdb
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Parámetro Orden'
+
+		relatedColumnDetails
+			groupByColumn: 'Parámetro Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parámetro Campos'
+		isHidden
+		lineageTag: 4fef815f-83cf-4ba3-aaba-dc9b9d762fb5
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Parámetro Orden'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parámetro Orden'
+		isHidden
+		formatString: 0
+		lineageTag: 3d0e1457-e6d5-4c1f-9a7f-b8a7e39e17f3
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Parámetro = calculated
+		mode: import
+		source =
+				{
+				    ("Clima", NAMEOF('dim_clima'[etiqueta]), 0),
+				    ("Iluminacion", NAMEOF('dim_iluminacion'[etiqueta]), 1),
+				    ("Superficie", NAMEOF('dim_superficie'[etiqueta]), 2)
+				}
+
+	annotation PBI_Id = ca11c811c090495e89f8ce061c3a7d31
+

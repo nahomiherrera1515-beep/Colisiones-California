@@ -4,13 +4,13 @@
   "position": {
     "x": 572.92682926829264,
     "y": 217.3170731707317,
-    "z": 18000,
+    "z": 12000,
     "height": 827.1219512195122,
     "width": 597.951219512195,
-    "tabOrder": 18000
+    "tabOrder": 12000
   },
   "visual": {
-    "visualType": "columnChart",
+    "visualType": "lineClusteredColumnComboChart",
     "query": {
       "queryState": {
         "Category": {
@@ -20,15 +20,31 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "dim_superficie"
+                      "Entity": "dim_clima"
                     }
                   },
                   "Property": "etiqueta"
                 }
               },
-              "queryRef": "dim_superficie.etiqueta",
-              "nativeQueryRef": "etiqueta",
-              "active": true
+              "queryRef": "dim_clima.etiqueta",
+              "nativeQueryRef": "Clima",
+              "displayName": "Clima"
+            }
+          ],
+          "fieldParameters": [
+            {
+              "parameterExpr": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Parámetro"
+                    }
+                  },
+                  "Property": "Parámetro"
+                }
+              },
+              "index": 0,
+              "length": 1
             }
           ]
         },
@@ -266,6 +282,31 @@
                   "expr": {
                     "Literal": {
                       "Value": "'#3B82F6'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryAxis": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "9D"
+                }
+              }
+            },
+            "labelColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.1
                     }
                   }
                 }

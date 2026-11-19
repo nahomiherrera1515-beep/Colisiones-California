@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "0fe4883f0703ed25b4e5",
   "position": {
-    "x": 95,
-    "y": 786,
+    "x": 94.186313891924883,
+    "y": 743.02536514740734,
     "z": 16000,
-    "height": 270,
-    "width": 796,
+    "height": 312.21018864175096,
+    "width": 797.09528608536425,
     "tabOrder": 16000
   },
   "visual": {
@@ -29,6 +29,51 @@
               "queryRef": "dim_fecha.anio",
               "nativeQueryRef": "anio",
               "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_fecha"
+                    }
+                  },
+                  "Property": "dia_semana"
+                }
+              },
+              "queryRef": "dim_fecha.dia_semana",
+              "nativeQueryRef": "dia_semana",
+              "active": false
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_fecha"
+                    }
+                  },
+                  "Property": "mes"
+                }
+              },
+              "queryRef": "dim_fecha.mes",
+              "nativeQueryRef": "mes",
+              "active": false
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "hechos_colisiosns"
+                    }
+                  },
+                  "Property": "hora_del_dia"
+                }
+              },
+              "queryRef": "hechos_colisiosns.hora_del_dia",
+              "nativeQueryRef": "hora_del_dia",
+              "active": false
             }
           ]
         },
@@ -102,7 +147,7 @@
             "showAxisTitle": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
@@ -315,19 +360,6 @@
       ]
     },
     "visualContainerObjects": {
-      "title": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          }
-        }
-      ],
       "background": [
         {
           "properties": {
@@ -344,6 +376,56 @@
                   "expr": {
                     "Literal": {
                       "Value": "'#1B1C26'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Total de Colisiones'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "24D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.1
                     }
                   }
                 }

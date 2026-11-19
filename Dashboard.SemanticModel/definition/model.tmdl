@@ -34,6 +34,7 @@ ref table LocalDateTable_7543e360-cf5b-4eb0-b525-89a4fd317514
 ref table _Medidas
 ref table tabla_tasas
 ref table imagenes
+ref table Parámetro
 
 ref cultureInfo es-US
 

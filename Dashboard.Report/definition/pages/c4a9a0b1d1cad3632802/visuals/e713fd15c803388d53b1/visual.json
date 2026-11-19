@@ -83,7 +83,7 @@
             "centerLongitude": {
               "expr": {
                 "Literal": {
-                  "Value": "-98.64046D"
+                  "Value": "-98.64046000000002D"
                 }
               }
             },
