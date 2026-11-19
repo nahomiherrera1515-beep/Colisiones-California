@@ -1,56 +1,56 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
-  "name": "dca3359c730e33707910",
+  "name": "ce5cad245b11b5b32ad1",
   "position": {
-    "x": 1220.9268292682925,
-    "y": 376.6829268292683,
-    "z": 19000,
-    "height": 637.46341463414626,
-    "width": 674.34146341463406,
-    "tabOrder": 19000
+    "x": 1195.90243902439,
+    "y": 217.3170731707317,
+    "z": 20001,
+    "height": 399.07317073170731,
+    "width": 698.04878048780483,
+    "tabOrder": 20001
   },
   "visual": {
-    "visualType": "treemap",
+    "visualType": "hundredPercentStackedBarChart",
     "query": {
       "queryState": {
-        "Group": {
+        "Category": {
           "projections": [
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "dim_sobriedad"
+                      "Entity": "dim_banda_edad"
                     }
                   },
                   "Property": "etiqueta"
                 }
               },
-              "queryRef": "dim_sobriedad.etiqueta",
+              "queryRef": "dim_banda_edad.etiqueta",
               "nativeQueryRef": "etiqueta",
               "active": true
             }
           ]
         },
-        "Tooltips": {
+        "Series": {
           "projections": [
             {
               "field": {
-                "Measure": {
+                "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "_Medidas"
+                      "Entity": "hechos_colisiosns"
                     }
                   },
-                  "Property": "Prop_Colisiones_Fatal"
+                  "Property": "severidad"
                 }
               },
-              "queryRef": "_Medidas.Prop_Colisiones_Fatal",
-              "nativeQueryRef": "Prop_Colisiones_Fatal"
+              "queryRef": "hechos_colisiosns.severidad",
+              "nativeQueryRef": "severidad"
             }
           ]
         },
-        "Values": {
+        "Y": {
           "projections": [
             {
               "field": {
@@ -68,19 +68,30 @@
             }
           ]
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Medidas"
+                  }
+                },
+                "Property": "Total_Colisiones"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
       }
     },
     "objects": {
-      "legend": [
+      "categoryAxis": [
         {
           "properties": {
-            "position": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Left'"
-                }
-              }
-            },
             "labelColor": {
               "solid": {
                 "color": {
@@ -96,10 +107,10 @@
           }
         }
       ],
-      "categoryLabels": [
+      "valueAxis": [
         {
           "properties": {
-            "color": {
+            "labelColor": {
               "solid": {
                 "color": {
                   "expr": {
@@ -111,19 +122,110 @@
                 }
               }
             }
-          },
-          "selector": {
-            "data": [
-              {
-                "dataViewWildcard": {
-                  "matchingOption": 1
+          }
+        }
+      ],
+      "legend": [
+        {
+          "properties": {
+            "labelColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
                 }
               }
-            ]
+            }
           }
         }
       ],
       "dataPoint": [
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#F59E0B'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "hechos_colisiosns"
+                          }
+                        },
+                        "Property": "severidad"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'A'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#14B8A6'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "hechos_colisiosns"
+                          }
+                        },
+                        "Property": "severidad"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'B'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
         {
           "properties": {
             "fill": {
@@ -148,15 +250,15 @@
                       "Column": {
                         "Expression": {
                           "SourceRef": {
-                            "Entity": "dim_sobriedad"
+                            "Entity": "hechos_colisiosns"
                           }
                         },
-                        "Property": "etiqueta"
+                        "Property": "severidad"
                       }
                     },
                     "Right": {
                       "Literal": {
-                        "Value": "'No había bebido'"
+                        "Value": "'C'"
                       }
                     }
                   }
@@ -172,7 +274,7 @@
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#D97706'"
+                      "Value": "'#1E3A8A'"
                     }
                   }
                 }
@@ -189,261 +291,15 @@
                       "Column": {
                         "Expression": {
                           "SourceRef": {
-                            "Entity": "dim_sobriedad"
+                            "Entity": "hechos_colisiosns"
                           }
                         },
-                        "Property": "etiqueta"
+                        "Property": "severidad"
                       }
                     },
                     "Right": {
                       "Literal": {
-                        "Value": "'Bebió, sin estar bajo los efectos'"
-                      }
-                    }
-                  }
-                }
-              }
-            ]
-          }
-        },
-        {
-          "properties": {
-            "fill": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#4F46E5'"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "data": [
-              {
-                "scopeId": {
-                  "Comparison": {
-                    "ComparisonKind": 0,
-                    "Left": {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Entity": "dim_sobriedad"
-                          }
-                        },
-                        "Property": "etiqueta"
-                      }
-                    },
-                    "Right": {
-                      "Literal": {
-                        "Value": "'Bebió, efecto desconocido'"
-                      }
-                    }
-                  }
-                }
-              }
-            ]
-          }
-        },
-        {
-          "properties": {
-            "fill": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#78716C'"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "data": [
-              {
-                "scopeId": {
-                  "Comparison": {
-                    "ComparisonKind": 0,
-                    "Left": {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Entity": "dim_sobriedad"
-                          }
-                        },
-                        "Property": "etiqueta"
-                      }
-                    },
-                    "Right": {
-                      "Literal": {
-                        "Value": "'Sin clasificar'"
-                      }
-                    }
-                  }
-                }
-              }
-            ]
-          }
-        },
-        {
-          "properties": {
-            "fill": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#EF4444'"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "data": [
-              {
-                "scopeId": {
-                  "Comparison": {
-                    "ComparisonKind": 0,
-                    "Left": {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Entity": "dim_sobriedad"
-                          }
-                        },
-                        "Property": "etiqueta"
-                      }
-                    },
-                    "Right": {
-                      "Literal": {
-                        "Value": "'Bebió, bajo los efectos'"
-                      }
-                    }
-                  }
-                }
-              }
-            ]
-          }
-        },
-        {
-          "properties": {
-            "fill": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#8B5CF6'"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "data": [
-              {
-                "scopeId": {
-                  "Comparison": {
-                    "ComparisonKind": 0,
-                    "Left": {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Entity": "dim_sobriedad"
-                          }
-                        },
-                        "Property": "etiqueta"
-                      }
-                    },
-                    "Right": {
-                      "Literal": {
-                        "Value": "'Deterioro desconocido'"
-                      }
-                    }
-                  }
-                }
-              }
-            ]
-          }
-        },
-        {
-          "properties": {
-            "fill": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#334155'"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "data": [
-              {
-                "scopeId": {
-                  "Comparison": {
-                    "ComparisonKind": 0,
-                    "Left": {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Entity": "dim_sobriedad"
-                          }
-                        },
-                        "Property": "etiqueta"
-                      }
-                    },
-                    "Right": {
-                      "Literal": {
-                        "Value": "null"
-                      }
-                    }
-                  }
-                }
-              }
-            ]
-          }
-        },
-        {
-          "properties": {
-            "fill": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#64748B'"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "data": [
-              {
-                "scopeId": {
-                  "Comparison": {
-                    "ComparisonKind": 0,
-                    "Left": {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Entity": "dim_sobriedad"
-                          }
-                        },
-                        "Property": "etiqueta"
-                      }
-                    },
-                    "Right": {
-                      "Literal": {
-                        "Value": "'No aplica'"
+                        "Value": "'O'"
                       }
                     }
                   }
@@ -473,65 +329,6 @@
         }
       ],
       "border": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "title": [
-        {
-          "properties": {
-            "fontColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "ThemeDataColor": {
-                      "ColorId": 0,
-                      "Percent": 0
-                    }
-                  }
-                }
-              }
-            },
-            "text": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Factores Humanos'"
-                }
-              }
-            },
-            "fontSize": {
-              "expr": {
-                "Literal": {
-                  "Value": "19D"
-                }
-              }
-            },
-            "fontFamily": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Tahoma'"
-                }
-              }
-            },
-            "bold": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "subTitle": [
         {
           "properties": {
             "show": {
@@ -605,6 +402,65 @@
                       "Percent": 0
                     }
                   }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Proporción de Severidad por Banda de Edad del Conductor Culpable'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "17D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }

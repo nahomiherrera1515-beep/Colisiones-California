@@ -91,11 +91,6 @@
       "type": "HighlightFilter"
     },
     {
-      "source": "943c0385766b51646600",
-      "target": "dca3359c730e33707910",
-      "type": "HighlightFilter"
-    },
-    {
       "source": "7fe392e602bbd70ccb77",
       "target": "0baa25f70d26b418e52b",
       "type": "NoFilter"
@@ -129,11 +124,6 @@
       "source": "d643e8a26746c4a9a049",
       "target": "943c0385766b51646600",
       "type": "HighlightFilter"
-    },
-    {
-      "source": "943c0385766b51646600",
-      "target": "3444600293bbd7d093c6",
-      "type": "NoFilter"
     }
   ]
 }
