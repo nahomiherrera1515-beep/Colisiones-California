@@ -1,27 +1,18 @@
 """Cuestionario SQL (formulario G8) sobre las colisiones de tránsito en California.
 
-Para cada una de las preguntas 1 a 5 la app muestra el enunciado, la consulta
-SQL (escrita para SQLite), la explicación, el resultado y un gráfico.
+Para cada una de las preguntas 1 a 5 la página muestra el enunciado, la consulta
+SQL, la explicación, el resultado y un gráfico.
 
-Los resultados ya vienen guardados dentro de este archivo: se obtuvieron
-ejecutando estas mismas consultas sobre la fuente cruda switrs.sqlite (Kaggle,
-9,9 GB). Por eso la app funciona completa sin descargar nada. Si además se
-tiene switrs.sqlite, la app puede volver a ejecutar cada consulta en vivo.
-
-Cómo usarla:
-    pip install streamlit pandas altair
-    streamlit run app_cuestionario.py
-
-La ruta de switrs.sqlite (opcional) se toma de la variable SWITRS_PATH, o de un
-switrs.sqlite en la misma carpeta que este archivo, y se puede cambiar desde la
-barra lateral.
+Las consultas se ejecutan en vivo en MotherDuck sobre la base colisiones_crudo:
+las tablas originales de Kaggle (switrs.sqlite), pasadas a Parquet sin cambiar
+ningún dato y cargadas en MotherDuck. El SQL es el de DuckDB, el motor de
+MotherDuck. La conexión usa el mismo token que el resto de la app
+(st.secrets["motherduck_token"]).
 """
 
-import os
-import sqlite3
 import time
-from pathlib import Path
 
+import duckdb
 import pandas as pd
 import altair as alt
 import streamlit as st
@@ -34,32 +25,29 @@ st.set_page_config(page_title="Cuestionario de Consultas SQL", page_icon="💻",
 st.title("Cuestionario de Consultas SQL")
 
 
-# Conexión con la fuente
+# Conexión con MotherDuck
 # ---------------------------------------------------------------------------
 
-RUTA_POR_DEFECTO = os.environ.get("SWITRS_PATH",
-                                  str(Path(__file__).with_name("switrs.sqlite")))
+BASE_CRUDA = "colisiones_crudo"
 
 
-def conectar(ruta):
-    # mode=ro abre el archivo en solo lectura: las consultas no pueden modificarlo.
-    return sqlite3.connect(f"file:{ruta}?mode=ro", uri=True)
+@st.cache_resource
+def conexion_motherduck():
+    token = st.secrets["motherduck_token"]
+    return duckdb.connect(f"md:{BASE_CRUDA}?motherduck_token={token}")
 
 
-@st.cache_data(show_spinner=False)
-def consultar(ruta, sql):
-    """Ejecuta una consulta y guarda el resultado en caché para no repetirla."""
-    with conectar(ruta) as con:
-        return pd.read_sql_query(sql, con)
+def consultar(sql):
+    """Ejecuta la consulta en vivo en MotherDuck, sin guardar el resultado."""
+    # cada consulta usa su propio cursor para no mezclar sesiones de distintos usuarios
+    return conexion_motherduck().cursor().execute(sql).df()
 
 
-@st.cache_data(show_spinner=False)
-def filas_por_tabla(ruta):
-    with conectar(ruta) as con:
-        return pd.DataFrame(
-            [(tabla, con.execute(f"SELECT COUNT(*) FROM {tabla}").fetchone()[0])
-             for tabla in ("collisions", "parties")],
-            columns=["tabla", "filas"])
+def filas_por_tabla():
+    return consultar("""
+        SELECT 'collisions' AS tabla, COUNT(*) AS filas FROM collisions
+        UNION ALL
+        SELECT 'parties', COUNT(*) FROM parties""")
 
 
 
@@ -68,9 +56,9 @@ def filas_por_tabla(ruta):
 
 SQL_1 = """\
 -- Pregunta 1: Perfil de la semana
--- strftime('%w') da 0 el domingo; (w + 6) % 7 + 1 lo pasa a 1 lunes ... 7 domingo.
+-- isodow() da el día de la semana como 1 = lunes ... 7 = domingo.
 WITH por_dia AS (
-    SELECT (CAST(strftime('%w', collision_date) AS INTEGER) + 6) % 7 + 1 AS dia,
+    SELECT isodow(CAST(collision_date AS DATE))  AS dia,
            COUNT(*)                         AS colisiones,
            COALESCE(SUM(killed_victims), 0) AS muertos
     FROM collisions
@@ -263,96 +251,6 @@ ORDER BY puesto, condado;
 """
 
 # ---------------------------------------------------------------------------
-# Resultados guardados
-# ---------------------------------------------------------------------------
-# Se obtuvieron ejecutando SQL_1 a SQL_5 sobre el switrs.sqlite completo de Kaggle
-# (9,9 GB) con SQLite. Así la app muestra todo sin necesidad del archivo.
-
-RESULTADOS_GUARDADOS = {
-    1: {
-        "columnas": ["dia_semana", "colisiones", "pct_colisiones", "variacion_pct_dia_anterior", "muertos", "letalidad_por_mil", "puesto_letalidad", "cociente_media_semanal"],
-        "filas": [
-            ('Lunes', 1301907, 14.01, 19.94, 9049, 6.95, 4, 0.981),
-            ('Martes', 1357711, 14.61, 4.29, 8785, 6.47, 6, 1.023),
-            ('Miércoles', 1363393, 14.67, 0.42, 8578, 6.29, 7, 1.027),
-            ('Jueves', 1373527, 14.78, 0.74, 9158, 6.67, 5, 1.035),
-            ('Viernes', 1533604, 16.51, 11.65, 11153, 7.27, 3, 1.155),
-            ('Sábado', 1275999, 13.73, -16.8, 13070, 10.24, 2, 0.961),
-            ('Domingo', 1085423, 11.68, -14.94, 12535, 11.55, 1, 0.818),
-        ],
-    },
-    2: {
-        "columnas": ["grupo_edad", "hombres", "mujeres", "pct_culpables_hombres", "pct_culpables_mujeres", "diferencia_puntos", "diferencia_con_total_puntos", "puesto_culpabilidad"],
-        "filas": [
-            ('16 a 24', 2101883, 1453111, 62.77, 53.82, 8.94, 12.62, 1),
-            ('25 a 44', 3883074, 2557802, 46.51, 39.5, 7.01, -2.76, 3),
-            ('45 a 64', 2491615, 1519660, 40.35, 36.53, 3.82, -7.58, 4),
-            ('65 o más', 681061, 432126, 48.75, 50.58, -1.83, 2.98, 2),
-        ],
-    },
-    3: {
-        "columnas": ["anio", "colisiones_con_moto", "pct_colisiones_con_moto", "pct_muertos_con_moto", "letalidad_con_moto", "letalidad_resto", "cociente_letalidades", "puesto_pct_muertos", "diferencia_con_periodo_puntos"],
-        "filas": [
-            (2001, 9875, 1.89, 7.67, 30.48, 7.07, 4.31, 20, -4.97),
-            (2002, 10783, 1.98, 7.97, 30.23, 7.05, 4.29, 19, -4.66),
-            (2003, 11749, 2.18, 8.97, 32.26, 7.3, 4.42, 17, -3.67),
-            (2004, 11370, 2.11, 8.87, 31.93, 7.08, 4.51, 18, -3.77),
-            (2005, 11495, 2.16, 9.74, 36.45, 7.45, 4.89, 16, -2.9),
-            (2006, 11707, 2.35, 10.29, 35.19, 7.37, 4.78, 15, -2.34),
-            (2007, 13656, 2.72, 11.95, 34.71, 7.15, 4.85, 14, -0.69),
-            (2008, 14503, 3.2, 16.26, 38.13, 6.5, 5.87, 2, 3.62),
-            (2009, 12749, 2.99, 12.87, 31.06, 6.48, 4.79, 13, 0.24),
-            (2010, 12085, 2.9, 13.18, 29.87, 5.88, 5.08, 12, 0.54),
-            (2011, 13263, 3.29, 15.27, 32.65, 6.15, 5.31, 5, 2.64),
-            (2012, 13848, 3.5, 15.59, 33.72, 6.62, 5.1, 3, 2.96),
-            (2013, 14431, 3.76, 15.3, 32.92, 7.12, 4.63, 4, 2.67),
-            (2014, 15061, 3.77, 16.95, 35.19, 6.75, 5.21, 1, 4.32),
-            (2015, 16711, 3.81, 15.01, 30.88, 6.93, 4.46, 7, 2.38),
-            (2016, 17711, 3.6, 15.26, 33.26, 6.9, 4.82, 6, 2.62),
-            (2017, 17422, 3.58, 14.81, 33.18, 7.09, 4.68, 8, 2.17),
-            (2018, 17316, 3.59, 13.98, 30.72, 7.04, 4.36, 10, 1.34),
-            (2019, 15870, 3.37, 13.38, 31.51, 7.12, 4.42, 11, 0.75),
-            (2020, 12956, 3.54, 14.47, 41.37, 8.96, 4.62, 9, 1.84),
-        ],
-    },
-    4: {
-        "columnas": ["puesto", "anio", "mes", "colisiones", "muertos", "colisiones_anio_anterior", "muertos_anio_anterior", "variacion_pct_colisiones", "variacion_pct_muertos", "letalidad_por_mil", "letalidad_anio_anterior", "meses_con_caida", "meses_comparados"],
-        "filas": [
-            (1, 2020, 4, 19985, 224, 37045, 265, -46.05, -15.47, 11.21, 7.15, 149, 228),
-            (2, 2006, 8, 28346, 296, 45321, 426, -37.46, -30.52, 10.44, 9.4, 149, 228),
-            (3, 2020, 5, 25098, 306, 39047, 307, -35.72, -0.33, 12.19, 7.86, 149, 228),
-            (4, 2020, 6, 27456, 288, 37364, 331, -26.52, -12.99, 10.49, 8.86, 149, 228),
-            (5, 2020, 3, 29478, 248, 39971, 270, -26.25, -8.15, 8.41, 6.75, 149, 228),
-            (6, 2020, 8, 32164, 343, 41142, 338, -21.82, 1.48, 10.66, 8.22, 149, 228),
-            (7, 2020, 12, 31205, 309, 39519, 318, -21.04, -2.83, 9.9, 8.05, 149, 228),
-            (8, 2020, 7, 30200, 334, 37953, 311, -20.43, 7.4, 11.06, 8.19, 149, 228),
-            (9, 2020, 11, 32455, 355, 40550, 362, -19.96, -1.93, 10.94, 8.93, 149, 228),
-            (10, 2020, 9, 32124, 347, 40004, 331, -19.7, 4.83, 10.8, 8.27, 149, 228),
-        ],
-    },
-    5: {
-        "columnas": ["puesto", "condado", "primer_anio_aumento", "ultimo_anio_aumento", "anios_de_racha", "muertos_anio_previo", "muertos_ultimo_anio", "aumento_pct"],
-        "filas": [
-            (1, 'riverside', 2012, 2018, 7, 203, 318, 56.65),
-            (2, 'los angeles', 2012, 2016, 5, 542, 847, 56.27),
-            (3, 'san bernardino', 2011, 2014, 4, 221, 281, 27.15),
-            (3, 'tulare', 2014, 2017, 4, 54, 86, 59.26),
-            (5, 'kern', 2015, 2017, 3, 111, 187, 68.47),
-            (5, 'orange', 2011, 2013, 3, 106, 185, 74.53),
-            (5, 'sacramento', 2015, 2017, 3, 112, 171, 52.68),
-            (5, 'santa clara', 2013, 2015, 3, 87, 135, 55.17),
-            (9, 'alameda', 2002, 2003, 2, 111, 113, 1.8),
-            (9, 'contra costa', 2002, 2003, 2, 57, 71, 24.56),
-            (9, 'fresno', 2002, 2003, 2, 149, 209, 40.27),
-            (9, 'san diego', 2004, 2005, 2, 290, 308, 6.21),
-            (9, 'san joaquin', 2010, 2011, 2, 64, 83, 29.69),
-            (9, 'stanislaus', 2002, 2003, 2, 85, 90, 5.88),
-            (9, 'ventura', 2005, 2006, 2, 70, 82, 17.14),
-        ],
-    },
-}
-
-# ---------------------------------------------------------------------------
 # Gráficos (uno por pregunta)
 # ---------------------------------------------------------------------------
 
@@ -418,8 +316,8 @@ PREGUNTAS = {
                     "siete días.",
         "explicacion": """
 1. El CTE `por_dia` recorre la tabla `collisions` una sola vez y agrupa por día de la
-   semana. En SQLite, `strftime('%w', fecha)` devuelve 0 para el domingo y 6 para el
-   sábado; la fórmula `(w + 6) % 7 + 1` lo pasa a 1 = lunes, ..., 7 = domingo.
+   semana. La fecha viene como texto, así que primero se convierte a `DATE`;
+   `isodow()` devuelve el día de la semana con 1 = lunes, ..., 7 = domingo.
 2. Por cada día cuenta las colisiones con `COUNT(*)` y suma los muertos con
    `SUM(killed_victims)`. `SUM` ignora los nulos y `COALESCE` deja un 0 si un grupo no
    tuviera ningún dato.
@@ -433,8 +331,8 @@ PREGUNTAS = {
    mayor a menor letalidad.
 6. La subconsulta `(SELECT AVG(colisiones) FROM por_dia)` da la media diaria; el
    cociente indica si un día está por encima (más de 1) o por debajo (menos de 1).
-7. Se multiplica por `100.0` o `1000.0` para que SQLite haga una división decimal; entre
-   dos enteros, SQLite trunca el resultado.
+7. Se multiplica por `100.0` para expresar porcentajes y por `1000.0` para la letalidad
+   por cada 1.000 colisiones.
 """,
         "lectura": "El viernes concentra más colisiones (16,51 %) y el domingo menos "
                    "(11,68 %). Sin embargo, el domingo es el día más letal, con 11,55 muertos "
@@ -498,7 +396,7 @@ PREGUNTAS = {
    ese porcentaje del periodo.
 """,
         "lectura": "Las colisiones con moto son apenas entre el 1,9 % y el 3,8 % del total, "
-                   "pero explican entre el 7,7 % y el 17 % de los muertos. Una colisión con moto "
+                   "pero representan entre el 7,7 % y el 17 % de los muertos. Una colisión con moto "
                    "es entre 4,3 y 5,9 veces más letal que una sin moto. El año con mayor peso "
                    "de las motos en la mortalidad fue 2014 (16,95 %) y el de mayor cociente fue "
                    "2008 (5,87). Desde 2008, todos los años quedan por encima del porcentaje "
@@ -577,51 +475,32 @@ PREGUNTAS = {
 # Página
 # ---------------------------------------------------------------------------
 
-if "en_vivo" not in st.session_state:
-    st.session_state.en_vivo = {}
+if "resultados" not in st.session_state:
+    st.session_state.resultados = {}
 
 
-def ejecutar(numero, ruta):
+def ejecutar(numero):
     inicio = time.time()
-    df = consultar(ruta, PREGUNTAS[numero]["sql"])
-    st.session_state.en_vivo[numero] = (df, time.time() - inicio)
-
-
-def resultado_guardado(numero):
-    guardado = RESULTADOS_GUARDADOS[numero]
-    return pd.DataFrame(guardado["filas"], columns=guardado["columnas"])
+    df = consultar(PREGUNTAS[numero]["sql"])
+    st.session_state.resultados[numero] = (df, time.time() - inicio)
 
 
 with st.sidebar:
     st.header("Fuente de datos")
-    st.markdown("Los resultados ya están guardados en la app. El archivo `switrs.sqlite` "
-                "solo hace falta para volver a ejecutar las consultas en vivo.")
-    ruta = st.text_input("Ruta de switrs.sqlite (opcional)", RUTA_POR_DEFECTO)
-    hay_fuente = Path(ruta).is_file()
-    if hay_fuente:
-        st.success(f"Archivo encontrado ({Path(ruta).stat().st_size / 1e9:.1f} GB).")
-        if st.button("Ejecutar todas en vivo", type="primary"):
-            with st.spinner("Ejecutando las cinco consultas (unos dos o tres minutos)..."):
-                for n in PREGUNTAS:
-                    ejecutar(n, ruta)
-        st.caption("El archivo se abre en modo solo lectura. Cada resultado queda en caché, "
-                   "así que volver a ejecutar una consulta es inmediato.")
-    else:
-        st.info("No se encontró el archivo: se muestran los resultados guardados.")
+    st.markdown("Las consultas se ejecutan en vivo en MotherDuck, sobre las tablas originales "
+                "de Kaggle (base `colisiones_crudo`).")
+    if st.button("Ejecutar todas las consultas", type="primary"):
+        with st.spinner("Ejecutando las cinco consultas en MotherDuck..."):
+            for n in PREGUNTAS:
+                ejecutar(n)
 
 st.markdown("Perfiles de riesgo en colisiones de tránsito en California · Computación II · "
             "UCV EECA · Formulario G8")
 st.markdown(
-    "Cada pregunta se responde con una sola consulta SQL escrita para SQLite, que se ejecuta "
-    "directamente sobre la fuente cruda `switrs.sqlite`, sin crear tablas, vistas ni "
-    "índices. Todas usan al menos un CTE (`WITH`), una función de ventana (`OVER`), una "
-    "subconsulta y un self join (una tabla unida consigo misma).")
-
-st.info(
-    "Los resultados que se muestran se obtuvieron ejecutando cada consulta sobre el archivo "
-    "completo `switrs.sqlite` (9,9 GB) del conjunto *California Traffic Collision Data from "
-    "SWITRS* de Kaggle, y quedaron guardados en la app. Quien tenga ese archivo puede "
-    "indicar su ruta en la barra lateral y volver a ejecutarlas en vivo.")
+    "Cada pregunta se responde con una sola consulta SQL que se ejecuta en vivo en MotherDuck "
+    "sobre la fuente cruda, sin crear tablas, vistas ni índices. Todas usan al menos un CTE "
+    "(`WITH`), una función de ventana (`OVER`), una subconsulta y un self join (una tabla "
+    "unida consigo misma).")
 
 pestanas = st.tabs(["Los datos"] + [f"Pregunta {n}" for n in PREGUNTAS])
 
@@ -629,24 +508,26 @@ with pestanas[0]:
     st.subheader("Los datos")
     st.markdown(
         "La fuente es la base SWITRS (Statewide Integrated Traffic Records System) de la "
-        "Patrulla de Carreteras de California, publicada en Kaggle como un archivo SQLite. "
-        "Las consultas usan dos de sus tablas:\n\n"
+        "Patrulla de Carreteras de California, publicada en Kaggle como un archivo SQLite de "
+        "9,9 GB. Sus tablas se pasaron a Parquet sin cambiar ningún dato (se comprobó fila "
+        "por fila que son idénticas al archivo original) y se cargaron en MotherDuck como la "
+        "base `colisiones_crudo`, donde se ejecutan las consultas. Las consultas usan dos de "
+        "sus tablas:\n\n"
         "- `collisions`: una fila por colisión, con la fecha, el condado, la gravedad, los "
         "muertos (`killed_victims`) y si hubo una moto (`motorcycle_collision`).\n"
         "- `parties`: una fila por cada parte involucrada (conductor, peatón, ciclista, etc.), "
         "con su tipo, sexo, edad y si fue declarada culpable (`at_fault`).\n\n"
         "Las consultas sobre colisiones toman los veinte años de 2001 a 2020.")
-    if hay_fuente:
-        if st.button("Contar filas y ver una muestra", key="muestra"):
-            with st.spinner("Contando filas..."):
-                st.dataframe(filas_por_tabla(ruta), hide_index=True)
+    if st.button("Contar filas y ver una muestra", key="muestra"):
+        with st.spinner("Consultando MotherDuck..."):
+            st.dataframe(filas_por_tabla(), hide_index=True)
             st.markdown("Primeras filas de `collisions` (columnas que usan las consultas):")
-            st.dataframe(consultar(ruta, """
+            st.dataframe(consultar("""
                 SELECT case_id, collision_date, county_location, collision_severity,
                        killed_victims, motorcycle_collision
                 FROM collisions LIMIT 5"""), hide_index=True)
             st.markdown("Primeras filas de `parties`:")
-            st.dataframe(consultar(ruta, """
+            st.dataframe(consultar("""
                 SELECT case_id, party_number, party_type, party_sex, party_age, at_fault,
                        vehicle_make
                 FROM parties LIMIT 5"""), hide_index=True)
@@ -664,19 +545,16 @@ for pestana, (numero, p) in zip(pestanas[1:], PREGUNTAS.items()):
         st.markdown(p["explicacion"])
 
         st.markdown("#### Resultado")
-        if hay_fuente and st.button("Ejecutar en vivo", key=f"ejecutar_{numero}"):
-            with st.spinner("Recorriendo switrs.sqlite..."):
-                ejecutar(numero, ruta)
+        if st.button("Ejecutar consulta", key=f"ejecutar_{numero}", type="primary"):
+            with st.spinner("Ejecutando la consulta en MotherDuck..."):
+                ejecutar(numero)
 
-        if numero in st.session_state.en_vivo:
-            df, segundos = st.session_state.en_vivo[numero]
-            st.caption(f"Ejecutada en vivo sobre switrs.sqlite: {len(df)} filas en "
-                       f"{segundos:.1f} s.")
+        if numero in st.session_state.resultados:
+            df, segundos = st.session_state.resultados[numero]
+            st.caption(f"Ejecutada en vivo en MotherDuck: {len(df)} filas en {segundos:.1f} s.")
+            st.dataframe(df, hide_index=True)
+            st.altair_chart(p["grafico"](df))
+            st.markdown("#### Qué muestra")
+            st.markdown(p["lectura"])
         else:
-            df = resultado_guardado(numero)
-            st.caption(f"Resultado guardado ({len(df)} filas), obtenido sobre el "
-                       f"switrs.sqlite completo.")
-        st.dataframe(df, hide_index=True)
-        st.altair_chart(p["grafico"](df))
-        st.markdown("#### Qué muestra")
-        st.markdown(p["lectura"])
+            st.info("Pulse «Ejecutar consulta» para ver el resultado.")

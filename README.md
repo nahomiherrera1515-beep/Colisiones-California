@@ -8,8 +8,8 @@
 [![SQL](https://img.shields.io/badge/SQL-4479A1?style=flat-square)](base_de_datos)
 [![SWITRS](https://img.shields.io/badge/SWITRS-232B36?style=flat-square)](#fuente-de-datos)
 [![DuckDB](https://img.shields.io/badge/DuckDB-FFF000?style=flat-square&logo=duckdb&logoColor=black)](https://duckdb.org)
-[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white)](app.py)
-[![Power BI](https://img.shields.io/badge/Power%20BI-F2C811?style=flat-square&logo=powerbi&logoColor=black)](#)
+[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white)](https://colisiones-california.streamlit.app)
+[![Power BI](https://img.shields.io/badge/Power%20BI-F2C811?style=flat-square&logo=powerbi&logoColor=black)](https://app.powerbi.com/view?r=eyJrIjoiNTI5MzRiN2MtN2RiZC00MWUyLThmMGQtODM1ZmQzMDc4MTI0IiwidCI6IjRjODE4Zjc5LWFiODQtNDU1Mi05YjdjLTJmZTcxNWIwZDBkNSIsImMiOjR9&pageName=5b65695d2ea4c36459cb)
 
 **[Aplicación_Web](https://colisiones-california.streamlit.app)** ·
 **[Dashboard Power BI](https://app.powerbi.com/view?r=eyJrIjoiNTI5MzRiN2MtN2RiZC00MWUyLThmMGQtODM1ZmQzMDc4MTI0IiwidCI6IjRjODE4Zjc5LWFiODQtNDU1Mi05YjdjLTJmZTcxNWIwZDBkNSIsImMiOjR9&pageName=5b65695d2ea4c36459cb)** ·
@@ -61,7 +61,7 @@ Entre 2010 y 2017 las colisiones en California pasaron de 416.490 a 486.432, un 
 | | Objetivo específico | Unidad de análisis |
 |:---:|---|---|
 | 1 | Describir los patrones temporales (año, mes, día y hora) y geográficos por condado, con conteos y tasas por 100.000 habitantes. | Colisión; condado y año |
-| 2 | Comparar cómo se asocian la edad del conductor culpable y el alcohol con la gravedad del choque, y cuál de los dos pesa más. | Colisión con un conductor como culpable |
+| 2 | Comparar cómo se asocian la edad del conductor culpable y el alcohol con la gravedad del choque, comparando la proporción de colisiones graves en cada grupo. | Colisión con un conductor como culpable |
 | 3 | Describir la distribución de choques según iluminación, clima y estado de la calzada, y la proporción de choques graves en cada condición. | Colisión |
 | 4 | Examinar la relación entre la antigüedad del vehículo y la gravedad de las lesiones de sus ocupantes. | Víctima que viajaba en un vehículo |
 

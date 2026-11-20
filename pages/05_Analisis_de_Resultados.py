@@ -342,7 +342,7 @@ with tab_obj2:
                 y="total_colisiones",
                 color="Gravedad",
                 barmode="group",
-                title="Impacto del Alcohol en la Gravedad del Choque",
+                title="Gravedad del Choque según Presencia de Alcohol",
                 labels={"total_colisiones": "Total de Colisiones"},
                 color_discrete_map={"Grave (K o A)": "#FF4B4B", "No Grave": "#3B82F6"}
             )
