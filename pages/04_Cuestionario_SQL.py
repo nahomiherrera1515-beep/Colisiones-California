@@ -498,7 +498,7 @@ PREGUNTAS = {
    ese porcentaje del periodo.
 """,
         "lectura": "Las colisiones con moto son apenas entre el 1,9 % y el 3,8 % del total, "
-                   "pero explican entre el 7,7 % y el 17 % de los muertos. Una colisión con moto "
+                   "pero representan entre el 7,7 % y el 17 % de los muertos. Una colisión con moto "
                    "es entre 4,3 y 5,9 veces más letal que una sin moto. El año con mayor peso "
                    "de las motos en la mortalidad fue 2014 (16,95 %) y el de mayor cociente fue "
                    "2008 (5,87). Desde 2008, todos los años quedan por encima del porcentaje "
