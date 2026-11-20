@@ -34,6 +34,13 @@ estilo.nota("Todas las colisiones registradas en los 58 condados del estado entr
             "una muestra.")
 
 st.write("")
+st.subheader("Pregunta de investigación")
+estilo.pregunta(
+    "¿Cómo se distribuyeron las colisiones de tránsito en California entre 2010 y 2019 en el "
+    "tiempo y entre los condados, y qué características del conductor, de las condiciones "
+    "ambientales y del vehículo se asocian con la gravedad de los choques?"
+)
+
 st.subheader("Objetivos de la investigación")
 estilo.conclusion(
     "Analizar la distribución temporal y territorial de las colisiones de tránsito en "
