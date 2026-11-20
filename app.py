@@ -15,8 +15,8 @@ st.set_page_config(
 )
 estilo.aplicar()
 
-POWER_BI = ("https://app.powerbi.com/view?r=eyJrIjoiMjE3NTJkMGMtOWI3NC00YjU2LTkxNDAtMzRjND"
-            "BmNGQwYzQxIiwidCI6IjRjODE4Zjc5LWFiODQtNDU1Mi05YjdjLTJmZTcxNWIwZDBkNSIsImMiOjR9"
+POWER_BI = ("https://app.powerbi.com/view?r=eyJrIjoiOWZkYmRhZGUtMzBhZC00YTczLWI5MzAtN2EwMDhl"
+            "ZTJiNTVjIiwidCI6IjRjODE4Zjc5LWFiODQtNDU1Mi05YjdjLTJmZTcxNWIwZDBkNSIsImMiOjR9"
             "&pageName=5b65695d2ea4c36459cb")
 REPOSITORIO = "https://github.com/nahomiherrera1515-beep/Colisiones-California"
 
