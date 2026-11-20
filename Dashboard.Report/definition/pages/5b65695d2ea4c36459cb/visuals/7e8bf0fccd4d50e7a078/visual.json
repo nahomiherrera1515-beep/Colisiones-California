@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "7e8bf0fccd4d50e7a078",
+  "position": {
+    "x": 57.951219512195117,
+    "y": 540,
+    "z": 1000,
+    "height": 82.975609756097555,
+    "width": 902.19512195121945,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Análisis Estadístico y Seguridad Vial",
+                    "textStyle": {
+                      "fontSize": "32pt",
+                      "color": "#999999"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

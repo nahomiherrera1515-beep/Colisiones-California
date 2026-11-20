@@ -1,0 +1,52 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "46cd9e5dd250b82b8269",
+  "position": {
+    "x": 1522.5365853658536,
+    "y": 125.12195121951218,
+    "z": 4000,
+    "height": 146.19512195121951,
+    "width": 238.390243902439,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "4M+",
+                    "textStyle": {
+                      "fontFamily": "DIN",
+                      "fontSize": "60pt",
+                      "color": "#ffffff"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "center"
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Colisiones",
+                    "textStyle": {
+                      "fontFamily": "DIN",
+                      "fontSize": "40pt",
+                      "color": "#ffffff"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "center"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

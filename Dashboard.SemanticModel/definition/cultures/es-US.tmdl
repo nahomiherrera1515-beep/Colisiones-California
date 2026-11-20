@@ -1,0 +1,41 @@
+cultureInfo es-US
+
+	linguisticMetadata =
+			{
+			  "Version": "2.0.0",
+			  "Language": "en-US",
+			  "Entities": {
+			    "dim_superficie.etiqueta": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "dim_superficie",
+			          "ConceptualProperty": "etiqueta"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "dim_iluminacion.etiqueta": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "dim_iluminacion",
+			          "ConceptualProperty": "etiqueta"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Iluminacion": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    }
+			  }
+			}
+		contentType: json
+
