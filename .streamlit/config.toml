@@ -1,0 +1,35 @@
+# Tema visual de la aplicación: la misma paleta del tablero de Power BI del proyecto.
+# Los colores de los gráficos de Plotly se definen en estilo.py con esa misma paleta.
+
+[client]
+toolbarMode = "minimal"
+
+[theme]
+base = "dark"
+primaryColor = "#14B8A6"
+backgroundColor = "#1F1F1F"
+secondaryBackgroundColor = "#292B30"
+textColor = "#F5F5F5"
+borderColor = "#34373D"
+showWidgetBorder = true
+showSidebarBorder = true
+baseRadius = "0.5rem"
+buttonRadius = "0.5rem"
+linkColor = "#5EEAD4"
+linkUnderline = false
+baseFontSize = 15
+font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+headingFont = "Newsreader:https://fonts.googleapis.com/css2?family=Newsreader:wght@500;600;700&display=swap"
+codeFont = "JetBrains Mono:https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"
+codeFontSize = "0.82rem"
+codeTextColor = "#5EEAD4"
+codeBackgroundColor = "#26282D"
+metricValueFontSize = "1.9rem"
+metricValueFontWeight = 600
+dataframeHeaderBackgroundColor = "#2C2F35"
+chartCategoricalColors = ["#14B8A6", "#3B82F6", "#F59E0B", "#DD561D", "#2B98C1"]
+chartSequentialColors = ["#2A2D33", "#24305A", "#1E3A8A", "#2A5FC2", "#3B82F6", "#2A9BC9", "#14B8A6", "#3FD1C0", "#5EEAD4", "#7DF3E1"]
+
+[theme.sidebar]
+backgroundColor = "#191919"
+secondaryBackgroundColor = "#242424"

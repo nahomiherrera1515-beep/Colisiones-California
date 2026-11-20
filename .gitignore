@@ -1,3 +1,19 @@
-**/.pbi/localSettings.json
-**/.pbi/cache.abf
-.Rhistory
+venv/
+__pycache__/
+*.csv
+!data/externa/*.csv
+*.xlsx
+*.hyper
+data/raw/*
+!data/raw/.gitkeep
+.env
+*.sqlite
+.DS_Store
+.vscode/
+
+# Base normalizada intermedia: se reconstruye con base_de_datos/01-03
+*.duckdb
+*.duckdb.wal
+
+# Token para conectar motherduck
+.streamlit/secrets.toml
