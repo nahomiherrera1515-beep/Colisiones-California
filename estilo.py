@@ -95,6 +95,13 @@ def aplicar():
             text-transform: uppercase; margin-bottom: 0.3rem;
         }}
         .conclusion p {{ color: {TEXTO}; line-height: 1.6; margin: 0; font-size: 0.97rem; }}
+        .pregunta {{
+            font-family: "Newsreader", Georgia, serif; font-size: 1.45rem; font-weight: 500;
+            line-height: 1.45; color: {TEXTO}; max-width: 58rem;
+            border-left: 3px solid {ACENTO}; padding: 0.15rem 0 0.15rem 1.25rem;
+            margin: 0.3rem 0 2rem;
+        }}
+        @media (max-width: 640px) {{ .pregunta {{ font-size: 1.2rem; padding-left: 1rem; }} }}
         </style>
         """,
         unsafe_allow_html=True,
@@ -121,6 +128,11 @@ def conclusion(texto, titulo="Lo que muestra"):
     """Lectura sencilla de un gráfico, debajo de él."""
     st.markdown(f'<div class="conclusion"><div class="conclusion-titulo">{titulo}</div>'
                 f'<p>{texto}</p></div>', unsafe_allow_html=True)
+
+
+def pregunta(texto):
+    """Pregunta de investigación destacada."""
+    st.markdown(f'<div class="pregunta">{texto}</div>', unsafe_allow_html=True)
 
 
 def nota(texto):
