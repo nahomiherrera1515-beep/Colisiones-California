@@ -31,22 +31,10 @@ relationship AutoDetected_01ec8d65-57bb-4a10-b0da-94292140e67f
 	fromColumn: dim_fuga.orden
 	toColumn: dim_clima.orden
 
-relationship AutoDetected_288a49da-c4d5-44b6-8fa8-4af63fdd272e
-	crossFilteringBehavior: bothDirections
-	fromCardinality: one
-	fromColumn: dim_iluminacion.orden
-	toColumn: dim_clima.orden
-
 relationship AutoDetected_b19c2fc9-2968-4d04-9134-53007e3433ef
 	crossFilteringBehavior: bothDirections
 	fromCardinality: one
 	fromColumn: dim_sobriedad.orden
-	toColumn: dim_clima.orden
-
-relationship AutoDetected_073458d1-7ba1-4c55-9cef-970d6cbb8692
-	crossFilteringBehavior: bothDirections
-	fromCardinality: one
-	fromColumn: dim_superficie.orden
 	toColumn: dim_clima.orden
 
 relationship AutoDetected_7f559803-5cb3-4afb-b480-aa6b50207a75
@@ -81,7 +69,6 @@ relationship AutoDetected_3233c29a-94c8-4076-9921-81785228b770
 	toColumn: dim_fuga.fuga_id
 
 relationship AutoDetected_623a24f7-9664-4c7d-a213-2a59bf26e413
-	isActive: false
 	fromColumn: hechos_colisiosns.iluminacion_id
 	toColumn: dim_iluminacion.iluminacion_id
 
@@ -94,7 +81,6 @@ relationship AutoDetected_90c011b0-1ad3-4b18-a98e-06ac9d0b7287
 	toColumn: dim_sobriedad.sobriedad_id
 
 relationship AutoDetected_e1c4f92e-bd3c-4c03-90b6-51c0b505ed7e
-	isActive: false
 	fromColumn: hechos_colisiosns.superficie_id
 	toColumn: dim_superficie.superficie_id
 

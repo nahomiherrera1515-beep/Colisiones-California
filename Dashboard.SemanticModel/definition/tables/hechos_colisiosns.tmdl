@@ -55,7 +55,7 @@ table hechos_colisiosns
 	column iluminacion_id
 		dataType: double
 		lineageTag: 217e3b5e-b13a-4479-b7e9-ddc13a1bc862
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: iluminacion_id
 
 		annotation SummarizationSetBy = Automatic
@@ -65,7 +65,7 @@ table hechos_colisiosns
 	column superficie_id
 		dataType: double
 		lineageTag: bd118065-fdaa-4afc-90f1-c09701317fbf
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: superficie_id
 
 		annotation SummarizationSetBy = Automatic

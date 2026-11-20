@@ -88,7 +88,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'''dim_superficie''[etiqueta]'"
+                                "Value": "'''dim_iluminacion''[etiqueta]'"
                               }
                             }
                           ]
@@ -116,7 +116,7 @@
                                 "0": [
                                   {
                                     "Literal": {
-                                      "Value": "'''dim_superficie''[etiqueta]'"
+                                      "Value": "'''dim_iluminacion''[etiqueta]'"
                                     }
                                   }
                                 ]
@@ -140,7 +140,7 @@
                         },
                         "valueMap": [
                           {
-                            "0": "Superficie"
+                            "0": "Iluminacion"
                           }
                         ]
                       }

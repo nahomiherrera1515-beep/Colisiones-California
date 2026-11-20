@@ -20,16 +20,16 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "dim_superficie"
+                      "Entity": "dim_iluminacion"
                     }
                   },
                   "Property": "etiqueta"
                 }
               },
-              "queryRef": "dim_superficie.etiqueta",
-              "nativeQueryRef": "Superficie",
+              "queryRef": "dim_iluminacion.etiqueta",
+              "nativeQueryRef": "Iluminacion",
               "active": true,
-              "displayName": "Superficie"
+              "displayName": "Iluminacion"
             }
           ],
           "fieldParameters": [
@@ -697,7 +697,6 @@
             }
           ]
         },
-        "howCreated": "User",
         "objects": {
           "general": [
             {

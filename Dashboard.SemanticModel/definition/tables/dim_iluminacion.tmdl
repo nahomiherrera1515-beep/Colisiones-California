@@ -4,7 +4,7 @@ table dim_iluminacion
 	column iluminacion_id
 		dataType: double
 		lineageTag: 4b00426c-a96a-4731-8127-d1697f490a1a
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: iluminacion_id
 
 		annotation SummarizationSetBy = Automatic

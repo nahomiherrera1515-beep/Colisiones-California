@@ -4,8 +4,8 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 1358.5673633631197,
-        "y": 908.92104334858277
+        "x": 594.66664632161462,
+        "y": 1170.666707356771
       },
       "nodes": [
         {
@@ -35,8 +35,8 @@
         },
         {
           "location": {
-            "x": 1783.7503372409906,
-            "y": 1058.9210433485828
+            "x": 2627.7980135467487,
+            "y": 411.81782484750147
           },
           "nodeIndex": "hechos_victimas",
           "nodeLineageTag": "abdc89bb-1efd-4bfa-a73f-9ac313175a02",
@@ -48,8 +48,8 @@
         },
         {
           "location": {
-            "x": 1424.6660336154873,
-            "y": 1048.647430150007
+            "x": 1375.4299191643179,
+            "y": 394.51048101304457
           },
           "nodeIndex": "hechos_partie",
           "nodeLineageTag": "0be00b13-7f1c-4639-9703-4f30ec111e94",
@@ -61,10 +61,11 @@
         },
         {
           "location": {
-            "x": 641.30440153504958,
-            "y": 196.52271822483954
+            "x": 1645.8855306616902,
+            "y": 1724.4524401607935
           },
           "nodeIndex": "hechos_colisiosns",
+          "nodeLineageTag": "652a7099-0b7e-4d0f-9420-d197a0daef7d",
           "size": {
             "height": 300,
             "width": 234
@@ -85,10 +86,11 @@
         },
         {
           "location": {
-            "x": 881.88260608583073,
-            "y": 970.27844728793684
+            "x": 628.09751426434286,
+            "y": 1553.2303413729383
           },
           "nodeIndex": "dim_superficie",
+          "nodeLineageTag": "a8314beb-7226-4f06-a1cd-ef6748275d5a",
           "size": {
             "height": 200,
             "width": 234
@@ -121,10 +123,11 @@
         },
         {
           "location": {
-            "x": 1197.2935136502426,
-            "y": 780.87914984650513
+            "x": 1144.5263163408245,
+            "y": 1429.1618596479295
           },
           "nodeIndex": "dim_iluminacion",
+          "nodeLineageTag": "9305d1c7-212c-468c-ae6c-8078ca611573",
           "size": {
             "height": 200,
             "width": 234
@@ -182,10 +185,11 @@
         },
         {
           "location": {
-            "x": 912.03864641529265,
-            "y": 662.46781809189088
+            "x": 1031.2344446312352,
+            "y": 1820.6533681423721
           },
           "nodeIndex": "dim_clima",
+          "nodeLineageTag": "c5681b9f-5b06-488d-9d98-cb26990dffec",
           "size": {
             "height": 200,
             "width": 234
@@ -232,7 +236,7 @@
         }
       ],
       "name": "Todas las tablas",
-      "zoomValue": 79.594903920552824,
+      "zoomValue": 60,
       "pinKeyFieldsToTop": false,
       "showExtraHeaderInfo": false,
       "hideKeyFieldsWhenCollapsed": false,
