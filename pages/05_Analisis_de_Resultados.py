@@ -91,24 +91,25 @@ def cargar_datos_obj1_geografico():
 @st.cache_data
 def cargar_datos_obj2_conductor_alcohol():
     conn = get_motherduck_connection()
+    # una fila por colision cuyo culpable es un conductor, con la edad de ese conductor.
+    # alcohol_implicado solo vale TRUE o NULL: NULL significa "no reportado", no "sobrio"
     query = """
-        SELECT 
-            CASE 
-                WHEN p.edad BETWEEN 16 AND 24 THEN '16-24 años'
-                WHEN p.edad BETWEEN 25 AND 34 THEN '25-34 años'
-                WHEN p.edad BETWEEN 35 AND 44 THEN '35-44 años'
-                WHEN p.edad BETWEEN 45 AND 54 THEN '45-54 años'
-                WHEN p.edad BETWEEN 55 AND 64 THEN '55-64 años'
-                WHEN p.edad >= 65 THEN '65+ años'
+        SELECT
+            CASE
+                WHEN edad_conductor_culpable BETWEEN 16 AND 24 THEN '16-24 años'
+                WHEN edad_conductor_culpable BETWEEN 25 AND 34 THEN '25-34 años'
+                WHEN edad_conductor_culpable BETWEEN 35 AND 44 THEN '35-44 años'
+                WHEN edad_conductor_culpable BETWEEN 45 AND 54 THEN '45-54 años'
+                WHEN edad_conductor_culpable BETWEEN 55 AND 64 THEN '55-64 años'
+                WHEN edad_conductor_culpable >= 65 THEN '65+ años'
                 ELSE 'Desconocido / Menor de 16'
             END AS grupo_edad,
-            FALSE AS alcohol_involucrado,
-            c.es_grave,
+            COALESCE(alcohol_implicado, FALSE) AS alcohol_involucrado,
+            es_grave,
             COUNT(*) AS total_colisiones
-        FROM colisiones_normalizada.vw_colision c
-        INNER JOIN colisiones_normalizada.vw_parte p 
-            ON c.case_id = p.case_id
-        WHERE c.anio BETWEEN 2010 AND 2019
+        FROM colisiones_normalizada.vw_colision
+        WHERE anio BETWEEN 2010 AND 2019
+          AND hay_conductor_culpable
         GROUP BY 1, 2, 3;
     """
     return conn.execute(query).df()
@@ -310,7 +311,7 @@ with tab_obj2:
         
     if not df_obj2.empty:
         df_obj2["Gravedad"] = df_obj2["es_grave"].map({True: "Grave (K o A)", False: "No Grave"})
-        df_obj2["Alcohol Involucrado"] = df_obj2["alcohol_involucrado"].map({True: "Sí", False: "No"})
+        df_obj2["Alcohol Involucrado"] = df_obj2["alcohol_involucrado"].map({True: "Sí", False: "No reportado"})
         
         orden_edades = ['16-24 años', '25-34 años', '35-44 años', '45-54 años', '55-64 años', '65+ años', 'Desconocido / Menor de 16']
         df_obj2["grupo_edad"] = pd.Categorical(df_obj2["grupo_edad"], categories=orden_edades, ordered=True)
