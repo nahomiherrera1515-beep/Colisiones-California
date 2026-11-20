@@ -4,10 +4,10 @@
   "position": {
     "x": 842.4442520333281,
     "y": 211.04711075783166,
-    "z": 14000,
+    "z": 12000,
     "height": 71.511830917942959,
     "width": 305.23342464975656,
-    "tabOrder": 14000
+    "tabOrder": 12000
   },
   "visual": {
     "visualType": "slicer",
@@ -88,7 +88,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'''dim_iluminacion''[etiqueta]'"
+                                "Value": "'''dim_clima''[etiqueta]'"
                               }
                             }
                           ]
@@ -116,7 +116,7 @@
                                 "0": [
                                   {
                                     "Literal": {
-                                      "Value": "'''dim_iluminacion''[etiqueta]'"
+                                      "Value": "'''dim_clima''[etiqueta]'"
                                     }
                                   }
                                 ]
@@ -140,7 +140,7 @@
                         },
                         "valueMap": [
                           {
-                            "0": "Iluminacion"
+                            "0": "Clima"
                           }
                         ]
                       }

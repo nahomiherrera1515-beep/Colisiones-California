@@ -16,6 +16,9 @@ table dim_banda_edad
 		lineageTag: ef54961e-e1ba-4424-879c-fc9976e276eb
 		summarizeBy: none
 		sourceColumn: etiqueta
+		sortByColumn: banda_edad_id
+
+		changedProperty = SortByColumn
 
 		annotation SummarizationSetBy = Automatic
 

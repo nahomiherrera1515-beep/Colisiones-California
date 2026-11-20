@@ -177,20 +177,6 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "62259dc0d6c45e72d930",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Medidas"
-              }
-            },
-            "Property": "Total_Colisiones"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
         "name": "d76c88b80e200b50c236",
         "field": {
           "Column": {

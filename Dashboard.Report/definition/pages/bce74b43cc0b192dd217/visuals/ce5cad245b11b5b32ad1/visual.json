@@ -4,10 +4,10 @@
   "position": {
     "x": 1195.90243902439,
     "y": 217.3170731707317,
-    "z": 12000,
+    "z": 10000,
     "height": 399.07317073170731,
     "width": 698.04878048780483,
-    "tabOrder": 12000
+    "tabOrder": 10000
   },
   "visual": {
     "visualType": "hundredPercentStackedBarChart",
@@ -73,19 +73,18 @@
         "sort": [
           {
             "field": {
-              "Measure": {
+              "Column": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "_Medidas"
+                    "Entity": "dim_banda_edad"
                   }
                 },
-                "Property": "Total_Colisiones"
+                "Property": "etiqueta"
               }
             },
             "direction": "Descending"
           }
-        ],
-        "isDefaultSort": true
+        ]
       }
     },
     "objects": {
@@ -469,5 +468,51 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "21c3043d348145a61205",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "hechos_colisiosns"
+              }
+            },
+            "Property": "severidad"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "cd747f915b12c5046a23",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_banda_edad"
+              }
+            },
+            "Property": "etiqueta"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "a53e891e8d8a0418b123",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Medidas"
+              }
+            },
+            "Property": "Total_Colisiones"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

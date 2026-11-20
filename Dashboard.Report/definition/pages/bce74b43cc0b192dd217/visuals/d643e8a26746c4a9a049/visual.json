@@ -4,10 +4,10 @@
   "position": {
     "x": 572.92682926829264,
     "y": 217.3170731707317,
-    "z": 10000,
+    "z": 8000,
     "height": 827.1219512195122,
     "width": 597.951219512195,
-    "tabOrder": 10000
+    "tabOrder": 8000
   },
   "visual": {
     "visualType": "lineClusteredColumnComboChart",
@@ -20,16 +20,16 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "dim_iluminacion"
+                      "Entity": "dim_clima"
                     }
                   },
                   "Property": "etiqueta"
                 }
               },
-              "queryRef": "dim_iluminacion.etiqueta",
-              "nativeQueryRef": "Iluminacion",
+              "queryRef": "dim_clima.etiqueta",
+              "nativeQueryRef": "Clima",
               "active": true,
-              "displayName": "Iluminacion"
+              "displayName": "Clima"
             }
           ],
           "fieldParameters": [
@@ -624,7 +624,6 @@
             }
           ]
         },
-        "howCreated": "User",
         "objects": {
           "general": [
             {
@@ -697,6 +696,7 @@
             }
           ]
         },
+        "howCreated": "User",
         "objects": {
           "general": [
             {

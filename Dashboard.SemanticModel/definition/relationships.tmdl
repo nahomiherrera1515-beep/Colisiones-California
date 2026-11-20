@@ -120,3 +120,7 @@ relationship 81e23e37-e220-cd3e-aca8-02e7ef2e8728
 	fromColumn: hechos_colisiosns.fecha
 	toColumn: dim_fecha.fecha
 
+relationship c3939817-7a6b-00bf-3c20-6ff186b1a304
+	fromColumn: hechos_colisiosns.banda_edad_conductor_culpable_id
+	toColumn: dim_banda_edad.banda_edad_id
+

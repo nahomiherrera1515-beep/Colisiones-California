@@ -20,6 +20,8 @@ table _Medidas
 		formatString: 0
 		lineageTag: d66f7c63-037c-48b1-9444-01cb85c54556
 
+		changedProperty = IsHidden
+
 	measure Total_Fallecidos = CALCULATE(COUNTROWS(hechos_colisiosns), hechos_colisiosns[con_fallecido] = "true")
 		formatString: 0
 		lineageTag: 9b21e163-035b-409a-82b0-73bbf2a2b1c9

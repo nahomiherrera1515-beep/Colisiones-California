@@ -457,7 +457,7 @@ table hechos_colisiosns
 	column banda_edad_conductor_culpable_id
 		dataType: double
 		lineageTag: bf5edcbc-5bf3-447a-8f65-c6180bf56d3e
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: banda_edad_conductor_culpable_id
 
 		annotation SummarizationSetBy = Automatic
