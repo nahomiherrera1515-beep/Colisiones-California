@@ -1,13 +1,12 @@
 """Diccionario de Datos"""
 
 import streamlit as st
+
+import estilo
 import pandas as pd
 
-# configuracion inicial de la pagina de el diccionario de datos
-st.set_page_config(page_title="Diccionario de Datos", page_icon="🗂️", layout="wide")
-
 # titulo
-st.title("Diccionario de Datos")
+estilo.encabezado("Diccionario de datos", antetitulo="Investigación")
 st.caption("Resumen del Diccionario de Datos") 
 st.markdown("---")
 
@@ -118,5 +117,5 @@ st.link_button(
     url=(
         "https://github.com/nahomiherrera1515-beep/Colisiones-California/blob/main/base_de_datos/DICCIONARIO_DE_DATOS.md"
     ),
-    icon="🔗",
+    icon=":material/open_in_new:",
 )

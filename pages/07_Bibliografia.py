@@ -2,11 +2,10 @@
 
 import streamlit as st
 
-# configuracion inicial de la pagina de la bibliografia
-st.set_page_config(page_title="Bibliografía", page_icon="🔗", layout="wide")
+import estilo
 
 # titulo
-st.title("Bibliografía")
+estilo.encabezado("Bibliografía", antetitulo="Anexos")
 
 st.markdown("""
 Centers for Disease Control and Prevention. (2024). Facts about seat belt use. 

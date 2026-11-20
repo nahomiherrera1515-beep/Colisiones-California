@@ -5,9 +5,6 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
-# configuracion inicial de la pagina de los resultados
-st.set_page_config(page_title="Análisis de los Resultados", page_icon="📊", layout="wide")
-
 # titulo
 st.title("Análisis de los Resultados")
 
@@ -192,7 +189,7 @@ with tab_obj1:
     st.markdown("### Patrones Temporales y Geográficos")
 
 # Sub-pestañas para separar Tiempo de Geografía (más limpio visualmente)
-    sub_tab_temp, sub_tab_geo = st.tabs(["🕒 Análisis Temporal", "🗺️ Análisis por Condado"])
+    sub_tab_temp, sub_tab_geo = st.tabs(["Análisis temporal", "Análisis por condado"])
     
     # ---------------------------------------------------------
     # SUB-PESTAÑA TEMPORAL

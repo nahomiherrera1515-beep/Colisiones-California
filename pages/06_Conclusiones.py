@@ -2,11 +2,10 @@
 
 import streamlit as st
 
-# configuracion inicial de la pagina de las conclusiones
-st.set_page_config(page_title="Conclusiones", page_icon="📌", layout="wide")
+import estilo
 
 # titulo
-st.title("Conclusiones")
+estilo.encabezado("Conclusiones", antetitulo="Resultados")
 
 
 tab1, tab2, tab3, tab4 = st.tabs([

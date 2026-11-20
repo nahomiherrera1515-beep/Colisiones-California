@@ -16,13 +16,12 @@ import duckdb
 import pandas as pd
 import altair as alt
 import streamlit as st
+
+import estilo
 import plotly.express as px
 
-# configuracion inicial de la pagina de las consultas SQL
-st.set_page_config(page_title="Cuestionario de Consultas SQL", page_icon="💻", layout="wide")
-
 # titulo
-st.title("Cuestionario de Consultas SQL")
+estilo.encabezado("Cuestionario SQL", antetitulo="Anexos")
 
 
 # Conexión con MotherDuck
