@@ -34,26 +34,41 @@ estilo.nota("Todas las colisiones registradas en los 58 condados del estado entr
             "una muestra.")
 
 st.write("")
-st.subheader("Qué responde la investigación")
+st.subheader("Objetivos de la investigación")
+estilo.conclusion(
+    "Analizar la distribución temporal y territorial de las colisiones de tránsito en "
+    "California entre 2010 y 2019 y su asociación con características del conductor, del "
+    "entorno y del vehículo.",
+    titulo="Objetivo general",
+)
+
 OBJETIVOS = [
     ("Tiempo y territorio",
-     "Cómo se reparten las colisiones por año, mes, día y hora, y qué condados tienen las "
-     "tasas más altas por habitante."),
+     "Describir los patrones temporales (año, mes, día y hora) y geográficos por condado, "
+     "con conteos y tasas por 100.000 habitantes.",
+     "Colisión; condado y año"),
     ("Conductor culpable",
-     "Cómo cambia la gravedad de la colisión según la edad del conductor culpable y la "
-     "presencia de alcohol."),
+     "Comparar cómo se asocian la edad del conductor culpable y el alcohol con la gravedad "
+     "del choque, comparando la proporción de colisiones graves en cada grupo.",
+     "Colisión con un conductor como culpable"),
     ("Condiciones del entorno",
-     "Qué proporción de colisiones graves ocurre según la iluminación, el clima y el estado "
-     "de la calzada."),
+     "Describir la distribución de choques según iluminación, clima y estado de la calzada, "
+     "y la proporción de choques graves en cada condición.",
+     "Colisión"),
     ("Vehículo y ocupantes",
-     "Cómo se distribuyen las lesiones de los ocupantes según la antigüedad del vehículo."),
+     "Examinar la relación entre la antigüedad del vehículo y la gravedad de las lesiones "
+     "de sus ocupantes.",
+     "Víctima que viajaba en un vehículo"),
 ]
 columnas = st.columns(4)
-for i, (columna, (titulo, texto)) in enumerate(zip(columnas, OBJETIVOS), start=1):
+for i, (columna, (titulo, texto, unidad)) in enumerate(zip(columnas, OBJETIVOS), start=1):
     with columna.container(border=True, height="stretch"):
-        st.markdown(f'<div class="antetitulo">Objetivo {i}</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="antetitulo">Objetivo específico {i}</div>',
+                    unsafe_allow_html=True)
         st.markdown(f"**{titulo}**")
-        st.markdown(f'<p class="nota">{texto}</p>', unsafe_allow_html=True)
+        st.markdown(texto)
+        st.markdown(f'<p class="nota">Unidad de análisis: {unidad}</p>',
+                    unsafe_allow_html=True)
 
 st.write("")
 st.subheader("Recorrido")
