@@ -91,24 +91,25 @@ def cargar_datos_obj1_geografico():
 @st.cache_data
 def cargar_datos_obj2_conductor_alcohol():
     conn = get_motherduck_connection()
+    # una fila por colision cuyo culpable es un conductor, con la edad de ese conductor.
+    # alcohol_implicado solo vale TRUE o NULL: NULL significa "no reportado", no "sobrio"
     query = """
-        SELECT 
-            CASE 
-                WHEN p.edad BETWEEN 16 AND 24 THEN '16-24 años'
-                WHEN p.edad BETWEEN 25 AND 34 THEN '25-34 años'
-                WHEN p.edad BETWEEN 35 AND 44 THEN '35-44 años'
-                WHEN p.edad BETWEEN 45 AND 54 THEN '45-54 años'
-                WHEN p.edad BETWEEN 55 AND 64 THEN '55-64 años'
-                WHEN p.edad >= 65 THEN '65+ años'
+        SELECT
+            CASE
+                WHEN edad_conductor_culpable BETWEEN 16 AND 24 THEN '16-24 años'
+                WHEN edad_conductor_culpable BETWEEN 25 AND 34 THEN '25-34 años'
+                WHEN edad_conductor_culpable BETWEEN 35 AND 44 THEN '35-44 años'
+                WHEN edad_conductor_culpable BETWEEN 45 AND 54 THEN '45-54 años'
+                WHEN edad_conductor_culpable BETWEEN 55 AND 64 THEN '55-64 años'
+                WHEN edad_conductor_culpable >= 65 THEN '65+ años'
                 ELSE 'Desconocido / Menor de 16'
             END AS grupo_edad,
-            FALSE AS alcohol_involucrado,
-            c.es_grave,
+            COALESCE(alcohol_implicado, FALSE) AS alcohol_involucrado,
+            es_grave,
             COUNT(*) AS total_colisiones
-        FROM colisiones_normalizada.vw_colision c
-        INNER JOIN colisiones_normalizada.vw_parte p 
-            ON c.case_id = p.case_id
-        WHERE c.anio BETWEEN 2010 AND 2019
+        FROM colisiones_normalizada.vw_colision
+        WHERE anio BETWEEN 2010 AND 2019
+          AND hay_conductor_culpable
         GROUP BY 1, 2, 3;
     """
     return conn.execute(query).df()
@@ -233,7 +234,6 @@ with tab_obj1:
             )
             
             st.plotly_chart(fig_temp, use_container_width=True)
-            st.success("Patrones temporales cargados exitosamente.")
             
             # Tabla desplegable temporal
             with st.expander(f"Ver tabla de frecuencias — {dim_temporal}"):
@@ -292,7 +292,6 @@ with tab_obj1:
             )
             
             st.plotly_chart(fig_geo, use_container_width=True)
-            st.success("Datos geográficos cargados exitosamente.")
             
             with st.expander("Ver tabla completa de condados (Tasas y Conteos)"):
                 tabla_geo = df_obj1_geo.rename(columns={
@@ -312,7 +311,7 @@ with tab_obj2:
         
     if not df_obj2.empty:
         df_obj2["Gravedad"] = df_obj2["es_grave"].map({True: "Grave (K o A)", False: "No Grave"})
-        df_obj2["Alcohol Involucrado"] = df_obj2["alcohol_involucrado"].map({True: "Sí", False: "No"})
+        df_obj2["Alcohol Involucrado"] = df_obj2["alcohol_involucrado"].map({True: "Sí", False: "No reportado"})
         
         orden_edades = ['16-24 años', '25-34 años', '35-44 años', '45-54 años', '55-64 años', '65+ años', 'Desconocido / Menor de 16']
         df_obj2["grupo_edad"] = pd.Categorical(df_obj2["grupo_edad"], categories=orden_edades, ordered=True)
@@ -453,7 +452,6 @@ with tab_obj3:
     )
 
     st.plotly_chart(fig, use_container_width=True)
-    st.success("Se han cargado los registros exitosamente.")
 
     # tabla resumen pivoteada que se actualiza dinamicamente con el filtro segun la dimension seleccionada
     with st.expander(
@@ -486,6 +484,22 @@ with tab_obj3:
       )
 
       st.dataframe(tabla_pivote, use_container_width=True, hide_index=True)
+
+    # analisis
+    st.markdown("""
+    En los datos se observa con claridad que el volumen total de colisiones está 
+    dominado por las condiciones cotidianas de mayor circulación: en **iluminación**, luz diurna concentra la 
+    mayor cantidad de registros (cerca de los 2,8–3 millones) frente a oscuridad 
+    con alumbrado (alrededor de 0,9 millones), oscuridad sin alumbrado, amanecer o atardecer, 
+    oscuridad con alumbrado averiado y sin clasificar; en **clima**, despejado supera los 3,5 millones 
+    y deja muy atrás a nublado (cerca de 0,5 millones), lluvia, niebla, nieve, viento fuerte, otro y 
+    sin clasificar; y en **superficie de la calzada**, seca domina ampliamente el total (cerca de 4 millones)
+    por encima de mojada, nieve o hielo, resbaladiza y sin clasificar.
+    
+    Al contrastar las colisiones no graves (B, C u O) y graves (K o A) dentro de cada categoría, se ve 
+    que las colisiones más frecuentes en los datos son las no graves, lo cual no resta importancia a 
+    las graves, sino que refleja una diferencia de frecuencia y escala entre ambos desenlaces.
+    """)
   else:
     st.warning("No se encontraron registros en la consulta.")
     # mensaje por si
@@ -539,7 +553,6 @@ with tab_obj4:
         )
 
         st.plotly_chart(fig_obj4, use_container_width=True)
-        st.success("Se han cargado los registros exitosamente.") # Mensaje de exito porque se ve bien :)
 
         # Tabla de frecuencias pivoteada
         with st.expander("Ver tabla de frecuencias por Antigüedad del Vehículo y Nivel de Lesión (KABCO)"):
@@ -560,6 +573,26 @@ with tab_obj4:
             tabla_pivote_obj4["Total Víctimas"] = tabla_pivote_obj4.sum(axis=1)
             tabla_mostrar = tabla_pivote_obj4.reset_index()
             st.dataframe(tabla_mostrar, use_container_width=True, hide_index=True)
+
+        # analisis
+        st.markdown("""
+        En los datos se observa con claridad que el volumen total de víctimas está concentrado en los vehículos 
+        con menos años de antigüedad, alcanzando su punto máximo en los automóviles de 1 año 
+        (superando las 270.000 víctimas) y manteniéndose elevado entre los 0 y 5 años. Tras una etapa relativamente 
+        estable entre los 6 y 11 años (donde se aprecia un leve repunte alrededor de los 9 y 10 años), 
+        las frecuencias comienzan a descender de manera sostenida a partir de los 12 años hasta caer por debajo 
+        de las 20.000 víctimas en los vehículos de 25 años, lo cual refleja la distribución habitual del parque 
+        automotor en circulación.
+
+        Al desglosar los registros según la escala de severidad **KABCO**, se distingue una marcada 
+        diferencia de escala entre los desenlaces leves y los graves en todos los tramos de edad: 
+        los niveles **O** (sin lesión aparente) y **C** (posible lesión), seguidos por **B** 
+        (lesión visible no incapacitante), absorben la gran mayoría de los casos en cada año de antigüedad, 
+        mientras que los niveles **A** (lesión incapacitante) y **K** (fallecido) mantienen frecuencias reducidas 
+        en toda la distribución. Esto muestra que, aunque la exposición del parque vehicular concentre más 
+        víctimas en los vehículos de menor antigüedad y de edad intermedia, los desenlaces 
+        no graves siguen siendo ampliamente predominantes frente a los graves en cada tramo.
+        """)
     else:
         st.warning("No se encontraron registros en la consulta.") # Mensaje con el 
-        #mismo objetivo que el anterior
+        # mismo objetivo que el anterior

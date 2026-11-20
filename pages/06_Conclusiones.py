@@ -23,29 +23,35 @@ El análisis evidencia que la ocurrencia de colisiones en California durante el 
 
 Frente a este escenario, los lineamientos de organismos especializados sugieren enfocar las medidas preventivas en dos frentes:
 
-* **Control vial focalizado en franjas críticas***, reforzando la vigilancia, el control de velocidad y la gestión del flujo vehicular durante las horas pico vespertinas, los viernes y el último trimestre del año, conforme a las recomendaciones de la National Highway Traffic Safety Administration (NHTSA) y la Organización Mundial de la Salud (OMS).
-* **Priorización de infraestructura en zonas metropolitanas de alta concentración***, aplicando auditorías viales, mejoras en intersecciones conflictivas y sistemas inteligentes de transporte (ITS) en condados clave como Los Ángeles, Orange y San Bernardino, en sintonía con las guías de la Federal Highway Administration (FHWA). 
+* **Control vial focalizado en franjas críticas**, reforzando la vigilancia, el control de velocidad y la gestión del flujo vehicular durante las horas pico vespertinas, los viernes y el último trimestre del año, conforme a las recomendaciones de la National Highway Traffic Safety Administration (NHTSA) y la Organización Mundial de la Salud (OMS).
+* **Priorización de infraestructura en zonas metropolitanas de alta concentración**, aplicando auditorías viales, mejoras en intersecciones conflictivas y sistemas inteligentes de transporte (ITS) en condados clave como Los Ángeles, Orange y San Bernardino, en sintonía con las guías de la Federal Highway Administration (FHWA). 
     """)
 
 with tab2:
     st.markdown("Edad del Conductor y Alcohol")
     st.markdown("""
-Los resultados muestran que la siniestralidad vial se concentra de manera marcada en los conductores jóvenes y adultos jóvenes. El grupo de 25 a 34 años registra el mayor volumen absoluto (superando los 1,6 millones de colisiones), seguido muy de cerca por el segmento de 16 a 24 años (alrededor de 1,55 millones). A partir de los 35 años, el número total de incidentes desciende de forma progresiva en cada tramo etario hasta alcanzar su punto más bajo en los conductores de 65 años o más (cerca de 600.000 colisiones). En todos los rangos de edad, las colisiones no graves dominan ampliamente el volumen total (superando los 8 millones de registros en conjunto) frente a una proporción menor de siniestros graves (K o A). Asimismo, destacan dos hallazgos clave en la calidad del registro: un volumen elevado en la categoría Desconocido / Menor de 16 (superior a 1,3 millones) y la presencia exclusiva de registros clasificados bajo Alcohol Involucrado = No en el subconjunto visualizado, lo que evidencia brechas en la captura o codificación de estas variables en la fuente analizada.
+Se analizaron las 3.926.268 colisiones del período cuyo culpable fue un conductor, tomando la edad de ese conductor. El grupo de 16 a 24 años es el que más colisiones causa (929.357), seguido por el de 25 a 34 años (804.242); entre los dos suman el 44 % del total. A partir de los 35 años el número baja en cada grupo, hasta 277.466 colisiones en los conductores de 65 años o más. La gravedad va en sentido contrario: el porcentaje de colisiones graves (K o A) sube con la edad, desde 2,94 % en el grupo de 16 a 24 años hasta 3,61 % en el de 65 o más. Es decir, los jóvenes causan más colisiones, pero las que causan los mayores terminan más a menudo en muertes o heridos graves.
+
+El alcohol aparece reportado en 412.240 colisiones (10,5 %). En ellas, el 7,13 % fue grave, frente al 2,31 % de las colisiones sin alcohol reportado: unas tres veces más. El grupo de 25 a 34 años es el que tiene más alcohol reportado (14,73 % de sus colisiones). La fuente solo marca el alcohol cuando se confirmó, así que una colisión sin alcohol reportado no significa que el conductor estuviera sobrio.
+
+En 631.402 colisiones no se conoce la edad del culpable. El 87,6 % de ellas son colisiones con fuga, en las que no se pudo identificar al conductor, por lo que ese grupo no representa una edad en particular.
 
 Para abordar estos hallazgos, las recomendaciones de organismos técnicos e internacionales se orientan hacia dos ejes principales:
 
-1.    **Educación vial focalizada y esquemas de licenciamiento gradual para conductores de 16 a 34 años**, reforzando la prevención de conductas de riesgo en los grupos etarios con mayor concentración de colisiones, en línea con las directrices de la National Highway Traffic Safety Administration (NHTSA) y la Organización Mundial de la Salud (OMS).
-2.    **Estandarización y auditoría de los reportes policiales en escena**, mejorando la captura de variables críticas como la edad del conductor y los indicadores de consumo de alcohol —conforme a los estándares de calidad de datos promovidos por la NHTSA y el Safe Transportation Research and Education Center (SafeTREC, UC Berkeley)— para reducir el peso de los registros desconocidos y evaluar con precisión el impacto real del alcohol.
+1.    **Educación vial focalizada y esquemas de licenciamiento gradual para conductores de 16 a 34 años**, los grupos que causan más colisiones, en línea con las directrices de la National Highway Traffic Safety Administration (NHTSA) y la Organización Mundial de la Salud (OMS).
+2.    **Controles de alcoholemia y campañas contra la conducción bajo los efectos del alcohol**, porque las colisiones con alcohol reportado son unas tres veces más graves que el resto, conforme a las recomendaciones de la NHTSA y la OMS.
     """)
 with tab3:
     st.markdown("Condiciones Ambientales")
     st.markdown("""
 Los resultados demuestran que las condiciones con mayor volumen absoluto de 
 colisiones graves (como la luz diurna, el clima despejado y el pavimento seco) responden a la alta 
-exposición cotidiana del parque vehicular. En el caso de la gravedad los que mayor destacan son: 
-Luz diurna con 71.524 colisiones, Despejado con 118.040 colisiones y Seca con 128.015 colisiones. 
-Que la proporción interna de gravedad perteneciente a cada categoría sea de 6,28%, por ejemplo, no quiere 
-decir que ahí ocurran la mayoría de las colisiones graves, ya que es una proporción condicional.
+exposición cotidiana del parque vehicular. En el caso de la gravedad los que mayor destacan son:
+Luz diurna con 71.524 colisiones graves, Despejado con 118.040 y Seca con 128.015.
+En proporción, en cambio, la condición más peligrosa es la oscuridad sin alumbrado: el 6,28 % de sus
+colisiones fueron graves, frente al 2,48 % con luz diurna. Eso no quiere decir que ahí ocurran la mayoría
+de las colisiones graves, ya que es una proporción condicional: indica qué tan grave suele ser una
+colisión en esa condición.
 
 Para mitigar esta problemática, las recomendaciones de organismos 
 internacionales y técnicos convergen en dos líneas de acción:
