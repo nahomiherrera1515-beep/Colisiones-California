@@ -86,6 +86,15 @@ def aplicar():
         .ficha-etiqueta {{ color: {TEXTO_SUAVE}; font-size: 0.85rem; margin-bottom: 0.15rem; }}
         .ficha-valor {{ color: {TEXTO}; font-size: 1.35rem; font-weight: 600; line-height: 1.25; }}
         .ficha-detalle {{ color: {ACENTO}; font-size: 0.9rem; margin-top: 0.2rem; }}
+        .conclusion {{
+            border-left: 3px solid {ACENTO}; background: {SUPERFICIE};
+            border-radius: 0 0.5rem 0.5rem 0; padding: 0.85rem 1.1rem; margin: 0.2rem 0 1.8rem;
+        }}
+        .conclusion-titulo {{
+            color: {ACENTO}; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em;
+            text-transform: uppercase; margin-bottom: 0.3rem;
+        }}
+        .conclusion p {{ color: {TEXTO}; line-height: 1.6; margin: 0; font-size: 0.97rem; }}
         </style>
         """,
         unsafe_allow_html=True,
@@ -106,6 +115,12 @@ def ficha(columna, etiqueta, valor, detalle=""):
         st.markdown(f'<div class="ficha-etiqueta">{etiqueta}</div>'
                     f'<div class="ficha-valor">{valor}</div>'
                     f'<div class="ficha-detalle">{detalle}</div>', unsafe_allow_html=True)
+
+
+def conclusion(texto, titulo="Lo que muestra"):
+    """Lectura sencilla de un gráfico, debajo de él."""
+    st.markdown(f'<div class="conclusion"><div class="conclusion-titulo">{titulo}</div>'
+                f'<p>{texto}</p></div>', unsafe_allow_html=True)
 
 
 def nota(texto):
