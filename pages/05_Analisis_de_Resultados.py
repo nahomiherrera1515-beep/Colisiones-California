@@ -241,6 +241,26 @@ with tab_obj1:
                     columns={"categoria": dim_temporal, "total_colisiones": "Total de Colisiones"}
                 )
                 st.dataframe(tabla_temp, use_container_width=True, hide_index=True)
+
+                st.markdown("#### Análisis Temporal")
+            st.info(
+                """
+                La distribución temporal de las colisiones entre 2010 y 2019 evidencia patrones cíclicos 
+                directamente ligados a la actividad laboral y la movilidad urbana:
+
+                * **Evolución anual:** Tras registrar su punto más bajo en **2013** (aproximadamente 380.000 colisiones), 
+                  la siniestralidad inició un repunte sostenido a partir de 2015 hasta alcanzar su pico máximo en 
+                  **2016 y 2017** (cerca de 490.000 colisiones por año), manteniéndose en niveles elevados hasta 2019.
+                * **Estacionalidad mensual:** **Octubre** concentra el mayor volumen de incidentes (~400.000), 
+                  mientras que **febrero** presenta la menor incidencia (~340.000).
+                * **Ciclo semanal:** El **viernes** acumula la mayor carga vehicular y de siniestros (~710.000), 
+                  contrastando con el descenso del **domingo** (~510.000).
+                * **Franja horaria:** Se distinguen dos picos claros asociados a los traslados cotidianos: 
+                  un repunte matutino entre las **7:30 y 8:30** y la mayor concentración diaria en la tarde, 
+                  entre las **15:00 y 18:00**.
+                """
+            )
+
         else:
             st.warning("No se encontraron registros temporales.")
 
@@ -300,6 +320,17 @@ with tab_obj1:
                     "tasa_100k": "Tasa (100k habs)"
                 })
                 st.dataframe(tabla_geo, use_container_width=True, hide_index=True)
+
+            st.markdown("#### Análisis Geográfico")
+            st.info(
+                """
+                La distribución territorial muestra una fuerte concentración en los principales corredores 
+                metropolitanos del sur y centro de California. **Los Ángeles** lidera ampliamente con alrededor 
+                de **1,4 millones de colisiones**, superando por un margen considerable al resto del estado. 
+                Le siguen **Orange, San Bernardino, San Diego y Riverside**, conformando el núcleo de mayor 
+                carga vial tanto en volumen absoluto como en la tasa ajustada por población.
+                """
+            )
         else:
             st.warning("No se encontraron registros geográficos.")
 
@@ -357,6 +388,28 @@ with tab_obj2:
         
         with st.expander("Ver tabla detallada (Edad, Alcohol y Gravedad)"):
             st.dataframe(df_obj2.drop(columns=["es_grave", "alcohol_involucrado"]), use_container_width=True, hide_index=True)
+
+        st.markdown("#### Análisis de Edad del Conductor y Presencia de Alcohol")
+        st.info(
+            """
+            El cruce entre los grupos etarios, la presencia de alcohol y la gravedad del siniestro 
+            revela tendencias claras sobre el perfil de riesgo:
+
+            * **Concentración en conductores jóvenes y adultos jóvenes:** El grupo de **25 a 34 años** 
+              registra el mayor volumen absoluto (más de 1,6 millones de colisiones), seguido muy de cerca 
+              por los conductores de **16 a 24 años** (cerca de 1,55 millones). A partir de los 35 años, 
+              el total de siniestros disminuye progresivamente en cada tramo hasta alcanzar su mínimo en 
+              el grupo de **65 años o más** (~600.000).
+            * **Proporción de gravedad:** En todos los rangos de edad predominan ampliamente las colisiones 
+              **no graves** (superando los 8 millones en conjunto) frente a una fracción mucho menor de 
+              siniestros **graves (K o A)**.
+            * **Calidad y cobertura del registro:** Destaca el volumen considerable de la categoría 
+              **Desconocido / Menor de 16** (superior a 1,3 millones), así como el hecho de que el 
+              subconjunto visualizado concentra los registros bajo **Alcohol Involucrado = No**, lo que 
+              refleja particularidades de codificación o subregistro en las variables originales de la fuente.
+            """
+        )
+
     else:
         st.warning("No se encontraron registros para el objetivo 2.")
 
