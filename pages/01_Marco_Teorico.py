@@ -2,11 +2,10 @@
 
 import streamlit as st
 
-# configuracion inicial de la pagina del marco teorico
-st.set_page_config(page_title="Marco Teórico", page_icon="📚", layout="wide")
+import estilo
 
 # marco teorico en grande para que resalte en la pagina
-st.title("Marco Teórico")
+estilo.encabezado("Marco teórico", antetitulo="Investigación")
 
 # comienzo del marco teorico
 st.markdown(

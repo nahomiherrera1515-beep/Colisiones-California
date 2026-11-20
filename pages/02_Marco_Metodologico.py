@@ -2,11 +2,10 @@
 
 import streamlit as st
 
-# configuracion inicial de la pagina del marco metodologico
-st.set_page_config(page_title="Marco Metodológico", page_icon="🔬", layout="wide")
+import estilo
 
 # marco metodologico en grande para que resalte en la pagina
-st.title("Marco Metodológico")
+estilo.encabezado("Marco metodológico", antetitulo="Investigación")
 
 # comienzo del marco teorico
 st.markdown(

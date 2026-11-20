@@ -9,9 +9,9 @@
 [![SWITRS](https://img.shields.io/badge/SWITRS-232B36?style=flat-square)](#fuente-de-datos)
 [![DuckDB](https://img.shields.io/badge/DuckDB-FFF000?style=flat-square&logo=duckdb&logoColor=black)](https://duckdb.org)
 [![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white)](https://colisiones-california.streamlit.app)
-[![Power BI](https://img.shields.io/badge/Power%20BI-F2C811?style=flat-square&logo=powerbi&logoColor=black)](https://app.powerbi.com/view?r=eyJrIjoiNTI5MzRiN2MtN2RiZC00MWUyLThmMGQtODM1ZmQzMDc4MTI0IiwidCI6IjRjODE4Zjc5LWFiODQtNDU1Mi05YjdjLTJmZTcxNWIwZDBkNSIsImMiOjR9&pageName=5b65695d2ea4c36459cb)
+[![Power BI](https://img.shields.io/badge/Power%20BI-F2C811?style=flat-square&logo=powerbi&logoColor=black)](https://app.powerbi.com/view?r=eyJrIjoiMjE3NTJkMGMtOWI3NC00YjU2LTkxNDAtMzRjNDBmNGQwYzQxIiwidCI6IjRjODE4Zjc5LWFiODQtNDU1Mi05YjdjLTJmZTcxNWIwZDBkNSIsImMiOjR9&pageName=5b65695d2ea4c36459cb)
 
-**[Aplicación_Web](https://colisiones-california.streamlit.app)** ·
+**[Aplicación Web](https://colisiones-california.streamlit.app)** ·
 **[Dashboard Power BI](https://app.powerbi.com/view?r=eyJrIjoiMjE3NTJkMGMtOWI3NC00YjU2LTkxNDAtMzRjNDBmNGQwYzQxIiwidCI6IjRjODE4Zjc5LWFiODQtNDU1Mi05YjdjLTJmZTcxNWIwZDBkNSIsImMiOjR9&pageName=5b65695d2ea4c36459cb)** ·
 [Planteamiento](#planteamiento-del-problema) ·
 [Objetivos](#objetivos) ·
